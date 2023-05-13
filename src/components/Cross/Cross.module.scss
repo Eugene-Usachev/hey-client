@@ -1,0 +1,9 @@
+.cross {
+    border-radius: 8px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.cross:hover {
+    background-color: var(--colors-hover);
+}

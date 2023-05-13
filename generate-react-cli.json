@@ -1,0 +1,97 @@
+{
+  "usesTypeScript": true,
+  "usesStyledComponents": true,
+  "testLibrary": "None",
+  "cssPreprocessor": "scss",
+  "component": {
+    "default": {
+      "customTemplates": {
+        "component": "templates/default/TemplateName.tsx",
+        "style": "templates/default/TemplateName.module.scss"
+      },
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfco": {
+      "customTemplates": {
+        "component": "templates/rfco/TemplateName.tsx",
+        "style": "templates/rfco/TemplateName.module.scss"
+      },
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcop": {
+      "customTemplates": {
+        "component": "templates/rfcop/TemplateName.tsx",
+        "style": "templates/rfcop/TemplateName.module.scss"
+      },
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcp": {
+      "customTemplates": {
+        "component": "templates/rfcp/TemplateName.tsx",
+        "style": "templates/rfcp/TemplateName.module.scss"
+      },
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+
+    "defaultRegistration": {
+      "customTemplates": {
+        "component": "templates/default/TemplateName.tsx",
+        "style": "templates/default/TemplateName.module.scss"
+      },
+      "path": "src/pages/registration",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcoRegistration": {
+      "customTemplates": {
+        "component": "templates/rfco/TemplateName.tsx",
+        "style": "templates/rfco/TemplateName.module.scss"
+      },
+      "path": "src/pages/registration",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcopRegistration": {
+      "customTemplates": {
+        "component": "templates/rfcop/TemplateName.tsx",
+        "style": "templates/rfcop/TemplateName.module.scss"
+      },
+      "path": "src/pages/registration",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcpRegistration": {
+      "customTemplates": {
+        "component": "templates/rfcp/TemplateName.tsx",
+        "style": "templates/rfcp/TemplateName.module.scss"
+      },
+      "path": "src/pages/registration",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    }
+  }
+}

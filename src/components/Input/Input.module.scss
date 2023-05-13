@@ -1,0 +1,102 @@
+@import "./src/styles/colors";
+.input {
+    position: relative;
+    display: flex;
+    width: 400px;
+    padding: 8px;
+    color: var(--colors-text);
+    background: none;
+    box-shadow: var(--box-shadow);
+    outline: none;
+    font-size: var(--fs-md);
+    border-radius: 6px;
+}
+
+.active {
+    border: solid 1px $blue!important;
+}
+
+.error {
+    border: solid 1px $red!important;
+}
+
+body[data-theme="dark"] .input {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body[data-theme="dark"] .input:hover {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body[data-theme="light"] .input {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="light"] .input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.errorText {
+    left: 5px;
+    margin-bottom: 3px;
+    width: 400px;
+    position: relative;
+    color: $red;
+}
+
+.inputBlock {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+}
+
+.inputPasswordBlock {
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    z-index: 1;
+}
+
+.inputCrossBlock {
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    z-index: 1;
+}
+
+.label {
+    left: 5px;
+    margin-bottom: 3px;
+    width: 400px;
+    position: relative;
+}
+
+.linkedBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 34px;
+    border-radius: 6px 0 0 6px;
+    box-shadow: var(--box-shadow);
+}
+
+body[data-theme="dark"] .linkedBlock, .circle {
+     background: rgba(255, 255, 255, 0.2);
+ }
+
+body[data-theme="light"] .linkedBlock, .circle {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.circle {
+     width: 8px;
+     height: 8px;
+     border-radius: 50%;
+ }
+
+.disable {
+    opacity: 0.5;
+}

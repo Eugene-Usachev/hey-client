@@ -1,0 +1,45 @@
+@import './src/styles/colors';
+
+.alertsBlock {
+    $width: 300px;
+    display: flex;
+    flex-flow: column;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2000;
+    width: $width + 10px;
+
+    .alerts {
+        word-break: break-word;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: solid black 1px;
+        box-shadow: var(--box-shadow);
+        margin-bottom: 5px;
+        padding: 5px;
+        width: $width;
+        border-radius: 2px;
+    }
+
+    .infoAlert {
+        background-color: $blue;
+    }
+
+    .commonAlert {
+        background-color: var(--colors-bg);
+    }
+
+    .warningAlert {
+        background-color: $orange;
+    }
+
+    .successAlert {
+        background-color: $green;
+    }
+
+    .errorAlert {
+        background-color: $red;
+    }
+}

@@ -1,0 +1,26 @@
+@import './src/styles/colors';
+.signUpBlock {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.signUpButton {
+    border-radius: 6px;
+    padding: 5px;
+    color: $blue;
+    font-size: 20px;
+}
+
+body[data-theme="light"] .signUpButton {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="dark"] .signUpButton {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.signUpButton:hover {
+    background-color: var(--colors-hover);
+}

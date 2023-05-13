@@ -1,0 +1,30 @@
+.error404 {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.firstText {
+    position: relative;
+}
+
+.firstText::after {
+    top: -10px;
+    left: 115px;
+    margin-right: 20px;
+    content: "";
+    position: absolute;
+    display: inline-block;
+    height: 45px;
+    width: 1px;
+    background: var(--colors-text);
+}
+
+.h2 {
+    height: 40px;
+    margin: 0;
+    display: flex;
+}
