@@ -1,4 +1,4 @@
-@import "Loading";
+@import '@/styles/colors';
 html {
   overflow-x: hidden;
   background-color: rgba(0, 0, 0, 0.8);
@@ -71,6 +71,10 @@ body {
   font-weight: var(--fw-light);
   background-color: var(--colors-bg);
   font-family: var(--family);
+  --green: $green;
+  --orange: $orange;
+  --red: $red;
+  --blue: $blue;
 }
 
 a {

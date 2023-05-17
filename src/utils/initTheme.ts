@@ -1,6 +1,11 @@
-export const UserTheme = localStorage.getItem('theme');
+"use client";
+export let UserTheme = "light";
+
+//localStorage.setItem("theme", "BUG: server!");
 
 export const initTheme = () => {
+	UserTheme = localStorage.getItem('theme');
+	if (UserTheme == "BUG: server!") console.warn(UserTheme)
 	const body = document.querySelector("body") as HTMLElement;
 
 	if (UserTheme) {

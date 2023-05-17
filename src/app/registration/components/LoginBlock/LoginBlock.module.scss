@@ -1,0 +1,25 @@
+@import '@/styles/colors';
+.loginBlock {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 20px;
+}
+.loginButton {
+    border-radius: 6px;
+    padding: 5px;
+    color: $blue;
+    font-size: 20px;
+}
+
+body[data-theme="light"] .loginButton {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="dark"] .loginButton {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.loginButton:hover {
+    background-color: var(--colors-hover);
+}

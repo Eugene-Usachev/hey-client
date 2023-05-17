@@ -76,6 +76,18 @@ export enum RestApiMethods {
 export interface params {
     method: RestApiMethods;
     body?: any;
+    credentials?: "include" | "same-origin" | "omit" | any;
+    mode?: "no-cors" | "cors" | "same-origin" | any;
+    cache?: "default" | "no-cache" | "reload" | "force-cache" | "only-if-cached" | any;
+    headers?: { "Content-Type": 'application/json' } | { 'Content-Type': 'application/x-www-form-urlencoded' } | {'Content-Type': string};
+    showDomain?: boolean;
+    redirect?: 'follow' | 'manual' | 'error';
+    referrerPolicy?: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+}
+
+interface readyParamsI extends params {
+    method: RestApiMethods;
+    body: any;
     credentials: "include" | "same-origin" | "omit" | any;
     mode: "no-cors" | "cors" | "same-origin" | any;
     cache: "default" | "no-cache" | "reload" | "force-cache" | "only-if-cached" | any;
@@ -85,7 +97,9 @@ export interface params {
     referrerPolicy: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 }
 
-function setUpParams(params: params) {
+function setUpParams(params: params): readyParamsI {
+    // @ts-ignore
+    const readyParams: readyParamsI = params;
     if (!params.method) {
         params.method = RestApiMethods.Get;
     }
@@ -107,11 +121,12 @@ function setUpParams(params: params) {
     if (!params.referrerPolicy) {
         params.referrerPolicy = handConfig.referrerPolicy as "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
     }
+    return readyParams;
 }
 
 export const hand = (url: string, params: params) => {
-    setUpParams(params);
-    const {method, body, credentials, mode, cache, showDomain, redirect, referrerPolicy, headers} = params;
+    const readyParams = setUpParams(params);
+    const {method, body, credentials, mode, cache, showDomain, redirect, referrerPolicy, headers} = readyParams;
     const realUrl = "http://" + handConfig.domain + url;
     showDomain ? handEye.eye.fetchSend(realUrl, method, handConfig.isTimeNecessary) : handEye.eye.fetchSend(url, method, handConfig.isTimeNecessary);
     const dateNow = new Date();
@@ -212,4 +227,10 @@ export const hand = (url: string, params: params) => {
                 break
         }
     })
+}
+
+export const HandWithProcessing = (url: string, params: params, successCallback: (res: Response) => void, failCallback: (reason: any) => void) => {
+    hand(url, params)
+        .then(res => successCallback(res))
+        .catch(reason => failCallback(reason))
 }
