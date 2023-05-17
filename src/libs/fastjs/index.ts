@@ -37,12 +37,10 @@ export const initFastArrays = (willShow: boolean) => {
 		};
 
 		const partition = (arr: T[], left: number, right: number, key: string) => {
-			// @ts-ignore
 			const pivotValue = arr[right][key];
 			let pivotIndex = left;
 
 			for (let i = left; i < right; i++) {
-				// @ts-ignore
 				if (arr[i][key] < pivotValue) {
 					[arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
 					pivotIndex++;

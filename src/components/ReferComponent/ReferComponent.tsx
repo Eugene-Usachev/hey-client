@@ -1,20 +1,24 @@
+"use client"
 import React, {memo, FC, useEffect} from 'react';
-import {SetLoading} from "../../utils/SetLoading";
-import {USERID} from "../../config";
-import {useNavigate} from "react-router-dom";
-
+import { useRouter } from 'next/navigation';
+import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {ThreePoints} from "@/components/ThreePoints/ThreePoints";
+import {USERID} from "@/app/config";
 
 export const ReferComponent: FC = memo(() => {
-	const navigate = useNavigate();
+	const router = useRouter();
 	useEffect(() => {
 		if (USERID > 0) {
-			navigate('/pages/profile/' + USERID);
+			router.push('/profile/' + USERID);
 		} else {
-			navigate('/pages/registration');
+			router.push('/registration');
 		}
 	});
 
 	return (
-		<SetLoading />
+		<div style={{placeSelf: "center", color: "var(--active-color)", fontSize: "20px"}}>
+			{getTextForLanguage("Hold on. Redirecting in progress", "Подождите. Идёт перенаправление")}
+			<ThreePoints color={"var(--active-color)"}/>
+		</div>
 	);
 });

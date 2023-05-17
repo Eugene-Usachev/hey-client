@@ -1,10 +1,20 @@
-body {
-    --green: #238551;
-    --orange: #fbb360;
-    --red: #cd4246;
-    --blue: #2d72d2;
-}
 $green: #238551;
 $orange: #fbb360;
 $red: #cd4246;
 $blue: #2d72d2;
+
+.blueText {
+    color: var(--blue);
+}
+
+.greenText {
+    color: var(--green);
+}
+
+.orangeText {
+    color: var(--orange);
+}
+
+.redText {
+    color: var(--red);
+}

@@ -1,8 +1,9 @@
-import React, {FC, memo, MouseEventHandler, useCallback, useRef, useState} from 'react';
+import React, {CSSProperties, FC, memo, MouseEventHandler, useCallback, useRef, useState} from 'react';
 import styles from './Input.module.scss';
-import {checkStringForValid, checkValidCodes} from "../../utils/checkString";
-import {getTextForLanguage} from "../../utils/getTextForLanguage";
-import {BiHide, BiShow, RxCross1} from "react-icons/all";
+import {checkStringForValid, checkValidCodes} from "@/utils/checkString";
+import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {BiHide, BiShow} from "react-icons/bi";
+import {RxCross1} from "react-icons/rx";
 
 export type InputType = 'default' | 'password' | 'cross' | 'linked';
 export type regType = 'eng_and_rus' | 'all' | 'eng' | 'only_numbers' | RegExp;
@@ -39,7 +40,7 @@ export const Input:FC = memo<Props>(({
             type = 'default',
             isActive = true,
             startValue = '',
-            style,
+            style= {} as CSSProperties,
             className,
             reg='all',
             onChange,
@@ -167,8 +168,8 @@ export const Input:FC = memo<Props>(({
                     }
                     <div className={styles.inputPasswordBlock}>
                         {hide
-                            ? <BiShow onClick={doShow}/>
-                            : <BiHide onClick={doHide}/>
+                            ? <div onClick={doShow}><BiShow/></div>
+                            : <div onClick={doHide}><BiHide/></div>
                         }
                     </div>
                     <input
@@ -179,7 +180,7 @@ export const Input:FC = memo<Props>(({
                         onFocus={onFocusEvent}
                         onBlur={onBlurEvent}
                         onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
-                        style={style ? style : {}}
+                        style={style}
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}
@@ -199,8 +200,8 @@ export const Input:FC = memo<Props>(({
                             ? <div className={styles.label}>{placeholder}</div>
                             : <></>
                     }
-                    <div className={styles.inputCrossBlock}>
-                        <RxCross1 onClick={clear}/>
+                    <div className={styles.inputCrossBlock} onClick={clear}>
+                        <RxCross1/>
                     </div>
                     <input
                         disabled={!isActive}
@@ -273,7 +274,7 @@ export const Input:FC = memo<Props>(({
                         onFocus={onFocusEvent}
                         onBlur={onBlurEvent}
                         onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
-                        style={style ? style : {}}
+                        style={style ? style as CSSProperties : {}}
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}

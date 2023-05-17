@@ -1,4 +1,4 @@
-import {Lang} from "../config";
+import {Lang} from "@/app/config";
 
 export const getTextForLanguage = (engText: string, ruText: string): string => {
 	switch (Lang) {
