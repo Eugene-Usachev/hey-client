@@ -95,6 +95,7 @@ interface readyParamsI extends params {
     showDomain: boolean;
     redirect: 'follow' | 'manual' | 'error';
     referrerPolicy: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+
 }
 
 function setUpParams(params: params): readyParamsI {
