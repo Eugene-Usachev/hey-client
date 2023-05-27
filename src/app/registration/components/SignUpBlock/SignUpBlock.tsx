@@ -8,6 +8,7 @@ import {HTTPRequestParams} from "@/types/http";
 import {Auth} from "@/app/registration/components/LoginWindow/LoginWindow";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
 import {boolean} from "zod";
+import {useRouter} from "next/navigation";
 
 interface SignUpBlockProps {
 	setIsLoginWindowOpen: (value: true) => void;
@@ -27,7 +28,7 @@ export const SignUpBlock: FC = memo<SignUpBlockProps>(({setIsLoginWindowOpen, lo
 														   password, onChangeEmail, email,
 															onChangeSurname, onChangeName, name, surname
 													   }) => {
-
+	const router = useRouter();
 	const [errorMessage, setErrorMessage] = useState("");
 	const timer = useRef<number>();
 	// TODO doesn't work!!!
@@ -100,7 +101,9 @@ export const SignUpBlock: FC = memo<SignUpBlockProps>(({setIsLoginWindowOpen, lo
 			failCallback: (reason: any) => {
 				throw new Error(reason);
 			},
-			successCallback: Auth
+			successCallback: function (res) {
+				Auth(router, res, name, surname, "" , email, login);
+			}
 		}
 		SignUp(SignUpParams)
 	}, [login, name, surname, email, password]);

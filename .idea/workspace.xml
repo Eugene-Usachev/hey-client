@@ -5,72 +5,144 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdbe5b4a-4c68-4236-9151-99682e935486" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/Header/Header.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/Header/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/RegistrationBackground/RegistrationBackground.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/RegistrationBackground/RegistrationBackground.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/RegistrationBlock/RegistrationBlock.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/RegistrationBlock/RegistrationBlock.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/registration/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ThreePoints/ThreePoints.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ThreePoints/ThreePoints.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/UseInitialComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useLocalStorage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/requests/auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MainPart/MainPart.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MainPart/MainPart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/requests/refresh.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stores/TopProfileStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/do.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/logout.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/signUser.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/TODO.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/internal/handler/helper.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pkg/fasthttp_utils/headers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pkg/lightsocket/epoll1.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pkg/lightsocket/start1.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16387_fsm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/friends/static/css/main.41f47d88.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/friends/static/css/main.41f47d88.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.9b5bdc80.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.9b5bdc80.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.9b5bdc80.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/messenger/static/css/main.6696c67a.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/messenger/static/css/main.6696c67a.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.a7f443c2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.a7f443c2.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.a7f443c2.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/profile/static/css/main.16fa6abb.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/profile/static/css/main.16fa6abb.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.752a049a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.752a049a.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.752a049a.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/css/main.0c43fec0.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/css/main.0c43fec0.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate-react-cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/generate-react-cli.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setting1.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Input/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Input/Input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReferComponent/ReferComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReferComponent/ReferComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dev/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/palette.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/dev/palette.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/previews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/dev/previews.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dev/useInitial.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dev/useInitial.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useDebounce.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useDebounce.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useTheme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useTheme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LayOut/LayOut.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LayOut/LayOut.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ModalWindow/ModalWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModalWindow/ModalWindow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/libs/hand/hand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/hand/hand.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Page404.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Registration.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/Header/Header.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/Header/Header.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/LoginBlock/LoginBlock.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/LoginBlock/LoginBlock.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/LoginWindow/LoginWindow.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/LoginWindow/LoginWindow.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/RegistrationBackground/RegistrationBackground.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/RegistrationBackground/RegistrationBackground.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/RegistrationBlock/RegistrationBlock.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/RegistrationBlock/RegistrationBlock.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/SignUpBlock/SignUpBlock.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/registration/SignUpBlock/SignUpBlock.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/colors.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/requests/auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/getTextForLanguage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/getTextForLanguage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/initTheme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/initTheme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vite-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Entities/Chats.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/Chats.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Entities/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/User.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/cmd/app/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/cmd/app/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../server/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../server/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/auth.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/auth.handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/chat.hadler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/chat.hadler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/checkAuth.handler.middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/checkAuth.handler.middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/hub.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/hub.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/message.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/message.handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/music.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/music.handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/post.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/post.handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/uploadfile.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/uploadfile.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/handler/user.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/user.handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/repository/auth.postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/auth.postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/auth.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/auth.service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/files/Upload.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/files/Upload.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/music.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/music.service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/post.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/post.service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/user.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/user.service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/pkg/jwt/generates.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/pkg/jwt/generates.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/pkg/jwt/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/pkg/jwt/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/pkg/jwt/validation.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/pkg/jwt/validation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16385" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16385" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16387" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16387" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16411" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16411" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16413" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16413" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16415" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16415" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16417" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16417" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16419" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16419" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16431" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16431" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/16438" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16438" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/global/pg_control" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/global/pg_internal.init" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/db_0.stat" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/db_0.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/db_16384.stat" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/db_16384.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/global.stat" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/pg_stat_tmp/global.stat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/pg_wal/000000010000000000000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/pg_xact/0000" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/pg_xact/0000" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/postgres_data/postmaster.pid" beforeDir="false" afterPath="$PROJECT_DIR$/../server/postgres_data/postmaster.pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/friends/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/friends/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/static/css/main.2a39fb6d.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/static/css/main.2a39fb6d.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.4175e54a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.4175e54a.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/friends/static/js/main.4175e54a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/messenger/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/messenger/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/static/css/main.c0f235a7.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/static/css/main.c0f235a7.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.1d648d5a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.1d648d5a.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/messenger/static/js/main.1d648d5a.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/profile/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/profile/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/static/css/main.e04b1571.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/static/css/main.e04b1571.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.49c27b15.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.49c27b15.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/profile/static/js/main.49c27b15.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/registration/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/static/pages/registration/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/static/css/main.d780e4d1.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/static/css/main.d780e4d1.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.cb03f1be.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.cb03f1be.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.cb03f1be.js.map" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,12 +161,13 @@
         <option value="SCSS File" />
         <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="Go File" />
       </list>
     </option>
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../GOROOT/go1.20.2" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../server" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -110,6 +183,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
     &quot;NewWatcherDialog.advanced.open&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -118,14 +193,20 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/domains/justgo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/domains/Hey/server&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\domains\\Hey\\client1\\node_modules\\typescript\\lib&quot;
+    &quot;ts.external.directory.path&quot;: &quot;D:\\domains\\Hey\\client\\node_modules\\typescript\\lib&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
   }
 }</component>
   <component name="ReactDesignerToolWindowState">
@@ -138,21 +219,21 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\domains\Hey\server\pkg\jwt" />
+      <recent name="D:\domains\Hey\client\src\app\(pagesWithLayout)\Header" />
       <recent name="D:\domains\Hey\server" />
       <recent name="D:\domains\Hey\client\src\app\registration" />
       <recent name="D:\domains\Hey\client\src\app\(pagesWithLayout)" />
-      <recent name="D:\domains\Hey\client\src\app" />
-      <recent name="D:\domains\Hey\client\public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\domains\Hey\server\internal\handler" />
+      <recent name="D:\domains\Hey\server\internal\middlewares" />
+      <recent name="D:\domains\Hey\client\src\utils" />
       <recent name="D:\domains\Hey\client\src\hooks" />
-      <recent name="D:\domains\Hey\client\src\app\(pagesWithLayout)\profile" />
-      <recent name="D:\domains\Hey\client\src\styles" />
-      <recent name="D:\domains\Hey\client\src\app" />
-      <recent name="D:\domains\Hey\client\src" />
+      <recent name="D:\domains\Hey\client\src\components" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.Start the server">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="Start the server" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>

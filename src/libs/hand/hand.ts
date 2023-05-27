@@ -79,7 +79,7 @@ export interface params {
     credentials?: "include" | "same-origin" | "omit" | any;
     mode?: "no-cors" | "cors" | "same-origin" | any;
     cache?: "default" | "no-cache" | "reload" | "force-cache" | "only-if-cached" | any;
-    headers?: { "Content-Type": 'application/json' } | { 'Content-Type': 'application/x-www-form-urlencoded' } | {'Content-Type': string};
+    headers?: any;
     showDomain?: boolean;
     redirect?: 'follow' | 'manual' | 'error';
     referrerPolicy?: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
@@ -91,14 +91,14 @@ interface readyParamsI extends params {
     credentials: "include" | "same-origin" | "omit" | any;
     mode: "no-cors" | "cors" | "same-origin" | any;
     cache: "default" | "no-cache" | "reload" | "force-cache" | "only-if-cached" | any;
-    headers: { "Content-Type": 'application/json' } | { 'Content-Type': 'application/x-www-form-urlencoded' } | {'Content-Type': string};
+    headers: any;
     showDomain: boolean;
     redirect: 'follow' | 'manual' | 'error';
     referrerPolicy: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "same-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
 }
 
-function setUpParams(params: params): readyParamsI {
+export function setUpParams(params: params): readyParamsI {
     // @ts-ignore
     const readyParams: readyParamsI = params;
     if (!params.method) {

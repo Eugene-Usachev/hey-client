@@ -8,5 +8,7 @@
     <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="old_client" />
     <orderEntry type="module" module-name="client1" />
+    <orderEntry type="module" module-name="old_server" />
+    <orderEntry type="module" module-name="server" />
   </component>
 </module>

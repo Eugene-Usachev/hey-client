@@ -1,4 +1,4 @@
-import {hand, HandWithProcessing, RestApiMethods} from "@/libs/hand/hand";
+import {HandWithProcessing, RestApiMethods} from "@/libs/hand/hand";
 import {HTTPRequestParams} from "@/types/http";
 
 export interface SignUpProps {

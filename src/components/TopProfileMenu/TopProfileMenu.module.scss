@@ -1,0 +1,64 @@
+.topProfileMenuBlock {
+    left: -5px;
+    top: 5px;
+    width: 100%;
+    position: relative;
+}
+
+.topProfileMenu {
+    display: flex;
+    border-radius: 5px;
+    flex-flow: column;
+    background-color: var(--colors-ui-base);
+    box-shadow: var(--box-shadow);
+    $padding: 5px;
+    padding: $padding;
+    width: 100%;
+    position: absolute;
+}
+
+.line {
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+
+    &:hover {
+        background-color: var(--colors-hover);
+    }
+}
+
+.exit {
+    color: red;
+}
+
+.exit:hover {
+    background-color: red;
+    color: white;
+}
+
+.languageSelectionMenu {
+    top: 0;
+    position: absolute;
+    right: calc(100% + 10px);
+    padding: 5px;
+    background-color: var(--colors-ui-base);
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-flow: column;
+
+    div {
+        $padding: 5px;
+        width: calc(100% - $padding * 2);
+        padding: $padding;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    div:hover {
+        background-color: var(--colors-hover);
+    }
+}

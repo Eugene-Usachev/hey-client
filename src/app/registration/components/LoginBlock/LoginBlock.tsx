@@ -5,6 +5,7 @@ import {getTextForLanguage} from "@/utils/getTextForLanguage";
 import {Input} from "@/components/Input/Input";
 import {SignInEmail, SignInLogin} from "@/requests/auth";
 import {Auth} from "@/app/registration/components/LoginWindow/LoginWindow";
+import {useRouter} from "next/navigation";
 
 interface LoginBlockProps {
 	setIsLoginWindowOpen: (value: false) => void;
@@ -21,6 +22,7 @@ export const LoginBlock: FC = memo<LoginBlockProps>(({
 	login, onChangeLogin, onChangePassword, password, onChangeEmail
 }) => {
 
+	const router = useRouter();
 	const [loginInputIsActive, setLoginInputIsActive] = useState(true);
 	const activeLoginInput = useCallback(() => {
 		setLoginInputIsActive(true);
@@ -31,12 +33,12 @@ export const LoginBlock: FC = memo<LoginBlockProps>(({
 	const SignIn = useCallback(() => {
 		if (loginInputIsActive) {
 			SignInLogin({params: {login: login, password: password},
-				successCallback: (res) => {Auth(res)},
+				successCallback: (res) => {Auth(router, res)},
 				failCallback: (reason) => {throw new Error(reason)}
 			})
 		} else {
 			SignInEmail({params: {email: email, password: password},
-				successCallback: (res) => {Auth(res)},
+				successCallback: (res) => {Auth(router, res)},
 				failCallback: (reason) => {throw new Error(reason)}
 			})
 		}

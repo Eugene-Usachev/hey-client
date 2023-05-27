@@ -4,6 +4,9 @@ import styles from './LoginWindow.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
 import {LoginBlock} from "../LoginBlock/LoginBlock";
 import {SignUpBlock} from "../SignUpBlock/SignUpBlock";
+import {signUser} from "@/utils/signUser";
+import {useRouter} from "next/navigation";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 
 interface LoginWindowProps {
 	setOpenIsFalse: () => void;
@@ -11,12 +14,32 @@ interface LoginWindowProps {
 
 let login = '', password = '', email = '', name = '', surname = '';
 
-export async function Auth(res: Response) {
-	console.log(await res.json())
+export async function Auth(router: AppRouterInstance,res: Response, initialName="", initialSurname="", initialAvatar="", initialEmail="", initialLogin="") {
+	const resParsed = await res.json();
+	let {id, login, email, name, surname, avatar, access_token, refresh_token} = resParsed;
+
+	if (!id) throw new Error("No id");
+	if (!login) login = initialLogin;
+	if (!email) email = initialEmail;
+	if (!name) name = initialName;
+	if (!surname) surname = initialSurname;
+	if (!avatar) avatar = initialAvatar;
+	if (!access_token) throw new Error("No access_token");
+	if (!refresh_token) throw new Error("No refresh_token");
+
+	signUser({
+		id: id,
+		login: login,
+		email: email,
+		name: name,
+		surname: surname,
+		avatar: avatar,
+		accessToken: access_token,
+		refreshToken: refresh_token
+	});
 }
 
 export const LoginWindow: FC = memo<LoginWindowProps>(({setOpenIsFalse}) => {
-
 	const [loginState, setLoginState] = useState(login);
 	const [nameState, setNameState] = useState(name);
 	const [surnameState, setSurnameState] = useState(surname);

@@ -4,7 +4,8 @@ import {eye, init as initInfoJS} from "@/libs/infojs/infojs";
 import {initFastArrays} from "@/libs/fastjs/index";
 
 export const DOMAIN = 'localhost:4040';
-export const STATIC = `http://${DOMAIN}/UserFiles/`;
+export const STATIC = `http://${DOMAIN}`;
+export const STATIC_USERS = `http://${DOMAIN}/UserFiles`;
 
 export let USERID = null;
 export let Lang: "ru" | "eng" = "eng";
@@ -46,4 +47,11 @@ export const initConfig = () => {
 		localStorage.setItem("lang", "eng")
 	}
 
+}
+
+export const setLang = (lang: "ru" | "eng") => {
+	if (Lang !== lang) {
+		Lang=lang;
+		localStorage.setItem("lang", lang)
+	}
 }

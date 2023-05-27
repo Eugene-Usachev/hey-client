@@ -54,7 +54,7 @@
         "component": "templates/default/TemplateName.tsx",
         "style": "templates/default/TemplateName.module.scss"
       },
-      "path": "src/pages/registration",
+      "path": "src/app/registration/components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,
@@ -65,7 +65,7 @@
         "component": "templates/rfco/TemplateName.tsx",
         "style": "templates/rfco/TemplateName.module.scss"
       },
-      "path": "src/pages/registration",
+      "path": "src/app/registration/components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,
@@ -76,7 +76,7 @@
         "component": "templates/rfcop/TemplateName.tsx",
         "style": "templates/rfcop/TemplateName.module.scss"
       },
-      "path": "src/pages/registration",
+      "path": "src/app/registration/components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,
@@ -87,7 +87,52 @@
         "component": "templates/rfcp/TemplateName.tsx",
         "style": "templates/rfcp/TemplateName.module.scss"
       },
-      "path": "src/pages/registration",
+      "path": "src/app/registration/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+
+    "defaultProfile": {
+      "customTemplates": {
+        "component": "templates/default/TemplateName.tsx",
+        "style": "templates/default/TemplateName.module.scss"
+      },
+      "path": "src/app/(pagesWithLayout)/profile/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcoProfile": {
+      "customTemplates": {
+        "component": "templates/rfco/TemplateName.tsx",
+        "style": "templates/rfco/TemplateName.module.scss"
+      },
+      "path": "src/app/(pagesWithLayout)/profile/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcopProfile": {
+      "customTemplates": {
+        "component": "templates/rfcop/TemplateName.tsx",
+        "style": "templates/rfcop/TemplateName.module.scss"
+      },
+      "path": "src/app/(pagesWithLayout)/profile/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcpProfile": {
+      "customTemplates": {
+        "component": "templates/rfcp/TemplateName.tsx",
+        "style": "templates/rfcp/TemplateName.module.scss"
+      },
+      "path": "src/app/(pagesWithLayout)/profile/components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,

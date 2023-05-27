@@ -1,3 +1,15 @@
 .header {
+    width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.headerBox {
+    background-color: var(--colors-ui-base);
+    width: 100vw;
+    display: flex;
+    height: var(--header_height);
+    justify-content: center;
+    margin-bottom: var(--header_margin_bottom);
 }

@@ -14,13 +14,18 @@
     "registration_rfc": "generate-react component --type=defaultRegistration",
     "registration_rfco": "generate-react component --type=rfcoRegistration",
     "registration_rfcp": "generate-react component --type=rfcpRegistration",
-    "registration_rfcop": "generate-react component --type=rfcopRegistration"
+    "registration_rfcop": "generate-react component --type=rfcopRegistration",
+    "profile_rfc": "generate-react component --type=defaultProfile",
+    "profile_rfco": "generate-react component --type=rfcoProfile",
+    "profile_rfcp": "generate-react component --type=rfcpProfile",
+    "profile_rfcop": "generate-react component --type=rfcopProfile"
   },
   "dependencies": {
     "@types/node": "20.1.3",
     "@types/react": "^18.2.6",
     "@types/react-dom": "18.2.4",
     "generate-react-cli": "^8.3.0",
+    "mobx-react-lite": "^3.4.3",
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

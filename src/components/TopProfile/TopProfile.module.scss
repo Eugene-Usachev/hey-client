@@ -1,0 +1,18 @@
+.topProfile {
+    display: flex;
+    min-width: 170px;
+    position: relative;
+    cursor: pointer;
+    flex-flow: column;
+    padding: 3px 5px;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: var(--colors-hover);
+    }
+
+}
+
+.active {
+     background-color: var(--colors-hover);
+ }
