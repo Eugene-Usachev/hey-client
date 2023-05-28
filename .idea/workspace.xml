@@ -5,18 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdbe5b4a-4c68-4236-9151-99682e935486" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MainPart/MainPart.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MainPart/MainPart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/requests/refresh.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stores/TopProfileStore.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/do.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/logout.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/signUser.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/TODO.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/internal/handler/helper.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/pkg/fasthttp_utils/headers.go" afterDir="false" />
@@ -43,29 +31,6 @@
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.LICENSE.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generate-react-cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/generate-react-cli.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LayOut/LayOut.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LayOut/LayOut.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ModalWindow/ModalWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModalWindow/ModalWindow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/hand/hand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/hand/hand.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/requests/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/requests/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Entities/Chats.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/Chats.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Entities/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/User.go" afterDir="false" />
@@ -197,7 +162,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/domains/Hey/server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/domains/libs&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
