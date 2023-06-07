@@ -133,7 +133,7 @@ declare global {
 		 * @Param: value what the function is looking for. Not an object, value of field.
 		 * @Param: key what the function is looking for in an object.
 		 * @Returns: T: The object with the matching key
-		 * @Throws Error: No item found in the array with that key
+		 * @Throws NotFound: No item found in the array with that key
 		 */
 		getByKey<T extends Object>(value: any, key: keyof T): T
 

@@ -15,7 +15,6 @@ export let Lang: "ru" | "eng" = "eng";
 
 export const initConfig = () => {
 	handEye.eye = eye;
-	handConfig.credentials = 'include';
 	handConfig.domain = DOMAIN;
 
 	initFastArrays(false);

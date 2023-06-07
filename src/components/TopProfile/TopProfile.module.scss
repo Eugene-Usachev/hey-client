@@ -10,9 +10,20 @@
     &:hover {
         background-color: var(--colors-hover);
     }
-
 }
 
 .active {
-     background-color: var(--colors-hover);
+    background-color: var(--colors-hover);
+}
+
+.anAuthButton {
+    font-size: 20px;
+    margin-right: 5px;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.anAuthButton:hover {
+     color: white;
+     background-color: var(--active-color);
  }

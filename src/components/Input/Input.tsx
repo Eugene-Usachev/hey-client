@@ -8,7 +8,7 @@ import {RxCross1} from "react-icons/rx";
 export type InputType = 'default' | 'password' | 'cross' | 'linked';
 export type regType = 'eng_and_rus' | 'all' | 'eng' | 'only_numbers' | RegExp;
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLInputElement>{
     placeholder: string;
     withLabel: boolean;
     checkSpace: boolean;
@@ -20,7 +20,7 @@ interface Props {
     style: React.CSSProperties;
     className?: string;
     reg: regType;
-    onChange?: (currentValue: string) => void;
+    onChangeValue?: (currentValue: string) => void;
     onBlur?: (e: React.FocusEvent) => void;
     onFocus?: (e: React.FocusEvent) => void;
     onEnter?: (currentValue: string) => boolean;
@@ -31,7 +31,7 @@ interface Props {
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const Input:FC = memo<Props>(({
+export const Input:FC<Props> = memo<Props>(({
             placeholder = '',
             withLabel = true,
             checkSpace = true,
@@ -43,12 +43,14 @@ export const Input:FC = memo<Props>(({
             style= {} as CSSProperties,
             className,
             reg='all',
-            onChange,
+            onChangeValue,
             onBlur,
             onFocus,
             onEnter,
             defaultValue = '',
-            onClick
+            onClick,
+            onChange,
+            ...restProps
         }) => {
     const [Value, setValue] = useState(startValue as string);
     const [hide, setHide] = useState(type === "password");
@@ -87,8 +89,11 @@ export const Input:FC = memo<Props>(({
         if (error !== checkValidCodes.ok) {
             setError(checkResult[1]);
         }
+        if (onChangeValue) {
+            onChangeValue(checkResult[0]);
+        }
         if (onChange) {
-            onChange(checkResult[0]);
+            onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
     }, [error]);
     const onKeyUpEvent = useCallback((e: KeyboardEvent) => {
@@ -138,6 +143,9 @@ export const Input:FC = memo<Props>(({
         if (onClick) {
             onClick(e);
         }
+        if (onChange) {
+            onChange(e as React.ChangeEvent<HTMLInputElement>)
+        }
     }, []);
 
     const clear = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -147,8 +155,11 @@ export const Input:FC = memo<Props>(({
             onClick(e);
         }
         setValue(defaultValue as string);
+        if (onChangeValue) {
+            onChangeValue(defaultValue as string)
+        }
         if (onChange) {
-            onChange(defaultValue as string)
+            onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
     }, []);
 
@@ -184,6 +195,7 @@ export const Input:FC = memo<Props>(({
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}
+                        {...restProps}
                     />
                 </div>
             )
@@ -215,6 +227,7 @@ export const Input:FC = memo<Props>(({
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}
+                        {...restProps}
                     />
                 </div>
             )
@@ -246,10 +259,11 @@ export const Input:FC = memo<Props>(({
                             onFocus={onFocusEvent}
                             onBlur={onBlurEvent}
                             onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
-                            style={style ? {width: '360px', borderRadius:" 0 6px 6px 0",...style} : {width: '360px', borderRadius:" 0 6px 6px 0"}}
+                            style={style ? {borderRadius:" 0 6px 6px 0",...style} : {borderRadius:" 0 6px 6px 0"}}
                             className={getClassName()}
                             value={Value}
                             onChange={onEventChange}
+                            {...restProps}
                         />
                     </div>
                 </div>
@@ -278,6 +292,7 @@ export const Input:FC = memo<Props>(({
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}
+                        {...restProps}
                     />
                 </div>
             )

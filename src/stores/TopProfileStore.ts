@@ -1,5 +1,5 @@
 import {action, observable} from "mobx";
-import {Lang, setLang} from "@/app/config";
+import {setLang} from "@/app/config";
 
 interface TopProfileStoreInterface {
 	theme: 'dark' | 'light';
@@ -7,14 +7,17 @@ interface TopProfileStoreInterface {
 	name: string;
 	surname: string;
 	lang: 'ru' | 'eng';
+	isGet: boolean;
+	isAuthorized: boolean;
 
 	initTheme(): void;
 	changeTheme(theme: 'dark' | 'light'): void;
 	changeAvatar(avatar: string): void;
 	changeNameAndSurname(name: string, surname: string): void;
-	initNameAndSurname(): void;
 	initLang(): void;
 	changeLang(lang: 'ru' | 'eng'): void;
+	setIsGet(isGet: boolean): void;
+	setIsAuthorized(isAuthorized: boolean): void;
 }
 
 export const TopProfileStore = observable<TopProfileStoreInterface>({
@@ -23,6 +26,8 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 	theme: 'dark',
 	avatar: undefined,
 	lang: 'eng',
+	isGet: false,
+	isAuthorized: false,
 
 	initTheme: action(() => {
 		let theme = localStorage.getItem("theme") as "dark" | "light";
@@ -50,11 +55,6 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 		TopProfileStore.name = name;
 		TopProfileStore.surname = surname;
 	}),
-	initNameAndSurname: action(() => {
-		const name = localStorage.getItem("name");
-		const surname = localStorage.getItem("surname");
-		TopProfileStore.changeNameAndSurname(name || "", surname || "");
-	}),
 	initLang: action(() => {
 		const lang = localStorage.getItem("lang");
 		switch (lang) {
@@ -75,5 +75,11 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 	changeLang: action((lang: 'ru' | 'eng') => {
 		setLang(lang);
 		TopProfileStore.lang = lang;
+	}),
+	setIsGet: action((isGet: boolean) => {
+		TopProfileStore.isGet = isGet
+	}),
+	setIsAuthorized: action((isAuthorized: boolean) => {
+		TopProfileStore.isAuthorized = isAuthorized
 	})
 });

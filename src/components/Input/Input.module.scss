@@ -2,7 +2,7 @@
 .input {
     position: relative;
     display: flex;
-    width: 400px;
+    width: calc(100% - 18px);
     padding: 8px;
     color: var(--colors-text);
     background: none;
@@ -39,7 +39,7 @@ body[data-theme="light"] .input:hover {
 .errorText {
     left: 5px;
     margin-bottom: 3px;
-    width: 400px;
+    width: 100%;
     position: relative;
     color: $red;
 }
@@ -54,7 +54,7 @@ body[data-theme="light"] .input:hover {
     font-size: 20px;
     position: absolute;
     right: 10px;
-    bottom: 7px;
+    bottom: 1px;
     z-index: 1;
 }
 
@@ -69,7 +69,7 @@ body[data-theme="light"] .input:hover {
 .label {
     left: 5px;
     margin-bottom: 3px;
-    width: 400px;
+    width: 100%;
     position: relative;
 }
 

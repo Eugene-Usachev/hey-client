@@ -2,10 +2,9 @@
 import React, {memo, FC, useCallback, useState} from 'react';
 import styles from './LoginWindow.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
-import {LoginBlock} from "../LoginBlock/LoginBlock";
-import {SignUpBlock} from "../SignUpBlock/SignUpBlock";
+import {LoginForm} from "../LoginForm/LoginForm";
+import {SignUpForm} from "../SignUpForm/SignUpForm";
 import {signUser} from "@/utils/signUser";
-import {useRouter} from "next/navigation";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 
 interface LoginWindowProps {
@@ -37,6 +36,7 @@ export async function Auth(router: AppRouterInstance,res: Response, initialName=
 		accessToken: access_token,
 		refreshToken: refresh_token
 	});
+	router.push("/profile/" + id)
 }
 
 export const LoginWindow: FC = memo<LoginWindowProps>(({setOpenIsFalse}) => {
@@ -78,9 +78,9 @@ export const LoginWindow: FC = memo<LoginWindowProps>(({setOpenIsFalse}) => {
 		<ModalWindow close={setOpenIsFalse} style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
 			<div className={styles.loginWindow} onClick={(e) => {e.preventDefault();e.stopPropagation()}}>
 				{isLoginWindowOpen
-					? <LoginBlock login={loginState} password={passwordState} email={emailState} onChangeLogin={onChangeLogin} onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} setIsLoginWindowOpen={onSetIsLoginWindowOpen}/>
-					: <SignUpBlock login={loginState} password={passwordState} email={emailState} name={nameState} surname={surnameState} onChangeName={onChangeName} onChangeSurname={onChangeSurname}
-								   onChangeLogin={onChangeLogin} onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} setIsLoginWindowOpen={onSetIsLoginWindowOpen}/>
+					? <LoginForm login={loginState} password={passwordState} email={emailState} onChangeLogin={onChangeLogin} onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} setIsLoginWindowOpen={onSetIsLoginWindowOpen}/>
+					: <SignUpForm login={loginState} password={passwordState} email={emailState} name={nameState} surname={surnameState} onChangeName={onChangeName} onChangeSurname={onChangeSurname}
+								  onChangeLogin={onChangeLogin} onChangeEmail={onChangeEmail} onChangePassword={onChangePassword} setIsLoginWindowOpen={onSetIsLoginWindowOpen}/>
 				}
 			</div>
 		</ModalWindow>

@@ -5,7 +5,7 @@ interface Props {
 
 }
 
-export const TemplateName:FC = memo<Props>(() => {
+export const TemplateName:FC<Props> = memo<Props>(() => {
 
     return (
         <div className={styles.templateName}>

@@ -1,9 +1,11 @@
 .cross {
-    border-radius: 8px;
-    padding: 2px;
+    border-radius: 50%;
+    fill: white;
+    padding: 4px;
     cursor: pointer;
 }
 
 .cross:hover {
+    box-shadow: var(--box-shadow);
     background-color: var(--colors-hover);
 }

@@ -1,11 +1,13 @@
+import Loading from "@/app/(pagesWithLayout)/profile/[id]/loading";
+
 interface ProfilePageProps {
 	params: {id: number}
 	searchParams: {}
 }
 
-export default function ProfilePage(query: ProfilePageProps) {
+export default async function ProfilePage(query: ProfilePageProps) {
 
 	return (
-		<div>Profile!!!!</div>
+		<Loading />
 	)
 }

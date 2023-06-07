@@ -6,10 +6,10 @@ const nextConfig = {
                 protocol: 'http',
                 hostname: 'localhost',
                 port: '4040',
-                pathname: '/**',
-            },
-        ],
-    },
+                pathname: '/**'
+            }
+        ]
+    }
 }
 
 module.exports = nextConfig

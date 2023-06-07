@@ -10,9 +10,9 @@ export const refresh = async (): Promise<number> => {
 	if (!token || token === "") {
 		return 401;
 	}
-	const body = JSON.stringify({id: id, token: token})
-	const res = await hand("/refresh", {method: RestApiMethods.Post, body: body})
-	if (res.status !== 201) {
+	const body = JSON.stringify({id: +id, token: token})
+	const res = await hand("/auth/refresh", {method: RestApiMethods.Post, body: body})
+	if (res.status !== 200) {
 		return 401;
 	}
 	const data = await res.json();

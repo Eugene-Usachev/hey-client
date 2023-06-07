@@ -1,7 +1,8 @@
 'use client';
 import React, {memo, FC, useState, useRef, useEffect, useCallback} from 'react';
 import styles from './LazyAvatar.module.scss';
-import {STATIC} from "@/app/config";
+import {STATIC, STATIC_USERS} from "@/app/config";
+import Image from "next/image";
 
 interface Props {
     src: string | undefined;
@@ -12,10 +13,11 @@ interface Props {
 
 export const LazyAvatar:FC = memo<Props>(({src, size, borderRadius= 50, style = {}}) => {
 
+    const [isShowing, setIsShowing] = useState(false);
     const img = useRef<HTMLImageElement>(null as HTMLImageElement);
     const Show = useCallback(() => {
-        if (img.current) img.current.style.display = 'block';
-    }, [img.current]);
+        setIsShowing(true)
+    }, []);
 
     useEffect(() => {
         if (img.current) {
@@ -24,11 +26,11 @@ export const LazyAvatar:FC = memo<Props>(({src, size, borderRadius= 50, style = 
                 Show()
             }
         }
-    }, [img.current]);
+    }, [img.current, src]);
 
     return (
         <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.lazyAvatar + " skeleton"}>
-            {src != undefined && <img onLoad={Show} ref={img} style={{borderRadius: borderRadius, display: 'none'}} className={styles.lazyAvatar} src={STATIC + src} alt={""} width={size} height={size}/>}
+            {src != undefined && <Image onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar} src={src == "" ? "/NULL.png" : STATIC_USERS + src } alt={""} width={size} height={size}/>}
         </div>
     );
 });

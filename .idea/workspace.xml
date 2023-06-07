@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdbe5b4a-4c68-4236-9151-99682e935486" name="Changes" comment="">
+    <list default="true" id="da236fca-971b-4679-bb18-2fed1e5be367" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/machinet.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/NULL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/[id]/loading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/not-found.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpForm/SignUpForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LeftMenu/LeftMenu.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LeftMenu/LeftMenu.tsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/TODO.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/internal/handler/helper.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/pkg/fasthttp_utils/headers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pkg/fasthttp_utils/parse.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/pkg/lightsocket/epoll1.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/pkg/lightsocket/start1.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/postgres_data/base/16384/16387_fsm" afterDir="false" />
@@ -31,8 +39,50 @@
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.LICENSE.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../server/static/pages/registration/static/js/main.14e6bc93.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/NextClient.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/client.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rcb-settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(pagesWithLayout)/profile/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginForm/LoginBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginBlock/LoginBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginForm/LoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/LoginWindow/LoginWindow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/registration/components/SignUpForm/SignUpBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/registration/components/SignUpBlock/SignUpBlock.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Alerts/Alerts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Alerts/Alerts.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Alerts/Alerts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Alerts/Alerts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Alerts/ErrorToast.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Alerts/ErrorAlert.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cross/Cross.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cross/Cross.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Error404/Error404.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Error404/Error404.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Input/Input.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Input/Input.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Input/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Input/Input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LazyAvatar/LazyAvatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainPart/MainPart.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainPart/MainPart.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopProfile/TopProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TopProfileMenu/TopProfileMenu.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopProfileMenu/TopProfileMenu.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/fastjs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/fastjs/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/hand/hand.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/hand/hand.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/requests/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests/refresh.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/requests/refresh.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/TopProfileStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/TopProfileStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/http.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rfcp/TemplateName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rfcp/TemplateName.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Entities/Chats.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/Chats.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Entities/Message.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/Message.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/Entities/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Entities/User.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/cmd/app/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/cmd/app/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/docker-compose.yml" afterDir="false" />
@@ -51,10 +101,14 @@
       <change beforePath="$PROJECT_DIR$/../server/internal/handler/uploadfile.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/uploadfile.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/handler/user.handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/handler/user.handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/repository/auth.postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/auth.postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/repository/chat.postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/chat.postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/repository/message.postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/message.postgres.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/repository/repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/server/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/service/auth.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/auth.service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/chat.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/chat.service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/service/files/Upload.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/files/Upload.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/internal/service/message.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/message.service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/service/music.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/music.service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/service/post.service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/post.service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/internal/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/internal/service/service.go" afterDir="false" />
@@ -114,66 +168,36 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="com.haulmont.rcb.palette" />
-        <option value="com.haulmont.rcb.previews" />
-        <option value="com.haulmont.rcb.index" />
-        <option value="com.haulmont.rcb.useInitial" />
-        <option value="com.haulmont.rcb.function_component" />
-        <option value="com.haulmont.rcb.arrow_function_component" />
-        <option value="SCSS File" />
-        <option value="TypeScript JSX File" />
-        <option value="TypeScript File" />
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../GOROOT/go1.20.2" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../server" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2P1KiIxmCMICIe3XHgv37yYHjEP" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2Qsc87Hvm3Ka5PvsqB0vEzU0D7E" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;NewWatcherDialog.advanced.open&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/domains/libs&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\domains\\Hey\\client\\node_modules\\typescript\\lib&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "D:/domains/test-db",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\domains\\Hey\\client\\node_modules\\typescript\\lib"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -182,24 +206,25 @@
       </map>
     </option>
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\domains\Hey\server\pkg\jwt" />
-      <recent name="D:\domains\Hey\client\src\app\(pagesWithLayout)\Header" />
-      <recent name="D:\domains\Hey\server" />
-      <recent name="D:\domains\Hey\client\src\app\registration" />
-      <recent name="D:\domains\Hey\client\src\app\(pagesWithLayout)" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\domains\Hey\server\internal\handler" />
-      <recent name="D:\domains\Hey\server\internal\middlewares" />
-      <recent name="D:\domains\Hey\client\src\utils" />
-      <recent name="D:\domains\Hey\client\src\hooks" />
-      <recent name="D:\domains\Hey\client\src\components" />
-    </key>
-  </component>
   <component name="RunManager" selected="npm.dev">
-    <configuration name="Start the server" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="client" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="client" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Start app" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="envFilePath" value="" />
@@ -219,27 +244,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.Start the server" />
+      <item itemvalue="Docker.Start app" />
       <item itemvalue="npm.dev" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

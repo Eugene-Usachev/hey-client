@@ -5,7 +5,9 @@ import styles from './TopProfile.module.scss';
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {TopProfileMenu} from "@/components/TopProfileMenu/TopProfileMenu";
-import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
+import {refresh} from "@/requests/refresh";
+import Link from "next/link";
+import {getTextForLanguage} from "@/utils/getTextForLanguage";
 
 export const TopProfile: FC = observer(() => {
 
@@ -17,8 +19,17 @@ export const TopProfile: FC = observer(() => {
 
     useEffect(() => {
         TopProfileStore.initTheme();
-        TopProfileStore.initNameAndSurname();
         TopProfileStore.initLang();
+        refresh().then((res) => {
+            if (res === 200) {
+                TopProfileStore.changeNameAndSurname(localStorage.getItem("name"), localStorage.getItem("surname"))
+                TopProfileStore.changeAvatar(localStorage.getItem("avatar"))
+                TopProfileStore.setIsAuthorized(true);
+            }
+        })
+            .finally(() => {
+                TopProfileStore.setIsGet(true);
+            })
     }, []);
     useEffect(() => {
         if (block.current) {
@@ -31,12 +42,28 @@ export const TopProfile: FC = observer(() => {
     }, [isActive]);
 
     return (
-        <div className={styles.topProfile} ref={block}>
-            <div onClick={toggleActive} style={{display: 'flex', alignItems: 'center', justifyContent: TopProfileStore.name == "" || TopProfileStore.surname =="" ? "end" : 'space-between'}}>
-                {TopProfileStore.name} {TopProfileStore.surname}
-                <LazyAvatar size={30} borderRadius={"50%"} src={TopProfileStore.avatar} />
-            </div>
-            {isActive && <TopProfileMenu />}
-        </div>
+        <>
+            {TopProfileStore.isGet
+                ? TopProfileStore.isAuthorized
+                    ?
+                        <div className={styles.topProfile} ref={block}>
+                            <div onClick={toggleActive} style={{display: 'flex', alignItems: 'center', justifyContent: TopProfileStore.name == "" || TopProfileStore.surname =="" ? "end" : 'space-between'}}>
+                                {TopProfileStore.name} {TopProfileStore.surname}
+                                <LazyAvatar size={30} borderRadius={"50%"} src={TopProfileStore.avatar} />
+                            </div>
+                            {isActive && <TopProfileMenu />}
+                        </div>
+                    :   <Link className={styles.anAuthButton} href={"/registration"}>{getTextForLanguage("Sign up", "Зарегистрироваться")}</Link>
+                : <div className={styles.topProfile} ref={block}>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '200px'}}>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '160px'}}>
+                            <div className={"skeleton"} style={{borderRadius: '10px', height: '18px', width: '95px'}}></div>
+                            <div className={"skeleton"} style={{borderRadius: '10px', height: '18px', width: '60px'}}></div>
+                        </div>
+                        <div className={"skeleton"} style={{borderRadius: '50%', height: '30px', width: '30px'}}></div>
+                    </div>
+                </div>
+            }
+        </>
     );
 });

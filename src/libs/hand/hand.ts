@@ -229,9 +229,3 @@ export const hand = (url: string, params: params) => {
         }
     })
 }
-
-export const HandWithProcessing = (url: string, params: params, successCallback: (res: Response) => void, failCallback: (reason: any) => void) => {
-    hand(url, params)
-        .then(res => successCallback(res))
-        .catch(reason => failCallback(reason))
-}

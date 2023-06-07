@@ -1,11 +1,12 @@
 .header {
-    width: 1024px;
+    width: 1010px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .headerBox {
+    box-shadow: var(--box-shadow);
     background-color: var(--colors-ui-base);
     width: 100vw;
     display: flex;
