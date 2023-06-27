@@ -1,7 +1,7 @@
 import React, {CSSProperties, FC, memo, MouseEventHandler, useCallback, useRef, useState} from 'react';
 import styles from './Input.module.scss';
 import {checkStringForValid, checkValidCodes} from "@/utils/checkString";
-import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 import {BiHide, BiShow} from "react-icons/bi";
 import {RxCross1} from "react-icons/rx";
 
@@ -169,9 +169,9 @@ export const Input:FC<Props> = memo<Props>(({
                 <div className={styles.inputBlock}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{getTextForLanguage("This field must not be empty", "Это поле должно быть заполнено")}</div>
+                            ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("This field must not be empty", "Это поле должно быть заполнено")}</div>
                             : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{getTextForLanguage("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
+                                ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
                                 : <></>
                         : Value.length > 0 && withLabel
                             ? <div className={styles.label}>{placeholder}</div>
@@ -204,9 +204,9 @@ export const Input:FC<Props> = memo<Props>(({
                 <div className={styles.inputBlock}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{getTextForLanguage("This field must not be empty", "Это поле должно быть заполнено")}</div>
+                            ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("This field must not be empty", "Это поле должно быть заполнено")}</div>
                             : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{getTextForLanguage("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
+                                ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
                                 : <></>
                         : Value.length > 0 && withLabel
                             ? <div className={styles.label}>{placeholder}</div>
@@ -236,9 +236,9 @@ export const Input:FC<Props> = memo<Props>(({
                 <div className={styles.inputBlock}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{getTextForLanguage("This field must not be empty", "Это поле должно быть заполнено")}</div>
+                            ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("This field must not be empty", "Это поле должно быть заполнено")}</div>
                             : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{getTextForLanguage("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
+                                ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
                                 : <></>
                         : Value.length > 0 && withLabel
                             ? <div className={styles.label}>{placeholder}</div>
@@ -273,9 +273,9 @@ export const Input:FC<Props> = memo<Props>(({
                 <div className={styles.inputBlock}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{getTextForLanguage("This field must not be empty", "Это поле должно быть заполнено")}</div>
+                            ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("This field must not be empty", "Это поле должно быть заполнено")}</div>
                             : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{getTextForLanguage("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
+                                ? <div className={styles.errorText}>{getTextForLanguageWithoutStore("The field is incomplete, the length of this field must be at least " + minLength, "Поле недостаточно заполнено, длина этого поля должна быть не меньше " + minLength)}</div>
                                 : <></>
                         : Value.length > 0 && withLabel
                             ? <div className={styles.label}>{placeholder}</div>

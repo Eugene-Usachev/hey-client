@@ -19,7 +19,7 @@ export default function Loading() {
 				<div style={{display: 'flex', flexFlow: 'column', width: '615px', marginTop: '10px', borderRadius: '20px', border: '1px solid var(--colors-hover)', padding: '15px'}}>
 					<div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
 						<div className={"skeleton"} style={{width: '250px', height: '22px', borderRadius: '8px', marginRight: '5px'}}></div>
-						<div className={"skeleton"} style={{width: '170px', height: '22px', borderRadius: '8px'}}></div>
+						<div className={"skeleton"} style={{width: '280px', height: '22px', borderRadius: '8px'}}></div>
 					</div>
 					<div className={"skeleton"} style={{width: '600px', height: '22px', borderRadius: '8px'}}></div>
 					<div style={{display: 'flex', flexFlow: 'column', width: '100%', margin: '10px 0 0 0'}}>

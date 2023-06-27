@@ -1,7 +1,7 @@
 import React, {FC, useCallback, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './TopProfileMenu.module.scss';
-import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import {BsFillMoonFill, BsFillSunFill} from "react-icons/bs";
 import {MdLanguage} from "react-icons/md";
@@ -40,14 +40,14 @@ export const TopProfileMenu: FC = observer(() => {
         <div className={styles.topProfileMenuBlock}>
             <div className={styles.topProfileMenu}>
                 <div className={styles.line} onClick={toggleTheme}>
-                    {getTextForLanguage(`Mode: ${TopProfileStore.theme === "dark" ? "Dark" : "Light"}`, `Тема: ${TopProfileStore.theme === "dark" ? "Тёмная" : "Светлая"}`)}
+                    {getTextForLanguageWithoutStore(`Mode: ${TopProfileStore.theme === "dark" ? "Dark" : "Light"}`, `Тема: ${TopProfileStore.theme === "dark" ? "Тёмная" : "Светлая"}`)}
                     {TopProfileStore.theme === "dark"
                         ? <BsFillSunFill />
                         : <BsFillMoonFill/>
                     }
                 </div>
                 <div className={styles.line} onClick={toggleIsChoosingLanguage} style={{position: 'relative'}}>
-                    {getTextForLanguage(`Choose a language`, `Выбрать язык`)}
+                    {getTextForLanguageWithoutStore(`Choose a language`, `Выбрать язык`)}
                     <MdLanguage />
                     {isChoosingLanguage &&
                         <div className={styles.languageSelectionMenu}>
@@ -57,7 +57,7 @@ export const TopProfileMenu: FC = observer(() => {
                     }
                 </div>
                 <div className={styles.line + " " + styles.exit} onClick={logout}>
-                    {getTextForLanguage("Exit", "Выйти")}
+                    {getTextForLanguageWithoutStore("Exit", "Выйти")}
                     <RxExit />
                 </div>
             </div>

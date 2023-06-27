@@ -1,7 +1,7 @@
 "use client";
 import React, {memo, FC, useState, useEffect} from 'react';
 import styles from './Header.module.scss';
-import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 
 interface HeaderProps {
 	setLoginWindowIsOpen: () => void;
@@ -9,12 +9,12 @@ interface HeaderProps {
 
 export const Header: FC = memo<HeaderProps>(({setLoginWindowIsOpen}) => {
 
-	const [textSignUp, setTextSignUp] = useState(getTextForLanguage("Sign Up",  "Зарегистрироваться"));
-	const [textSignIn, setTextSignIn] = useState(getTextForLanguage("Sign in", "Войти"));
+	const [textSignUp, setTextSignUp] = useState(getTextForLanguageWithoutStore("Sign Up",  "Зарегистрироваться"));
+	const [textSignIn, setTextSignIn] = useState(getTextForLanguageWithoutStore("Sign in", "Войти"));
 
 	useEffect(() => {
-		setTextSignIn(getTextForLanguage("Sign in", "Войти"));
-		setTextSignUp(getTextForLanguage("Sign Up", "Зарегистрироваться"));
+		setTextSignIn(getTextForLanguageWithoutStore("Sign in", "Войти"));
+		setTextSignUp(getTextForLanguageWithoutStore("Sign Up", "Зарегистрироваться"));
 	}, []);
 
 	return (

@@ -1,6 +1,5 @@
 "use client";
-import {handConfig, handEye} from "@/libs/hand/hand";
-import {eye, init as initInfoJS} from "@/libs/infojs/infojs";
+import {init as initInfoJS} from "@/libs/infojs/infojs";
 import {initFastArrays} from "@/libs/fastjs/index";
 
 export const DOMAIN = 'localhost:4040';
@@ -14,14 +13,11 @@ export let Lang: "ru" | "eng" = "eng";
 // localStorage.setItem("userId", "BUG: server!");
 
 export const initConfig = () => {
-	handEye.eye = eye;
-	handConfig.domain = DOMAIN;
-
 	initFastArrays(false);
 	initInfoJS(true);
 
 	if (!USERID) {
-		USERID = localStorage.getItem('userId')
+		USERID = +localStorage.getItem('id')
 	}
 
 	if (USERID == "BUG: server!") console.warn(USERID)

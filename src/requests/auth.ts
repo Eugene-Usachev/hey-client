@@ -1,5 +1,3 @@
-import {hand, RestApiMethods} from "@/libs/hand/hand";
-
 interface SignUp {
 	name: string;
 	email: string;
@@ -8,7 +6,7 @@ interface SignUp {
 	login: string;
 }
 
-export const SignUp = (params: SignUp) => {
+export const SignUp = (params: SignUp): Promise<Response> => {
 	let {email, login, name, password, surname} = params;
 	if (email === undefined || login === undefined || password === undefined || name === undefined || surname === undefined) {
 		throw new Error("Missing params");
@@ -33,7 +31,7 @@ interface SignInEmail {
 	password: string;
 }
 
-export const SignInEmail = (params: SignInEmail) => {
+export const SignInEmail = (params: SignInEmail): Promise<Response> => {
 	if (params.password === undefined) {
 		throw new Error("Missing password");
 	}
@@ -53,7 +51,7 @@ export const SignInEmail = (params: SignInEmail) => {
 
 }
 
-export const SignInLogin = (params: SignInLogin) => {
+export const SignInLogin = (params: SignInLogin): Promise<Response> => {
 	if (params.password === undefined) {
 		throw new Error("Missing password");
 	}
@@ -79,7 +77,7 @@ export interface CheckProps {
 	login: string;
 }
 
-export const Check = (params: CheckProps) => {
+export const Check = (params: CheckProps): Promise<Response> => {
 	if (params.email === undefined || params.login === undefined) {
 		throw new Error("Missing params");
 	}

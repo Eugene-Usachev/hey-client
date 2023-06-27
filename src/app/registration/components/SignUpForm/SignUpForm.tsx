@@ -1,12 +1,12 @@
 "use client";
 import React, {memo, FC, useCallback, useRef, useState, useEffect} from 'react';
 import styles from './SignUpBlock.module.scss';
-import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 import {Input} from "@/components/Input/Input";
-import {Check, SignUp} from "@/requests/auth";
 import {Auth} from "@/app/registration/components/LoginWindow/LoginWindow";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
 import {useRouter} from "next/navigation";
+import {api} from "@/app/registration/RegistrationAPI";
 
 interface SignUpFormProps {
 	setIsLoginWindowOpen: (value: true) => void;
@@ -27,16 +27,16 @@ const onChangeLoginWithCheck = (login: string, email: string, onChangeLogin: (va
 	onChangeLogin(login);
 	if (timer) clearTimeout(timer);
 	timer= window.setTimeout(() => {
-		const res = Check({login: login, email: email});
+		const res = api.check({login: login, email: email});
 		res.then(async (res) => {
 			const data = await res.json();
 			const {isEmailBusy, isLoginBusy} = data;
 			if (isEmailBusy && isLoginBusy) {
-				setErrorMessage(getTextForLanguage("Email and login is busy", "Электронная почта и логин заняты"));
+				setErrorMessage(getTextForLanguageWithoutStore("Email and login is busy", "Электронная почта и логин заняты"));
 			} else if (isEmailBusy) {
-				setErrorMessage(getTextForLanguage("Email is busy", "Электронная почта занята"));
+				setErrorMessage(getTextForLanguageWithoutStore("Email is busy", "Электронная почта занята"));
 			} else if (isLoginBusy) {
-				setErrorMessage(getTextForLanguage("Login is busy", "Логин занят"));
+				setErrorMessage(getTextForLanguageWithoutStore("Login is busy", "Логин занят"));
 			} else {
 				setErrorMessage("");
 			}
@@ -51,16 +51,16 @@ const onChangeEmailWithCheck = (login: string, email: string, onChangeEmail: (va
 	onChangeEmail(email);
 	if (timer) clearTimeout(timer);
 	timer = window.setTimeout(() => {
-		const res = Check({login: login, email: email},);
+		const res = api.check({login: login, email: email},);
 		res.then(async (res) => {
 			const data = await res.json();
 			const {isEmailBusy, isLoginBusy} = data;
 			if (isEmailBusy && isLoginBusy) {
-				setErrorMessage(getTextForLanguage("Email and login is busy", "Электронная почта и логин заняты"));
+				setErrorMessage(getTextForLanguageWithoutStore("Email and login is busy", "Электронная почта и логин заняты"));
 			} else if (isEmailBusy) {
-				setErrorMessage(getTextForLanguage("Email is busy", "Электронная почта занята"));
+				setErrorMessage(getTextForLanguageWithoutStore("Email is busy", "Электронная почта занята"));
 			} else if (isLoginBusy) {
-				setErrorMessage(getTextForLanguage("Login is busy", "Логин занят"));
+				setErrorMessage(getTextForLanguageWithoutStore("Login is busy", "Логин занят"));
 			} else {
 				setErrorMessage("");
 			}
@@ -93,7 +93,7 @@ export const SignUpForm: FC = memo<SignUpFormProps>(({setIsLoginWindowOpen, logi
 			name: name,
 			surname: surname
 		}
-		SignUp(params)
+		api.signUp(params)
 			.then((res) => {Auth(router, res, name, surname, "" , email, login)})
 			.catch((reason) => {throw new Error(reason)})
 		return false;
@@ -107,21 +107,21 @@ export const SignUpForm: FC = memo<SignUpFormProps>(({setIsLoginWindowOpen, logi
 
 	return (
 		<div className={styles.signUpBlock}>
-			<h2>{getTextForLanguage("Create a new account", "Создать новый аккаунт")}</h2>
-			<Input onChangeValue={(currentLogin) => {crLogin.current = currentLogin;onChangeLoginWithCheck(currentLogin, crEmail.current, onChangeLogin, setErrorMessage)}} onEnter={SignUpCallBack} placeholder={getTextForLanguage('Enter your login', 'Придумайте логин')} startValue={login} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input onChangeValue={onChangeName} onEnter={SignUpCallBack} placeholder={getTextForLanguage('Enter your name', 'Введите имя')} startValue={name} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input onChangeValue={onChangeSurname} onEnter={SignUpCallBack} placeholder={getTextForLanguage('Enter your surname', 'Введите фамилию')} startValue={surname} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input onChangeValue={(currentEmail) => {crEmail.current = currentEmail;onChangeEmailWithCheck(crLogin.current, currentEmail, onChangeEmail, setErrorMessage)}} onEnter={SignUpCallBack} placeholder={getTextForLanguage('Enter your email', 'Введите электронную почту')} startValue={email} minLength={10} maxLength={32} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input onChangeValue={onChangePassword} onEnter={SignUpCallBack} placeholder={getTextForLanguage('Enter a password', 'Придумайте пароль')} startValue={password} minLength={8} maxLength={64} style={{marginBottom: '5px', width: '400px'}} type={"password"}/>
+			<h2>{getTextForLanguageWithoutStore("Create a new account", "Создать новый аккаунт")}</h2>
+			<Input onChangeValue={(currentLogin) => {crLogin.current = currentLogin;onChangeLoginWithCheck(currentLogin, crEmail.current, onChangeLogin, setErrorMessage)}} onEnter={SignUpCallBack} placeholder={getTextForLanguageWithoutStore('Enter your login', 'Придумайте логин')} startValue={login} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
+			<Input onChangeValue={onChangeName} onEnter={SignUpCallBack} placeholder={getTextForLanguageWithoutStore('Enter your name', 'Введите имя')} startValue={name} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
+			<Input onChangeValue={onChangeSurname} onEnter={SignUpCallBack} placeholder={getTextForLanguageWithoutStore('Enter your surname', 'Введите фамилию')} startValue={surname} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
+			<Input onChangeValue={(currentEmail) => {crEmail.current = currentEmail;onChangeEmailWithCheck(crLogin.current, currentEmail, onChangeEmail, setErrorMessage)}} onEnter={SignUpCallBack} placeholder={getTextForLanguageWithoutStore('Enter your email', 'Введите электронную почту')} startValue={email} minLength={10} maxLength={32} style={{marginBottom: '5px', width: '400px'}}/>
+			<Input onChangeValue={onChangePassword} onEnter={SignUpCallBack} placeholder={getTextForLanguageWithoutStore('Enter a password', 'Придумайте пароль')} startValue={password} minLength={8} maxLength={64} style={{marginBottom: '5px', width: '400px'}} type={"password"}/>
 			<div style={{width: '100%', display: 'flex', color: 'var(--blue)', justifyContent: 'end', alignItems: 'end'}}>
 				<button className={styles.signUpButton} onClick={SignUpCallBack}>
-					{getTextForLanguage("Sign up", "Зарегистрироваться")}
+					{getTextForLanguageWithoutStore("Sign up", "Зарегистрироваться")}
 				</button>
 			</div>
 			<h3>
-				{getTextForLanguage('Got an existing account? ', 'Есть существующий аккаунт? ')}
+				{getTextForLanguageWithoutStore('Got an existing account? ', 'Есть существующий аккаунт? ')}
 				<a style={{cursor: 'pointer'}} onClick={() => {setIsLoginWindowOpen(true);}}>
-					{getTextForLanguage('Sign in', 'Войти')}
+					{getTextForLanguageWithoutStore('Sign in', 'Войти')}
 				</a>
 			</h3>
 		</div>

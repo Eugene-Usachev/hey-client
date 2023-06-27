@@ -1,0 +1,26 @@
+.leftPanel {
+    display: flex;
+    flex-flow: column;
+    width: 170px;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--colors-hover);
+    padding: 10px 5px;
+}
+
+.button {
+    width: 150px;
+    padding: 3px 0;
+    text-align: center;
+    display: flex;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--colors-hover);
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        color: var(--colors-hover-text);
+        background-color: var(--colors-hover);
+    }
+}

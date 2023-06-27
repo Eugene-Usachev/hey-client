@@ -1,3 +1,7 @@
 .leftColumn {
-
+    width: 180px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: 5px 15px;
 }

@@ -11,7 +11,7 @@ interface Props {
     style?: React.CSSProperties;
 }
 
-export const LazyAvatar:FC = memo<Props>(({src, size, borderRadius= 50, style = {}}) => {
+export const LazyAvatar:FC<Props> = memo<Props>(({src, size, borderRadius= 50, style = {}}) => {
 
     const [isShowing, setIsShowing] = useState(false);
     const img = useRef<HTMLImageElement>(null as HTMLImageElement);
@@ -30,7 +30,7 @@ export const LazyAvatar:FC = memo<Props>(({src, size, borderRadius= 50, style = 
 
     return (
         <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.lazyAvatar + " skeleton"}>
-            {src != undefined && <Image onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar} src={src == "" ? "/NULL.png" : STATIC_USERS + src } alt={""} width={size} height={size}/>}
+            {src != undefined && <Image priority={false} onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar} src={src == "" ? "/NULL.png" : STATIC_USERS + src } alt={""} width={size} height={size}/>}
         </div>
     );
 });

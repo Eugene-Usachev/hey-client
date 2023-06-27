@@ -5,9 +5,10 @@ import styles from './TopProfile.module.scss';
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {TopProfileMenu} from "@/components/TopProfileMenu/TopProfileMenu";
-import {refresh} from "@/requests/refresh";
+import {refreshAll} from "@/requests/refresh";
 import Link from "next/link";
-import {getTextForLanguage} from "@/utils/getTextForLanguage";
+import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
+import {api} from "@/app/(pagesWithLayout)/profile/ProfileAPI";
 
 export const TopProfile: FC = observer(() => {
 
@@ -20,7 +21,7 @@ export const TopProfile: FC = observer(() => {
     useEffect(() => {
         TopProfileStore.initTheme();
         TopProfileStore.initLang();
-        refresh().then((res) => {
+        api.sender.refresh<number>(refreshAll).then((res) => {
             if (res === 200) {
                 TopProfileStore.changeNameAndSurname(localStorage.getItem("name"), localStorage.getItem("surname"))
                 TopProfileStore.changeAvatar(localStorage.getItem("avatar"))
@@ -53,7 +54,7 @@ export const TopProfile: FC = observer(() => {
                             </div>
                             {isActive && <TopProfileMenu />}
                         </div>
-                    :   <Link className={styles.anAuthButton} href={"/registration"}>{getTextForLanguage("Sign up", "Зарегистрироваться")}</Link>
+                    :   <Link className={styles.anAuthButton} href={"/registration"}>{getTextForLanguageWithoutStore("Sign in", "Войти")}</Link>
                 : <div className={styles.topProfile} ref={block}>
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '200px'}}>
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '160px'}}>

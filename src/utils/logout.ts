@@ -9,5 +9,5 @@ export const logout = () => {
 	localStorage.removeItem("refreshToken");
 
 	// TODO
-	window.location.href = "/registration";
+	//window.location.href = "/registration";
 }
