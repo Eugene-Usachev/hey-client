@@ -1,0 +1,69 @@
+{
+  "ReferComponent": {
+    "HoldOnRedirectingInProgress": "Подождите. Идёт перенаправление"
+  },
+  "registration": {
+    "Header": {
+      "SignUp": "Зарегистрироваться",
+      "SignIn": "Войти"
+    },
+    "SignUpForm": {
+      "CreateNewAccount": "Создать новый аккаунт",
+      "EnterYourLogin": "Придумайте логин",
+      "EnterYourName": "Введите имя",
+      "EnterYourSurname": "Введите фамилию",
+      "EnterYourEmail": "Введите электронную почту",
+      "EnterAPassword": "Придумайте пароль",
+      "SignUp": "Зарегистрироваться",
+      "GotAnExistingAccount": "Есть существующий аккаунт?",
+      "SignIn": "Войти",
+      "EmailAndLoginIsBusy": "Электронная почта и логин заняты",
+      "EmailIsBusy": "Электронная почта занята",
+      "LoginIsBusy": "Логин занят"
+    },
+    "LoginForm": {
+      "SignInToExistingAccount": "Войти в существующий аккаунт",
+      "EnterYourLogin": "Введите логин",
+      "EnterYourEmail": "Введите электронную почту",
+      "EnterAPassword": "Введите пароль",
+      "ForgotPasswordClickHere": "Забыли пароль? Нажмите сюда",
+      "SignIn": "Войти",
+      "DontHaveAnAccount": "Нет аккаунта?",
+      "SignUp": "Зарегистрироваться"
+    }
+  },
+  "layout": {
+    "TopProfileMenu": {
+      "Mode": "Тема: ",
+      "Dark": "Тёмная",
+      "Light": "Светлая",
+      "ChooseALanguage": "Выбрать язык",
+      "Exit": "Выход"
+    },
+    "TopProfile": {
+      "SighIn": "Войти"
+    },
+    "LeftMenu": {
+      "SignIn": "Войти",
+      "MyProfile": "Мой профиль",
+      "Friends": "Друзья",
+      "Messages": "Сообщения"
+    }
+  },
+  "profile": {
+    "leftPanel": {
+      "changeProfile": "Изменить профиль",
+      "removeFromFriends": "Удалить из друзей",
+      "cancelAFriendRequest": "Отменить заявку в друзья",
+      "addToFriends": "Добавить в друзья",
+      "sendAFriendshipRequest": "Отправить запрос дружбы",
+      "sendAMessage": "Написать сообщение"
+    }
+  },
+  "UI": {
+    "Input": {
+      "TheFieldIsIncomplete": "Поле недостаточно заполнено, длина этого поля должна быть не меньше",
+      "ThisFieldMustNotBeEmpty": "Это поле должно быть заполнено"
+    }
+  }
+}

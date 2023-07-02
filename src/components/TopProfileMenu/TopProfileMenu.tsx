@@ -1,14 +1,23 @@
 import React, {FC, useCallback, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './TopProfileMenu.module.scss';
-import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import {BsFillMoonFill, BsFillSunFill} from "react-icons/bs";
 import {MdLanguage} from "react-icons/md";
 import {RxExit} from "react-icons/rx";
 import {useRouter} from "next/navigation";
 
-export const TopProfileMenu: FC = observer(() => {
+interface TopProfileMenuProps {
+    dictionary: {
+        Mode: string,
+        Dark: string,
+        Light: string,
+        ChooseALanguage: string,
+        Exit: string
+    }
+}
+
+export const TopProfileMenu: FC<TopProfileMenuProps> = observer(({dictionary}) => {
     const router = useRouter();
     const [isChoosingLanguage, setIsChoosingLanguage] = useState(false);
     const toggleTheme = useCallback(() => {
@@ -20,6 +29,10 @@ export const TopProfileMenu: FC = observer(() => {
     }, [TopProfileStore.theme]);
     const chooseLang = useCallback((lang: "ru" | "eng") => {
        TopProfileStore.changeLang(lang);
+       let uri = window.location.href.split("/");
+       uri[3] = lang === "ru" ? "ru" : "en";
+       router.push(uri.join("/"));
+       router.refresh()
     }, [TopProfileStore.lang]);
     const toggleIsChoosingLanguage = useCallback(() => {
         setIsChoosingLanguage(!isChoosingLanguage);
@@ -40,14 +53,14 @@ export const TopProfileMenu: FC = observer(() => {
         <div className={styles.topProfileMenuBlock}>
             <div className={styles.topProfileMenu}>
                 <div className={styles.line} onClick={toggleTheme}>
-                    {getTextForLanguageWithoutStore(`Mode: ${TopProfileStore.theme === "dark" ? "Dark" : "Light"}`, `Тема: ${TopProfileStore.theme === "dark" ? "Тёмная" : "Светлая"}`)}
+                    {dictionary.Mode} {TopProfileStore.theme === "dark" ? dictionary.Dark : dictionary.Light}
                     {TopProfileStore.theme === "dark"
                         ? <BsFillSunFill />
                         : <BsFillMoonFill/>
                     }
                 </div>
                 <div className={styles.line} onClick={toggleIsChoosingLanguage} style={{position: 'relative'}}>
-                    {getTextForLanguageWithoutStore(`Choose a language`, `Выбрать язык`)}
+                    {dictionary.ChooseALanguage}
                     <MdLanguage />
                     {isChoosingLanguage &&
                         <div className={styles.languageSelectionMenu}>
@@ -57,7 +70,7 @@ export const TopProfileMenu: FC = observer(() => {
                     }
                 </div>
                 <div className={styles.line + " " + styles.exit} onClick={logout}>
-                    {getTextForLanguageWithoutStore("Exit", "Выйти")}
+                    {dictionary.Exit}
                     <RxExit />
                 </div>
             </div>

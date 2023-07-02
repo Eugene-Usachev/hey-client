@@ -9,7 +9,7 @@ export const STATIC_USERS = `http://${DOMAIN}/UserFiles`;
 export let USERID = null;
 export let Lang: "ru" | "eng" = "eng";
 
-// localStorage.setItem("lang", "BUG: server!");
+// localStorage.setItem("[lang]", "BUG: server!");
 // localStorage.setItem("userId", "BUG: server!");
 
 export const initConfig = () => {

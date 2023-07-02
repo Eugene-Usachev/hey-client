@@ -1,11 +1,16 @@
 "use client"
 import React, {memo, FC, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
-import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
 import {ThreePoints} from "@/components/ThreePoints/ThreePoints";
 import {USERID} from "@/app/config";
 
-export const ReferComponent: FC = memo(() => {
+interface ReferComponentProps {
+	dict: {
+		HoldOnRedirectingInProgress: string;
+	}
+}
+
+export const ReferComponent: FC<ReferComponentProps> = memo<ReferComponentProps>(({dict}) => {
 	const router = useRouter();
 	useEffect(() => {
 		if (USERID > 0) {
@@ -17,7 +22,7 @@ export const ReferComponent: FC = memo(() => {
 
 	return (
 		<div style={{placeSelf: "center", color: "var(--active-color)", fontSize: "20px"}}>
-			{getTextForLanguageWithoutStore("Hold on. Redirecting in progress", "Подождите. Идёт перенаправление")}
+			{dict.HoldOnRedirectingInProgress}
 			<ThreePoints color={"var(--active-color)"}/>
 		</div>
 	);

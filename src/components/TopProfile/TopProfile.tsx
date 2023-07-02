@@ -7,10 +7,22 @@ import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {TopProfileMenu} from "@/components/TopProfileMenu/TopProfileMenu";
 import {refreshAll} from "@/requests/refresh";
 import Link from "next/link";
-import {getTextForLanguageWithoutStore} from "@/utils/getTextForLanguage";
-import {api} from "@/app/(pagesWithLayout)/profile/ProfileAPI";
+import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
 
-export const TopProfile: FC = observer(() => {
+interface TopProfileProps {
+    topProfileDict: {
+        signIn: string,
+    }
+    topProfileMenuDict: {
+        Mode: string,
+        Dark: string,
+        Light: string,
+        ChooseALanguage: string,
+        Exit: string
+    }
+}
+
+export const TopProfile: FC<TopProfileProps> = observer(({topProfileDict, topProfileMenuDict}) => {
 
     const [isActive, setIsActive] = useState(false);
     const block = useRef<HTMLDivElement>(null as HTMLDivElement);
@@ -52,9 +64,9 @@ export const TopProfile: FC = observer(() => {
                                 {TopProfileStore.name} {TopProfileStore.surname}
                                 <LazyAvatar size={30} borderRadius={"50%"} src={TopProfileStore.avatar} />
                             </div>
-                            {isActive && <TopProfileMenu />}
+                            {isActive && <TopProfileMenu dictionary={topProfileMenuDict}/>}
                         </div>
-                    :   <Link className={styles.anAuthButton} href={"/registration"}>{getTextForLanguageWithoutStore("Sign in", "Войти")}</Link>
+                    :   <Link className={styles.anAuthButton} href={"/registration"}>{topProfileDict.signIn}</Link>
                 : <div className={styles.topProfile} ref={block}>
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '200px'}}>
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '160px'}}>

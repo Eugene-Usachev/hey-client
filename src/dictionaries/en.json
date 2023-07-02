@@ -1,0 +1,69 @@
+{
+  "ReferComponent": {
+    "HoldOnRedirectingInProgress": "Hold on. Redirecting in progress"
+  },
+  "registration": {
+    "Header": {
+      "SignUp": "Sign Up",
+      "SignIn": "Sign in"
+    },
+    "SignUpForm": {
+      "CreateNewAccount": "Create a new account",
+      "EnterYourLogin": "Enter your login",
+      "EnterYourName": "Enter your name",
+      "EnterYourSurname": "Enter your surname",
+      "EnterYourEmail": "Enter your email",
+      "EnterAPassword": "Enter a password",
+      "SignUp": "Sign up",
+      "GotAnExistingAccount": "Got an existing account?",
+      "SignIn": "Sign in",
+      "EmailAndLoginIsBusy": "Email and login is busy",
+      "EmailIsBusy": "Email is busy",
+      "LoginIsBusy": "Login is busy"
+    },
+    "LoginForm": {
+      "SignInToExistingAccount": "Sign in to an existing account",
+      "EnterYourLogin": "Enter your login",
+      "EnterYourEmail": "Enter your email",
+      "EnterAPassword": "Enter a password",
+      "ForgotPasswordClickHere": "Forgot password? Click here",
+      "SignIn": "Sign in",
+      "DontHaveAnAccount": "Don't have an account?",
+      "SignUp": "Sign up"
+    }
+  },
+  "layout": {
+    "TopProfileMenu": {
+      "Mode": "Mode:",
+      "Dark": "Dark",
+      "Light": "Light",
+      "ChooseALanguage": "Choose a language",
+      "Exit": "Exit"
+    },
+    "TopProfile": {
+      "SighIn": "Sigh in"
+    },
+    "LeftMenu": {
+      "SignIn": "Sign in",
+      "MyProfile": "My profile",
+      "Friends": "Friends",
+      "Messages": "Messages"
+    }
+  },
+  "profile": {
+    "leftPanel": {
+      "changeProfile": "Change profile",
+      "removeFromFriends": "Remove from friends",
+      "cancelAFriendRequest": "Cancel a friend request",
+      "addToFriends": "Add to friends",
+      "sendAFriendshipRequest": "Send a friendship request",
+      "sendAMessage": "Send a message"
+    }
+  },
+  "UI": {
+    "Input": {
+      "TheFieldIsIncomplete": "The field is incomplete, the length of this field must be at least",
+      "ThisFieldMustNotBeEmpty": "This field must not be empty"
+    }
+  }
+}
