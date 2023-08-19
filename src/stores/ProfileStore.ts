@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {USERID} from "@/app/config";
+import {changeProfileParams} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
 
 export interface ProfileInfo {
 	name: string;
@@ -37,6 +38,7 @@ export interface ProfileStoreInterface extends ProfileInfo{
 
 	setInfo(id: number, info: ProfileInfo, mysubs: number[]): void
 	changeFriendStatus(status: FriendStatus): void
+	changeProfile(params: changeProfileParams): void
 }
 
 export const ProfileStore = observable<ProfileStoreInterface>({
@@ -115,5 +117,23 @@ export const ProfileStore = observable<ProfileStoreInterface>({
 				break;
 		}
 		ProfileStore.friendStatus = status
-	})
+	}),
+
+	changeProfile(params: changeProfileParams) {
+		ProfileStore.name = params.name;
+		ProfileStore.surname = params.surname;
+		// TODO ProfileStore.avatar = params.avatar;
+		// TODO ProfileStore.birthday = params.birthday;
+		ProfileStore.description = params.description;
+		ProfileStore.family_status = params.familyStatus;
+		ProfileStore.place_of_residence = params.address;
+		ProfileStore.attitude_to_smocking = params.attitudeToSmocking;
+		ProfileStore.attitude_to_sport = params.attitudeToSport;
+		ProfileStore.attitude_to_alcohol = params.attitudeToAlcohol;
+		ProfileStore.dreams = params.dreams;
+		ProfileStore.favourites_meals = params.favoriteMeals;
+		ProfileStore.favourites_books = params.favoriteBooks;
+		ProfileStore.favourites_films = params.favoriteFilms;
+		ProfileStore.favourites_games = params.favoriteGames;
+	}
 })

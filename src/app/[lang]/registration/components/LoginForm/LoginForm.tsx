@@ -5,6 +5,7 @@ import {Input, InputDict} from "@/components/Input/Input";
 import {Auth} from "@/app/[lang]/registration/components/LoginWindow/LoginWindow";
 import {useRouter} from "next/navigation";
 import {api} from "@/app/[lang]/registration/RegistrationAPI";
+import {Alert, CommonAlert, ErrorAlert, SuccessAlert, WarningAlert} from "@/components/Alerts/Alerts";
 
 export interface LoginFormDict {
 	"SignInToExistingAccount": string;
@@ -15,6 +16,8 @@ export interface LoginFormDict {
 	"SignIn": string;
 	"DontHaveAnAccount": string;
 	"SignUp": string;
+	"InvalidLoginOrPassword": string;
+	"SuccessfullySignedUpRedirect": string;
 }
 
 interface LoginFormProps {
@@ -46,12 +49,28 @@ export const LoginForm: FC<LoginFormProps> = memo<LoginFormProps>(({
 		if (loginInputIsActive) {
 			const res = api.signInLogin({login: login, password: password});
 			res
-				.then((res) => {Auth(router, res)})
+				.then((res) => {
+					if (res.status === 400) {
+						ErrorAlert(dict.InvalidLoginOrPassword);
+						return;
+					} else {
+						SuccessAlert(dict.SuccessfullySignedUpRedirect);
+						Auth(router, res);
+					}
+				})
 				.catch((reason) => {throw new Error(reason)})
 		} else {
 			const res = api.signInEmail({email: email, password: password})
 			res
-				.then((res) => {Auth(router, res)})
+				.then((res) => {
+					if (res.status === 400) {
+						ErrorAlert(dict.InvalidLoginOrPassword);
+						return;
+					} else {
+						SuccessAlert(dict.SuccessfullySignedUpRedirect);
+						Auth(router, res);
+					}
+				})
 				.catch((reason) => {throw new Error(reason)})
 		}
 		return false;
@@ -60,9 +79,9 @@ export const LoginForm: FC<LoginFormProps> = memo<LoginFormProps>(({
 	return (
 		<div className={styles.loginBlock}>
 			<h2>{dict.SignInToExistingAccount}</h2>
-			<Input dict={inputDict} onEnter={SignIn} onClick={activeLoginInput} isActive={loginInputIsActive} onChangeValue={onChangeLogin} type={'linked'} placeholder={dict.EnterYourLogin} startValue={login} maxLength={32} minLength={2} style={{width: '360px',marginBottom: '5px'}}/>
-			<Input dict={inputDict} onEnter={SignIn} onClick={activeEmailInput} isActive={!loginInputIsActive} onChangeValue={onChangeEmail} type={'linked'} placeholder={dict.EnterYourEmail} startValue={email} maxLength={32} style={{width: '360px',marginBottom: '5px'}}/>
-			<Input dict={inputDict} onEnter={SignIn} onChangeValue={onChangePassword} placeholder={dict.EnterAPassword} startValue={password} maxLength={32} style={{width: "400px"}} type={"password"}/>
+			<Input blockStyle={{width: '418px'}} dict={inputDict} onEnter={SignIn} onClick={activeLoginInput} isActive={loginInputIsActive} onChangeValue={onChangeLogin} type={'linked'} placeholder={dict.EnterYourLogin} startValue={login} maxLength={32} style={{width: '360px',marginBottom: '5px'}}/>
+			<Input blockStyle={{width: '418px'}} dict={inputDict} onEnter={SignIn} onClick={activeEmailInput} isActive={!loginInputIsActive} onChangeValue={onChangeEmail} type={'linked'} placeholder={dict.EnterYourEmail} startValue={email} maxLength={32} style={{width: '360px',marginBottom: '5px'}}/>
+			<Input blockStyle={{width: '418px'}} dict={inputDict} onEnter={SignIn} onChangeValue={onChangePassword} placeholder={dict.EnterAPassword} startValue={password} maxLength={64} style={{width: "400px"}} type={"password"}/>
 			<div style={{width: '100%', display: 'flex', color: 'var(--active-color)', justifyContent: 'space-between', alignItems: 'end', marginTop: '5px'}}>
 				{dict.ForgotPasswordClickHere}
 				<button className={styles.loginButton} onClick={SignIn}>

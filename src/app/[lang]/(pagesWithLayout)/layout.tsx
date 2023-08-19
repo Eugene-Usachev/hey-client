@@ -3,6 +3,7 @@ import styles from "./layout.module.scss";
 import {Header} from "@/components/Header/Header";
 import {LeftMenu} from "@/components/LeftMenu/LeftMenu";
 import {getDictionary} from "@/app/dictionaries";
+import React from "react";
 
 export default async function Layout({children}: {
 	children: React.ReactNode

@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC, memo, MouseEventHandler, useCallback, useRef, useState} from 'react';
+import React, {CSSProperties, FC, memo, MouseEventHandler, useCallback, useMemo, useRef, useState} from 'react';
 import styles from './Input.module.scss';
 import {checkStringForValid, checkValidCodes} from "@/utils/checkString";
 import {BiHide, BiShow} from "react-icons/bi";
@@ -15,17 +15,18 @@ export interface InputDict {
 interface Props extends React.HTMLAttributes<HTMLInputElement>{
     dict: InputDict;
 
-    placeholder: string;
-    withLabel: boolean;
+    placeholder?: string;
+    withLabel?: boolean;
     checkSpace: boolean;
     maxLength: number;
     minLength: number;
+    blockStyle?: React.CSSProperties;
     type: InputType;
-    isActive: boolean;
-    startValue: string;
-    style: React.CSSProperties;
+    isActive?: boolean;
+    startValue?: string;
+    style?: React.CSSProperties;
     className?: string;
-    reg: regType;
+    reg?: regType;
     onChangeValue?: (currentValue: string) => void;
     onBlur?: (e: React.FocusEvent) => void;
     onFocus?: (e: React.FocusEvent) => void;
@@ -44,6 +45,7 @@ export const Input:FC<Props> = memo<Props>(({
             checkSpace = true,
             maxLength,
             minLength = -1,
+            blockStyle,
             type = 'default',
             isActive = true,
             startValue = '',
@@ -64,6 +66,13 @@ export const Input:FC<Props> = memo<Props>(({
     const [focus, setFocus] = useState(false);
     const [error, setError] = useState<checkValidCodes>(checkValidCodes.ok);
     const inputRef = useRef(null) as React.MutableRefObject<HTMLInputElement>;
+    const defaultValueError: checkValidCodes = useMemo(() => {
+        if (!defaultValue) {
+            return checkValidCodes.ok;
+        }
+        const checkResult = checkStringForValid(defaultValue, reg as regType, maxLength, minLength as number, checkSpace);
+        return checkResult[1];
+    }, [defaultValue])
 
     const getClassName = (): string => {
         let newClassName = styles.input;
@@ -156,15 +165,19 @@ export const Input:FC<Props> = memo<Props>(({
     }, []);
 
     const clear = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        if (!defaultValue) {
+            throw new Error("defaultValue is undefined")
+        }
         e.stopPropagation();
         e.preventDefault();
         if (onClick) {
             onClick(e);
         }
-        setValue(defaultValue as string);
+        setValue(defaultValue);
         if (onChangeValue) {
-            onChangeValue(defaultValue as string)
+            onChangeValue(defaultValue)
         }
+        setError(defaultValueError)
         if (onChange) {
             onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
@@ -173,7 +186,7 @@ export const Input:FC<Props> = memo<Props>(({
     switch (type) {
         case "password":
             return (
-                <div className={styles.inputBlock}>
+                <div className={styles.inputBlock} style={blockStyle}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
                             ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
@@ -184,31 +197,34 @@ export const Input:FC<Props> = memo<Props>(({
                             ? <div className={styles.label}>{placeholder}</div>
                             : <></>
                     }
-                    <div className={styles.inputPasswordBlock}>
-                        {hide
-                            ? <div onClick={doShow}><BiShow/></div>
-                            : <div onClick={doHide}><BiHide/></div>
-                        }
+                    <div style={{display: 'grid'}}>
+                        <input
+                            disabled={!isActive}
+                            placeholder={placeholder as string}
+                            ref={inputRef}
+                            type={hide ? "password" : "text"}
+                            onFocus={onFocusEvent}
+                            onBlur={onBlurEvent}
+                            onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
+                            style={style}
+                            className={getClassName()}
+                            value={Value}
+                            onChange={onEventChange}
+                            {...restProps}
+                        />
+                        <div className={styles.inputPasswordBlock}>
+                            {hide
+                                ? <div style={{height: '20px'}} onClick={doShow}><BiShow/></div>
+                                : <div style={{height: '20px'}} onClick={doHide}><BiHide/></div>
+                            }
+                        </div>
                     </div>
-                    <input
-                        disabled={!isActive}
-                        placeholder={placeholder as string}
-                        ref={inputRef}
-                        type={hide ? "password" : "text"}
-                        onFocus={onFocusEvent}
-                        onBlur={onBlurEvent}
-                        onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
-                        style={style}
-                        className={getClassName()}
-                        value={Value}
-                        onChange={onEventChange}
-                        {...restProps}
-                    />
                 </div>
             )
         case "cross":
+            const realStyle = style ? {...style, paddingRight: '25px', width: 'calc(100% - 35px)'} : {paddingRight: '25px', width: 'calc(100% - 35px)'};
             return (
-                <div className={styles.inputBlock}>
+                <div className={styles.inputBlock} style={blockStyle}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
                             ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
@@ -230,7 +246,7 @@ export const Input:FC<Props> = memo<Props>(({
                         onFocus={onFocusEvent}
                         onBlur={onBlurEvent}
                         onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
-                        style={style ? style : {}}
+                        style={realStyle}
                         className={getClassName()}
                         value={Value}
                         onChange={onEventChange}
@@ -240,7 +256,7 @@ export const Input:FC<Props> = memo<Props>(({
             )
         case "linked":
             return (
-                <div className={styles.inputBlock}>
+                <div className={styles.inputBlock} style={blockStyle}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
                             ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
@@ -277,7 +293,7 @@ export const Input:FC<Props> = memo<Props>(({
             )
         default:
             return (
-                <div className={styles.inputBlock}>
+                <div className={styles.inputBlock} style={blockStyle}>
                     {error !== checkValidCodes.ok && isActive
                         ? error ==checkValidCodes.empty
                             ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>

@@ -1,0 +1,40 @@
+.changeMenu {
+    $padding: 5px;
+
+    display: flex;
+    max-height: calc(100% - 8px);
+    position: absolute;
+    width: calc(100% - $padding * 2);
+    left: 0;
+    top: 5px;
+    z-index: 2;
+}
+
+.propertiesPart {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    $padding: 5px;
+    margin-top: 5px;
+    padding: $padding;
+    display: flex;
+    flex-flow: column;
+    max-height: calc(100% - 2 * $padding);
+    width: calc(658px - 2 * $padding);
+}
+
+.buttonBlock {
+    display: flex;
+    align-self: end;
+}
+
+.button {
+    color: var(--colors-hover-text);
+    cursor: pointer;
+    padding: 5px;
+    font-style: var(--fs-lg);
+    border-radius: 4px;
+
+    &:hover {
+        background-color: var(--colors-hover);
+    }
+}

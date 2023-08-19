@@ -1,6 +1,8 @@
 import {MainPart} from "@/app/[lang]/(pagesWithLayout)/profile/components/MainPart/MainPart";
 import {UseProfileStore} from "@/app/[lang]/(pagesWithLayout)/profile/useProfileStore";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import Loading from "@/app/[lang]/(pagesWithLayout)/profile/[id]/loading";
+import {Suspense} from "react";
 
 interface ProfilePageProps {
 	params: {id: number, lang: string}
@@ -13,8 +15,10 @@ export default async function ProfilePage(query: ProfilePageProps) {
 
 	return (
 		<>
-			<UseProfileStore id={+query.params.id} info={info}/>
-			<MainPart />
+			<Suspense fallback={<Loading />}>
+				<UseProfileStore id={+query.params.id} info={info}/>
+				<MainPart />
+			</Suspense>
 		</>
 	)
 }

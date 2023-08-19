@@ -29,7 +29,9 @@
       "ForgotPasswordClickHere": "Забыли пароль? Нажмите сюда",
       "SignIn": "Войти",
       "DontHaveAnAccount": "Нет аккаунта?",
-      "SignUp": "Зарегистрироваться"
+      "SignUp": "Зарегистрироваться",
+      "InvalidLoginOrPassword": "Неверный логин или пароль",
+      "SuccessfullySignedUpRedirect": "Вход выполнен, перенаправление..."
     }
   },
   "layout": {
@@ -41,7 +43,7 @@
       "Exit": "Выход"
     },
     "TopProfile": {
-      "SighIn": "Войти"
+      "SignIn": "Войти"
     },
     "LeftMenu": {
       "SignIn": "Войти",
@@ -58,6 +60,49 @@
       "addToFriends": "Добавить в друзья",
       "sendAFriendshipRequest": "Отправить запрос дружбы",
       "sendAMessage": "Написать сообщение"
+    },
+    "ChangeMenu": {
+      "ChangeAvatar": "Изменить аватар",
+      "TypeYourName": "Введите ваше имя",
+      "TypeYourSurname": "Введите вашу фамилию",
+      "TypeDescription": "Введите описание",
+      "SelectYourBirthday": "Укажите ваш день рождения",
+      "WriteYourAddress": "Напишите свой адрес",
+      "SelectYourFamilyStatus": "Выберете ваше семейное положение",
+      "SelectYourAttitudeToAlcohol": "Выберете отношение к алкоголю",
+      "SelectYourAttitudeToSmocking": "Выберете отношение к курению",
+      "SelectYourAttitudeToSport": "Выберете отношение к спорту",
+      "WriteYourFavoriteMeals": "Напишите свои любимые блюда",
+      "WriteYourFavoriteFilms": "Напишите любимые фильмы",
+      "WriteYourFavoriteGames": "Напишите любимые игры",
+      "WriteYourFavoriteBooks": "Напишите любимые книги",
+      "DescribeYourDreams": "Опишите вашу мечту",
+      "SharplyNegative": "Резко негативное",
+      "Negative": "Негативное",
+      "Neutral": "Нейтральное",
+      "Positive": "Положительное",
+      "SharplyPositive": "Резко положительное",
+      "Married": "женат или замужем",
+      "Single": "одинок(-a)",
+      "LookingFor": "в активном поиске",
+      "HaveABoyfriendOrGirlfriend": "есть парень или девушка",
+      "LeaveThisFieldEmpty": "Оставить это поле пустым",
+      "Safe": "Принять изменения",
+      "NotSafe": "Отклонить изменения"
+    },
+    "InfoBlock": {
+      "FamilyStatus": "Семейное положение",
+      "PlaceOfResidence": "Место проживания",
+      "AttitudeToAlcohol": "Отношение к алкоголю",
+      "AttitudeToSmocking": "Отношение к курению",
+      "AttitudeToSport": "Отношение к спорту",
+      "FavoriteMeals": "Любимые блюда",
+      "FavoriteFilms": "Любимые фильмы",
+      "FavoriteGames": "Любимые игры",
+      "FavoriteBooks": "Любимые книги",
+      "Dreams": "Мечты",
+      "ShowMore": "Показать больше",
+      "ShowLess": "Скрыть"
     }
   },
   "UI": {

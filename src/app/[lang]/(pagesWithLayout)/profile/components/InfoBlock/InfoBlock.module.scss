@@ -1,0 +1,34 @@
+.infoBlock {
+    width: 620px;
+    //margin-top: 20px;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    //border-radius: 20px;
+    //border: 1px solid var(--colors-hover);
+    border-bottom: 1px solid var(--colors-hover);
+    padding: 15px 15px 5px 5px;
+    margin-left: 10px;
+}
+
+.nameBlock {
+    display: flex;
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.descriptionBlock {
+    color: #979997;
+}
+
+.keyValueBlock {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.button {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    color: var(--colors-text);
+}

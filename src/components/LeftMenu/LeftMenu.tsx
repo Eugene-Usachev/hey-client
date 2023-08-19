@@ -1,10 +1,12 @@
 "use client";
-import React, {FC, useMemo} from 'react';
+import React, {FC, useCallback} from 'react';
 import styles from './LeftMenu.module.scss';
 import {BsFillPersonFill} from "react-icons/bs";
 import {observer} from "mobx-react-lite";
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
+import {USERID} from "@/app/config";
 
 interface LeftMenuProps {
 	dict: {
@@ -16,6 +18,12 @@ interface LeftMenuProps {
 }
 
 export const LeftMenu: FC<LeftMenuProps> = observer(({dict}) => {
+	const router = useRouter();
+
+	const toProfile = useCallback(() => {
+		const lang = (window.location.href.split("/"))[3];
+		router.push(`${lang}/profile/${USERID}`);
+	}, [USERID]);
 
 	return (
 		<>
@@ -25,7 +33,7 @@ export const LeftMenu: FC<LeftMenuProps> = observer(({dict}) => {
 					<Link className={styles.button} href={"/registration"}>{dict.SignIn}</Link>
 				</div>
 				: <div className={styles.leftMenu}>
-					<div className={styles.button}>{dict.MyProfile}</div>
+					<div className={styles.button} onClick={toProfile}>{dict.MyProfile}</div>
 					<div className={styles.button}>{dict.Friends}</div>
 					<div className={styles.button} style={{borderBottom: "none"}}>{dict.Messages}</div>
 				</div>

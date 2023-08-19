@@ -69,6 +69,40 @@ export class ProfileAPI {
 			cache: 'no-cache',
 		})
 	}
+
+	async changeProfile(params: changeProfileParams): Promise<Response> {
+		if (!params.name || params.name.length < 1 || typeof params.name !== "string") {
+			throw new Error("Missing params");
+		}
+		if (!params.surname || params.surname.length < 1 || typeof params.surname !== "string") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth("/api/user/", {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				name: params.name,
+				surname: params.surname,
+				// TODO avatar
+				avatar: "",
+				// TODO birthday
+				birthday: "",
+				description: params.description,
+				place_of_residence: params.address,
+				favourites_meals: params.favoriteMeals,
+				favourites_books: params.favoriteBooks,
+				favourites_games: params.favoriteGames,
+				favourites_films: params.favoriteFilms,
+				dreams: params.dreams,
+				family_status: params.familyStatus,
+				attitude_to_smocking: params.attitudeToSmocking,
+				attitude_to_sport: params.attitudeToSport,
+				attitude_to_alcohol: params.attitudeToAlcohol,
+			})
+		})
+	}
 }
 
 export let api = new ProfileAPI({
@@ -89,4 +123,21 @@ export let api = new ProfileAPI({
 
 interface getUser {
 	id: number;
+}
+
+export interface changeProfileParams {
+	name: string;
+	surname: string;
+	description: string;
+	address: string;
+	favoriteMeals: string;
+	favoriteBooks: string;
+	favoriteGames: string;
+	favoriteFilms: string;
+	dreams: string;
+
+	familyStatus: string;
+	attitudeToAlcohol: string;
+	attitudeToSmocking: string;
+	attitudeToSport: string;
 }

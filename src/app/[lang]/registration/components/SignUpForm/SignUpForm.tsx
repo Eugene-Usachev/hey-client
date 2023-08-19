@@ -38,54 +38,55 @@ interface SignUpFormProps {
 	inputDict: InputDict;
 }
 
-let timer = 0;
-const onChangeLoginWithCheck = (login: string, email: string, onChangeLogin: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
-	onChangeLogin(login);
-	if (timer) clearTimeout(timer);
-	timer= window.setTimeout(() => {
-		const res = api.check({login: login, email: email});
-		res.then(async (res) => {
-			const data = await res.json();
-			const {isEmailBusy, isLoginBusy} = data;
-			if (isEmailBusy && isLoginBusy) {
-				setErrorMessage(dict.EmailAndLoginIsBusy);
-			} else if (isEmailBusy) {
-				setErrorMessage(dict.EmailIsBusy);
-			} else if (isLoginBusy) {
-				setErrorMessage(dict.LoginIsBusy);
-			} else {
-				setErrorMessage("");
-			}
-		});
-		res.catch((reason) => {
-			throw new Error(reason);
-		});
-	}, 2000)
-}
-
-const onChangeEmailWithCheck = (login: string, email: string, onChangeEmail: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
-	onChangeEmail(email);
-	if (timer) clearTimeout(timer);
-	timer = window.setTimeout(() => {
-		const res = api.check({login: login, email: email},);
-		res.then(async (res) => {
-			const data = await res.json();
-			const {isEmailBusy, isLoginBusy} = data;
-			if (isEmailBusy && isLoginBusy) {
-				setErrorMessage(dict.EmailAndLoginIsBusy);
-			} else if (isEmailBusy) {
-				setErrorMessage(dict.EmailIsBusy);
-			} else if (isLoginBusy) {
-				setErrorMessage(dict.LoginIsBusy);
-			} else {
-				setErrorMessage("");
-			}
-		})
-		res.catch((reason) => {
-			throw new Error(reason);
-		});
-	}, 2000)
-}
+// TODO r
+// let timer = 0;
+// const onChangeLoginWithCheck = (login: string, email: string, onChangeLogin: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
+// 	onChangeLogin(login);
+// 	if (timer) clearTimeout(timer);
+// 	timer= window.setTimeout(() => {
+// 		const res = api.check({login: login, email: email});
+// 		res.then(async (res) => {
+// 			const data = await res.json();
+// 			const {isEmailBusy, isLoginBusy} = data;
+// 			if (isEmailBusy && isLoginBusy) {
+// 				setErrorMessage(dict.EmailAndLoginIsBusy);
+// 			} else if (isEmailBusy) {
+// 				setErrorMessage(dict.EmailIsBusy);
+// 			} else if (isLoginBusy) {
+// 				setErrorMessage(dict.LoginIsBusy);
+// 			} else {
+// 				setErrorMessage("");
+// 			}
+// 		});
+// 		res.catch((reason) => {
+// 			throw new Error(reason);
+// 		});
+// 	}, 2000)
+// }
+//
+// const onChangeEmailWithCheck = (login: string, email: string, onChangeEmail: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
+// 	onChangeEmail(email);
+// 	if (timer) clearTimeout(timer);
+// 	timer = window.setTimeout(() => {
+// 		const res = api.check({login: login, email: email},);
+// 		res.then(async (res) => {
+// 			const data = await res.json();
+// 			const {isEmailBusy, isLoginBusy} = data;
+// 			if (isEmailBusy && isLoginBusy) {
+// 				setErrorMessage(dict.EmailAndLoginIsBusy);
+// 			} else if (isEmailBusy) {
+// 				setErrorMessage(dict.EmailIsBusy);
+// 			} else if (isLoginBusy) {
+// 				setErrorMessage(dict.LoginIsBusy);
+// 			} else {
+// 				setErrorMessage("");
+// 			}
+// 		})
+// 		res.catch((reason) => {
+// 			throw new Error(reason);
+// 		});
+// 	}, 2000)
+// }
 
 
 export const SignUpForm: FC<SignUpFormProps> = memo<SignUpFormProps>(({setIsLoginWindowOpen, login, onChangeLogin, onChangePassword, inputDict,
@@ -94,11 +95,17 @@ export const SignUpForm: FC<SignUpFormProps> = memo<SignUpFormProps>(({setIsLogi
 													   }) => {
 	const router = useRouter();
 	const [errorMessage, setErrorMessage] = useState("");
-	const crEmail = useRef(email);
-	const crLogin = useRef(login);
+	const [isLoginError, setIsLoginError] = useState(false);
+	const [isEmailError, setIsEmailError] = useState(false);
+
+	const printError = useCallback(() => {
+		if (errorMessage.length > 0) {
+			ErrorAlert(errorMessage);
+		}
+	}, [errorMessage]);
 
 	const SignUpCallBack = useCallback(() => {
-		if (errorMessage.length > 0) {
+		if (errorMessage.length > 0 && (isEmailError || isLoginError)) {
 			ErrorAlert(errorMessage);
 			return false;
 		}
@@ -110,25 +117,39 @@ export const SignUpForm: FC<SignUpFormProps> = memo<SignUpFormProps>(({setIsLogi
 			surname: surname
 		}
 		api.signUp(params)
-			.then((res) => {Auth(router, res, name, surname, "" , email, login)})
+			.then(async (res) => {
+				const status = res.status;
+				if (status == 400) {
+					const message = (await res.json())["error"];
+					if (message == "email is busy") {
+						setErrorMessage(dict.EmailIsBusy);
+						setIsEmailError(true);
+					} else if (message == "login is busy") {
+						setErrorMessage(dict.LoginIsBusy);
+						setIsLoginError(true);
+					}
+					printError();
+				} else {
+					if (status == 201) {
+						Auth(router, res, name, surname, "" , email, login);
+					} else {
+						let message = await res.json();
+						ErrorAlert(message["error"]);
+					}
+				}
+			})
 			.catch((reason) => {throw new Error(reason)})
 		return false;
-	}, [login, name, surname, email, password]);
-
-	useEffect(() => {
-		if (errorMessage.length > 0) {
-			ErrorAlert(errorMessage);
-		}
-	}, [errorMessage]);
+	}, [login, name, surname, email, password, isLoginError, isEmailError, errorMessage]);
 
 	return (
 		<div className={styles.signUpBlock}>
 			<h2>{dict.CreateNewAccount}</h2>
-			<Input dict={inputDict} onChangeValue={(currentLogin) => {crLogin.current = currentLogin;onChangeLoginWithCheck(currentLogin, crEmail.current, onChangeLogin, setErrorMessage, dict)}} onEnter={SignUpCallBack} placeholder={dict.EnterYourLogin} startValue={login} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input dict={inputDict} onChangeValue={onChangeName} onEnter={SignUpCallBack} placeholder={dict.EnterYourName} startValue={name} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input dict={inputDict} onChangeValue={onChangeSurname} onEnter={SignUpCallBack} placeholder={dict.EnterYourSurname} startValue={surname} maxLength={32} minLength={2} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input dict={inputDict} onChangeValue={(currentEmail) => {crEmail.current = currentEmail;onChangeEmailWithCheck(crLogin.current, currentEmail, onChangeEmail, setErrorMessage, dict)}} onEnter={SignUpCallBack} placeholder={dict.EnterYourEmail} startValue={email} minLength={10} maxLength={32} style={{marginBottom: '5px', width: '400px'}}/>
-			<Input dict={inputDict} onChangeValue={onChangePassword} onEnter={SignUpCallBack} placeholder={dict.EnterAPassword} startValue={password} minLength={8} maxLength={64} style={{marginBottom: '5px', width: '400px'}} type={"password"}/>
+			<Input type={"default"} dict={inputDict} onChangeValue={(currentLogin) => {setIsLoginError(false); onChangeLogin(currentLogin)}} blockStyle={{width: '418px'}} onEnter={SignUpCallBack} placeholder={dict.EnterYourLogin} startValue={login} maxLength={32} minLength={1} style={{marginBottom: '5px', width: '400px'}} checkSpace={true}/>
+			<Input type={"default"} dict={inputDict} onChangeValue={onChangeName} onEnter={SignUpCallBack} placeholder={dict.EnterYourName} startValue={name} maxLength={32} minLength={1} blockStyle={{width: '418px'}} style={{marginBottom: '5px', width: '400px'}} checkSpace={true}/>
+			<Input type={"default"} dict={inputDict} onChangeValue={onChangeSurname} onEnter={SignUpCallBack} placeholder={dict.EnterYourSurname} startValue={surname} maxLength={32} minLength={1} blockStyle={{width: '418px'}} style={{marginBottom: '5px', width: '400px'}} checkSpace={true}/>
+			<Input type={"default"} dict={inputDict} onChangeValue={(currentEmail) => {setIsEmailError(false); onChangeEmail(currentEmail)}} blockStyle={{width: '418px'}} onEnter={SignUpCallBack} placeholder={dict.EnterYourEmail} startValue={email} minLength={1} maxLength={32} style={{marginBottom: '5px', width: '400px'}} checkSpace={true}/>
+			<Input dict={inputDict} onChangeValue={onChangePassword} onEnter={SignUpCallBack} placeholder={dict.EnterAPassword} startValue={password} minLength={8} maxLength={64} blockStyle={{marginBottom: '5px', width: '418px'}} style={{width: '400px'}} type={"password"} checkSpace={true}/>
 			<div style={{width: '100%', display: 'flex', color: 'var(--blue)', justifyContent: 'end', alignItems: 'end'}}>
 				<button className={styles.signUpButton} onClick={SignUpCallBack}>
 					{dict.SignUp}

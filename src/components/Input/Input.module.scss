@@ -54,14 +54,15 @@ body[data-theme="light"] .input:hover {
     font-size: 20px;
     position: absolute;
     right: 10px;
-    bottom: 1px;
+    align-self: center;
     z-index: 1;
 }
 
 .inputCrossBlock {
     font-size: 20px;
+    height: 20px;
     position: absolute;
-    right: 10px;
+    right: 5px;
     bottom: 7px;
     z-index: 1;
 }

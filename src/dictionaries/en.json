@@ -29,7 +29,9 @@
       "ForgotPasswordClickHere": "Forgot password? Click here",
       "SignIn": "Sign in",
       "DontHaveAnAccount": "Don't have an account?",
-      "SignUp": "Sign up"
+      "SignUp": "Sign up",
+      "InvalidLoginOrPassword": "Invalid login or password",
+      "SuccessfullySignedUpRedirect": "Successfully signed up, redirection..."
     }
   },
   "layout": {
@@ -41,7 +43,7 @@
       "Exit": "Exit"
     },
     "TopProfile": {
-      "SighIn": "Sigh in"
+      "SignIn": "Sigh in"
     },
     "LeftMenu": {
       "SignIn": "Sign in",
@@ -58,6 +60,49 @@
       "addToFriends": "Add to friends",
       "sendAFriendshipRequest": "Send a friendship request",
       "sendAMessage": "Send a message"
+    },
+    "ChangeMenu": {
+      "ChangeAvatar": "Change avatar",
+      "TypeYourName": "Type your name",
+      "TypeYourSurname": "Type your surname",
+      "TypeDescription": "Type a description",
+      "SelectYourBirthday": "Select your birthday",
+      "WriteYourAddress": "Write your address",
+      "SelectYourFamilyStatus": "Select your family status",
+      "SelectYourAttitudeToAlcohol": "Select your attitude to alcohol",
+      "SelectYourAttitudeToSmocking": "Select your attitude to smoking",
+      "SelectYourAttitudeToSport": "Select your attitude to sport",
+      "WriteYourFavoriteMeals": "Write your favorite meals",
+      "WriteYourFavoriteFilms": "Write your favorite films",
+      "WriteYourFavoriteGames": "Write your favorite games",
+      "WriteYourFavoriteBooks": "Write your favorite books",
+      "DescribeYourDreams": "Describe your dreams",
+      "SharplyNegative": "Sharply negative",
+      "Negative": "Negative",
+      "Neutral": "Neutral",
+      "Positive": "Positive",
+      "SharplyPositive": "Sharply positive",
+      "Married": "Married",
+      "Single": "Single",
+      "LookingFor": "Actively looking",
+      "HaveABoyfriendOrGirlfriend": "Have a boyfriend or girlfriend",
+      "LeaveThisFieldEmpty": "Leave this field empty",
+      "Safe": "Safe",
+      "NotSafe": "Not safe"
+    },
+    "InfoBlock": {
+      "FamilyStatus": "Family status",
+      "PlaceOfResidence": "Place of residence",
+      "AttitudeToAlcohol": "Attitude to alcohol",
+      "AttitudeToSmocking": "Attitude to smoking",
+      "AttitudeToSport": "Attitude to sport",
+      "FavoriteMeals": "Favorite meals",
+      "FavoriteFilms": "Favorite films",
+      "FavoriteGames": "Favorite games",
+      "FavoriteBooks": "Favorite books",
+      "Dreams": "Dreams",
+      "ShowMore": "Show more",
+      "ShowLess": "Show less"
     }
   },
   "UI": {

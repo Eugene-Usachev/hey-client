@@ -1,4 +1,7 @@
 import React, {} from 'react';
+import {
+	LoadingRightColumn
+} from "@/app/[lang]/(pagesWithLayout)/profile/components/LoadingRightColumn/LoadingRightColumn";
 
 export default function Loading() {
 
@@ -15,29 +18,7 @@ export default function Loading() {
 				</div>
 			</div>
 			{/*right column*/}
-			<div style={{width: '635px', marginTop: '5px', display: 'flex', flexFlow: 'column', alignItems: 'center'}}>
-				<div style={{display: 'flex', flexFlow: 'column', width: '615px', marginTop: '10px', borderRadius: '20px', border: '1px solid var(--colors-hover)', padding: '15px'}}>
-					<div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-						<div className={"skeleton"} style={{width: '250px', height: '22px', borderRadius: '8px', marginRight: '5px'}}></div>
-						<div className={"skeleton"} style={{width: '280px', height: '22px', borderRadius: '8px'}}></div>
-					</div>
-					<div className={"skeleton"} style={{width: '600px', height: '22px', borderRadius: '8px'}}></div>
-					<div style={{display: 'flex', flexFlow: 'column', width: '100%', margin: '10px 0 0 0'}}>
-						<div style={{display: 'flex', marginBottom: '10px'}}>
-							<div className={"skeleton"} style={{width: '170px', height: '22px', borderRadius: '8px', marginRight: '10px'}}></div>
-							<div className={"skeleton"} style={{width: '300px', height: '22px', borderRadius: '8px'}}></div>
-						</div>
-						<div style={{display: 'flex', marginBottom: '10px'}}>
-							<div className={"skeleton"} style={{width: '170px', height: '22px', borderRadius: '8px', marginRight: '10px'}}></div>
-							<div className={"skeleton"} style={{width: '300px', height: '22px', borderRadius: '8px'}}></div>
-						</div>
-						<div style={{display: 'flex'}}>
-							<div className={"skeleton"} style={{width: '170px', height: '22px', borderRadius: '8px', marginRight: '10px'}}></div>
-							<div className={"skeleton"} style={{width: '300px', height: '22px', borderRadius: '8px'}}></div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<LoadingRightColumn />
 		</div>
 	);
 };

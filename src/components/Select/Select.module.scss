@@ -1,0 +1,89 @@
+.block {
+    position: relative;
+}
+
+.select {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    width: calc(100% - 18px);
+    padding: 8px;
+    color: var(--colors-text);
+    background: none;
+    box-shadow: var(--box-shadow);
+    outline: none;
+    font-size: var(--fs-md);
+    border-radius: 6px;
+}
+
+.placeholder {
+    color: grey;
+}
+
+.triangle {
+    fill: grey;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    height: 15px;
+    transform: rotateZ(180deg);
+    transition: all 0.3s ease;
+}
+
+.open {
+    top: 9px;
+    transform: rotateZ(360deg);
+}
+
+body[data-theme="dark"] .select {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body[data-theme="dark"] .select:hover {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body[data-theme="light"] .select {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme="light"] .select:hover {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.label {
+    color: grey;
+}
+
+.placeholder {
+
+}
+
+.linesBlock {
+    position: absolute;
+    z-index: 2;
+    top: calc(100% + 5px);
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: var(--box-shadow);
+    background: var(--colors-ui-base);
+}
+
+.line {
+    cursor: pointer;
+    width: calc(100% - 16px);
+    padding: 8px;
+    color: var(--colors-text);
+    outline: none;
+    font-size: var(--fs-md);
+    border-bottom: 1px solid var(--colors-hover);
+}
+
+.line:hover {
+    background: var(--colors-hover);
+}
+
+.linesBlock .line:last-child {
+    border-bottom: none;
+}

@@ -53,6 +53,7 @@ export class API {
 			response = await fetch(`${this.domain}${url}`,params);
 
 			if (response.status === 401) {
+				this.isStackStopped = true;
 				await this.refreshFunc();
 				accessToken = localStorage.getItem("accessToken");
 				if (!accessToken) {

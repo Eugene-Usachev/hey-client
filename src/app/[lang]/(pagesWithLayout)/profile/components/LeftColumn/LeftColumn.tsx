@@ -9,7 +9,7 @@ export async function LeftColumn() {
 
 	return (
 		<div className={styles.leftColumn}>
-			<LeftPanel dictionary={dictionary["profile"]["leftPanel"]}/>
+			<LeftPanel inputDict={dictionary.UI.Input} dictionary={dictionary.profile.leftPanel} changeMenuDict={dictionary.profile.ChangeMenu}/>
 		</div>
 	);
 }

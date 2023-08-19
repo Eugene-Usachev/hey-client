@@ -6,6 +6,8 @@ import {FriendStatus, ProfileStore} from "@/stores/ProfileStore";
 import {USERID} from "@/app/config";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import {ChangeMenu, ChangeMenuDict} from "@/app/[lang]/(pagesWithLayout)/profile/components/ChangeMenu/ChangeMenu";
+import {InputDict} from "@/components/Input/Input";
 
 interface LeftPanelDictionary {
     changeProfile: string;
@@ -18,9 +20,13 @@ interface LeftPanelDictionary {
 
 interface Props {
     dictionary: LeftPanelDictionary;
+    changeMenuDict: ChangeMenuDict;
+    inputDict: InputDict;
 }
 
-export const LeftPanel: FC<Props> = observer(({dictionary}) => {
+export const LeftPanel: FC<Props> = observer(({dictionary, changeMenuDict, inputDict}) => {
+
+    const [isChanging, setIsChanging] = useState(false);
 
     const friendStatus = useMemo(() => {
         for (let i = 0; i < ProfileStore.friends.length; i++) {
@@ -79,6 +85,10 @@ export const LeftPanel: FC<Props> = observer(({dictionary}) => {
         })
     }, []);
 
+    const stopChange = useCallback(() => {
+        setIsChanging(false);
+    }, []);
+
     useEffect(() => {
         if (USERID === ProfileStore.id) {
             setIsOwner(true)
@@ -88,13 +98,25 @@ export const LeftPanel: FC<Props> = observer(({dictionary}) => {
     useEffect(() => {
         setIsOwner(USERID === ProfileStore.id);
     }, [USERID, ProfileStore.id]);
-    
+
+    useEffect(() => {
+        if (isChanging) {
+            document.getElementById("rightColumn").style.display = "none";
+        } else {
+            document.getElementById("rightColumn").style.display = "block";
+        }
+    }, [isChanging]);
+
+    if (isChanging) {
+        return <ChangeMenu stopChange={stopChange} inputDict={inputDict} dict={changeMenuDict}/>
+    }
+
     return (
         <div className={styles.leftPanel}>
             <LazyAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} src={ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`} />
             {isOwner
                 ?
-                    <div className={styles.button}>
+                    <div className={styles.button} onClick={() => {setIsChanging(true)}}>
                         {dictionary.changeProfile}
                     </div>
                 : friendStatus === FriendStatus.friend
