@@ -1,5 +1,5 @@
 "use client";
-import React, {FC, useCallback, useState} from 'react';
+import React, {FC, useCallback, useMemo, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './InfoBlock.module.scss';
 import {ProfileStore} from "@/stores/ProfileStore";
@@ -21,10 +21,54 @@ interface InfoBlockProps {
         Dreams: string;
         ShowMore: string;
         ShowLess: string;
+        SharplyNegative: string;
+        Negative: string;
+        Neutral: string;
+        Positive: string;
+        SharplyPositive: string;
+        Married: string;
+        Single: string;
+        LookingFor: string;
+        HaveABoyfriendOrGirlfriend: string;
+        LeaveThisFieldEmpty: string;
     }
 }
 
 export const InfoBlock: FC<InfoBlockProps> = observer(({dict}) => {
+
+    const familyStatus = useMemo(() => [
+        dict.LeaveThisFieldEmpty,
+        dict.Married,
+        dict.HaveABoyfriendOrGirlfriend,
+        dict.LookingFor,
+        dict.Single
+    ], []);
+
+    const attitudeToAlcohol = useMemo(() => [
+        dict.LeaveThisFieldEmpty,
+        dict.SharplyNegative,
+        dict.Negative,
+        dict.Neutral,
+        dict.Positive,
+        dict.SharplyPositive
+    ], []);
+    const attitudeToSmocking = useMemo(() => [
+        dict.LeaveThisFieldEmpty,
+        dict.SharplyNegative,
+        dict.Negative,
+        dict.Neutral,
+        dict.Positive,
+        dict.SharplyPositive
+    ], []);
+    const attitudeToSport = useMemo(() => [
+        dict.LeaveThisFieldEmpty,
+        dict.SharplyNegative,
+        dict.Negative,
+        dict.Neutral,
+        dict.Positive,
+        dict.SharplyPositive
+    ], []);
+
     const longestKey = Math.max(dict.FamilyStatus.length, dict.PlaceOfResidence.length,
         dict.AttitudeToAlcohol.length, dict.AttitudeToSmocking.length, dict.AttitudeToSport.length, dict.FavoriteMeals.length, dict.FavoriteFilms.length,
         dict.FavoriteGames.length, dict.FavoriteBooks.length, dict.Dreams.length) + 1;
@@ -45,10 +89,10 @@ export const InfoBlock: FC<InfoBlockProps> = observer(({dict}) => {
                 <div className={styles.nameBlock}>{ProfileStore.name[0].toUpperCase()}{ProfileStore.name.slice(1)} {ProfileStore.surname[0].toUpperCase()}{ProfileStore.surname.slice(1)}</div>
                 <div className={styles.descriptionBlock}>{ProfileStore.description}</div>
             </div>
-            {ProfileStore.family_status && ProfileStore.family_status.length > 0 &&
+            {ProfileStore.family_status && ProfileStore.family_status > -1 &&
                 <div className={styles.keyValueBlock}>
                     <div style={{width: `${longestKey}ch`}}>{dict.FamilyStatus}:</div>
-                    <div>{ProfileStore.family_status}</div>
+                    <div>{familyStatus[ProfileStore.family_status]}</div>
                 </div>
             }
             {/*<div> TODO birthday </div>*/}
@@ -60,22 +104,22 @@ export const InfoBlock: FC<InfoBlockProps> = observer(({dict}) => {
             }
             {isShowingMore &&
                 <>
-                    {ProfileStore.attitude_to_smocking && ProfileStore.attitude_to_smocking.length > 0 &&
+                    {ProfileStore.attitude_to_smocking && ProfileStore.attitude_to_smocking > -1 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.AttitudeToSmocking}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.attitude_to_smocking}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{attitudeToSmocking[ProfileStore.attitude_to_smocking]}</div>
                         </div>
                     }
-                    {ProfileStore.attitude_to_alcohol && ProfileStore.attitude_to_alcohol.length > 0 &&
+                    {ProfileStore.attitude_to_alcohol && ProfileStore.attitude_to_alcohol > -1 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.AttitudeToAlcohol}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.attitude_to_alcohol}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{attitudeToAlcohol[ProfileStore.attitude_to_alcohol]}</div>
                         </div>
                     }
-                    {ProfileStore.attitude_to_sport && ProfileStore.attitude_to_sport.length > 0 &&
+                    {ProfileStore.attitude_to_sport && ProfileStore.attitude_to_sport > -1 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.AttitudeToSport}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.attitude_to_sport}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{attitudeToSport[ProfileStore.attitude_to_sport]}</div>
                         </div>
                     }
                     {ProfileStore.favourites_meals && ProfileStore.favourites_meals.length > 0 &&

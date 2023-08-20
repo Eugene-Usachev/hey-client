@@ -1,4 +1,4 @@
-import React, {memo, FC} from 'react';
+import React, {} from 'react';
 import styles from './RigthColumn.module.scss';
 import {InfoBlock} from "@/app/[lang]/(pagesWithLayout)/profile/components/InfoBlock/InfoBlock";
 import Loading from "@/app/[lang]/(pagesWithLayout)/profile/[id]/loading";

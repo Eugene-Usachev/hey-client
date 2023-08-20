@@ -14,11 +14,11 @@ export interface ProfileInfo {
 	favourites_games: string;
 	favourites_meals: string;
 	description: string;
-	family_status: string;
+	family_status: number;
 	place_of_residence: string;
-	attitude_to_smocking: string;
-	attitude_to_sport: string;
-	attitude_to_alcohol: string;
+	attitude_to_smocking: number;
+	attitude_to_sport: number;
+	attitude_to_alcohol: number;
 	dreams: string;
 }
 
@@ -29,7 +29,6 @@ export const enum FriendStatus {
 	nobody,
 	first,
 }
-
 
 export interface ProfileStoreInterface extends ProfileInfo{
 	id: number;
@@ -54,11 +53,11 @@ export const ProfileStore = observable<ProfileStoreInterface>({
 	favourites_games: '',
 	favourites_meals: '',
 	description: '',
-	family_status: '',
+	family_status: -1,
 	place_of_residence: '',
-	attitude_to_smocking: '',
-	attitude_to_sport: '',
-	attitude_to_alcohol: '',
+	attitude_to_smocking: -1,
+	attitude_to_sport: -1,
+	attitude_to_alcohol: -1,
 	dreams: '',
 	friendStatus: FriendStatus.first,
 	mysubs: [],

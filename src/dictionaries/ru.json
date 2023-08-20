@@ -102,7 +102,17 @@
       "FavoriteBooks": "Любимые книги",
       "Dreams": "Мечты",
       "ShowMore": "Показать больше",
-      "ShowLess": "Скрыть"
+      "ShowLess": "Скрыть",
+      "SharplyNegative": "Резко негативное",
+      "Negative": "Негативное",
+      "Neutral": "Нейтральное",
+      "Positive": "Положительное",
+      "SharplyPositive": "Резко положительное",
+      "Married": "женат или замужем",
+      "Single": "одинок(-a)",
+      "LookingFor": "в активном поиске",
+      "HaveABoyfriendOrGirlfriend": "есть парень или девушка",
+      "LeaveThisFieldEmpty": "Оставить это поле пустым"
     }
   },
   "UI": {

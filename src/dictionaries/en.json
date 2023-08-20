@@ -102,7 +102,17 @@
       "FavoriteBooks": "Favorite books",
       "Dreams": "Dreams",
       "ShowMore": "Show more",
-      "ShowLess": "Show less"
+      "ShowLess": "Show less",
+      "SharplyNegative": "Sharply negative",
+      "Negative": "Negative",
+      "Neutral": "Neutral",
+      "Positive": "Positive",
+      "SharplyPositive": "Sharply positive",
+      "Married": "Married",
+      "Single": "Single",
+      "LookingFor": "Actively looking",
+      "HaveABoyfriendOrGirlfriend": "Have a boyfriend or girlfriend",
+      "LeaveThisFieldEmpty": "Leave this field empty"
     }
   },
   "UI": {

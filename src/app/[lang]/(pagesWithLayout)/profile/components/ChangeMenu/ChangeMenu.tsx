@@ -93,28 +93,28 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
     ], [dict.SelectYourAttitudeToSport]);
 
     const [familyStatusIndex, setFamilyStatusIndex] = useState(() => {
-        const index = familyStatus.indexOf(ProfileStore.family_status);
+        const index = ProfileStore.family_status;
         if (index === -1) {
             return 0;
         }
         return index;
     });
     const [attitudeToAlcoholIndex, setAttitudeToAlcoholIndex] = useState(() => {
-        const index = attitudeToAlcohol.indexOf(ProfileStore.attitude_to_alcohol);
+        const index = ProfileStore.attitude_to_alcohol;
         if (index === -1) {
             return 0;
         }
         return index;
     });
     const [attitudeToSmockingIndex, setAttitudeToSmockingIndex] = useState(() => {
-        const index = attitudeToSmocking.indexOf(ProfileStore.attitude_to_smocking);
+        const index = ProfileStore.attitude_to_smocking;
         if (index === -1) {
             return 0;
         }
         return index;
     });
     const [attitudeToSportIndex, setAttitudeToSportIndex] = useState(() => {
-        const index = attitudeToSport.indexOf(ProfileStore.attitude_to_sport);
+        const index = ProfileStore.attitude_to_sport;
         if (index === -1) {
             return 0;
         }
@@ -137,10 +137,10 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
 			name: name,
 			surname: surname,
 
-			familyStatus: familyStatusIndex != 0 ? familyStatus[familyStatusIndex] : "",
-			attitudeToAlcohol: attitudeToAlcoholIndex != 0 ?attitudeToAlcohol[attitudeToAlcoholIndex] : "",
-			attitudeToSmocking: attitudeToSmockingIndex != 0 ? attitudeToSmocking[attitudeToSmockingIndex] : "",
-			attitudeToSport: attitudeToSportIndex != 0 ? attitudeToSport[attitudeToSportIndex] : "",
+			familyStatus: familyStatusIndex != 0 ? familyStatusIndex : -1,
+			attitudeToAlcohol: attitudeToAlcoholIndex != 0 ? attitudeToAlcoholIndex : -1,
+			attitudeToSmocking: attitudeToSmockingIndex != 0 ? attitudeToSmockingIndex : -1,
+			attitudeToSport: attitudeToSportIndex != 0 ? attitudeToSportIndex : -1,
 		});
 		res.then((res) => {
 			if (res.status != 204) {
@@ -157,10 +157,10 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
 				name: name,
 				surname: surname,
 
-				familyStatus: familyStatusIndex != 0 ? familyStatus[familyStatusIndex] : "",
-				attitudeToAlcohol: attitudeToAlcoholIndex != 0 ? attitudeToAlcohol[attitudeToAlcoholIndex] : "",
-				attitudeToSmocking: attitudeToSmockingIndex != 0 ? attitudeToSmocking[attitudeToSmockingIndex] : "",
-				attitudeToSport: attitudeToSportIndex != 0 ? attitudeToSport[attitudeToSportIndex] : ""
+				familyStatus: familyStatusIndex != 0 ? familyStatusIndex : -1,
+				attitudeToAlcohol: attitudeToAlcoholIndex != 0 ? attitudeToAlcoholIndex: -1,
+				attitudeToSmocking: attitudeToSmockingIndex != 0 ? attitudeToSmockingIndex : -1,
+				attitudeToSport: attitudeToSportIndex != 0 ? attitudeToSportIndex : -1
 			});
 		})
 

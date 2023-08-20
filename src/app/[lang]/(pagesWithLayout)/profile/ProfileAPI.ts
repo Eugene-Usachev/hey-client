@@ -136,8 +136,8 @@ export interface changeProfileParams {
 	favoriteFilms: string;
 	dreams: string;
 
-	familyStatus: string;
-	attitudeToAlcohol: string;
-	attitudeToSmocking: string;
-	attitudeToSport: string;
+	familyStatus: number;
+	attitudeToAlcohol: number;
+	attitudeToSmocking: number;
+	attitudeToSport: number;
 }
