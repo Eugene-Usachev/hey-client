@@ -113,6 +113,18 @@
       "LookingFor": "в активном поиске",
       "HaveABoyfriendOrGirlfriend": "есть парень или девушка",
       "LeaveThisFieldEmpty": "Оставить это поле пустым"
+    },
+    "CreatePostBlock": {
+        "WhatIsNew": "Что нового?",
+        "Reset": "Сбросить",
+        "Post": "Опубликовать",
+        "ToAll": "Видно всем",
+        "ToFriends": "Видно друзьям",
+        "Add": "Добавить",
+        "Question": "Вопрос",
+        "PossibleAnswer": "Возможный ответ",
+        "AnonymousSurvey": "Анонимный опрос",
+        "ManyAnswerOptions": "Несколько вариантов ответа"
     }
   },
   "UI": {

@@ -113,6 +113,18 @@
       "LookingFor": "Actively looking",
       "HaveABoyfriendOrGirlfriend": "Have a boyfriend or girlfriend",
       "LeaveThisFieldEmpty": "Leave this field empty"
+    },
+    "CreatePostBlock": {
+      "WhatIsNew": "What's new?",
+      "Reset": "Reset",
+      "Post": "Post",
+      "ToAll": "Visible to all",
+      "ToFriends": "Visible to friends",
+      "Add": "Add",
+      "Question": "Question",
+      "PossibleAnswer": "Possible answer",
+      "AnonymousSurvey": "Anonymous survey",
+      "ManyAnswerOptions": "Many answer options"
     }
   },
   "UI": {

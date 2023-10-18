@@ -40,7 +40,7 @@ export interface ProfileStoreInterface extends ProfileInfo{
 	changeProfile(params: changeProfileParams): void
 }
 
-export const ProfileStore = observable<ProfileStoreInterface>({
+export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterface>({
 	id: -1,
 	name: '',
 	surname: '',
@@ -62,7 +62,7 @@ export const ProfileStore = observable<ProfileStoreInterface>({
 	friendStatus: FriendStatus.first,
 	mysubs: [],
 
-	setInfo: action((id, info, mysubs) => {
+	setInfo: action((id: number, info: ProfileInfo, mysubs: number[]) => {
 		ProfileStore.id = id;
 		ProfileStore.name = info.name;
 		ProfileStore.surname = info.surname;
@@ -84,7 +84,7 @@ export const ProfileStore = observable<ProfileStoreInterface>({
 		ProfileStore.mysubs = mysubs;
 	}),
 
-	changeFriendStatus: action((status) => {
+	changeFriendStatus: action((status: FriendStatus) => {
 		let index: number;
 		switch (status) {
 			case FriendStatus.idol:

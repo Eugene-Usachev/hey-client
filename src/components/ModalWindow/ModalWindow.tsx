@@ -8,7 +8,7 @@ interface Props {
     style?: React.CSSProperties
 }
 
-export const ModalWindow:FC = memo<Props>(({children, close, style}) => {
+export const ModalWindow:FC<Props> = memo<Props>(({children, close, style}) => {
 
     return (
         <div className={styles.modalWindow} onClick={close} style={style}>

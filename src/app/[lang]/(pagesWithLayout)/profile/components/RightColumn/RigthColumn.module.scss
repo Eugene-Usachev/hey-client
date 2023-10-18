@@ -1,3 +1,9 @@
 .rightColumn {
-
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    margin-left: 10px;
+    width: 650px;
+    height: 100%;
 }

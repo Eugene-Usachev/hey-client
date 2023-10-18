@@ -26,7 +26,7 @@ export const checkStringForValid = (value: string, reg: regType, maxLength: numb
 			case "eng_AND_rus":{newValue = newValue.replace (/[^A-Za-zа-яА-Я\d\s]+/g, '');break;}
 			default: {
 				if (reg) {
-					newValue = newValue.replace (reg, '');
+					newValue = newValue.replace(reg, '');
 				}
 			}
 		}

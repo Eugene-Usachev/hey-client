@@ -10,7 +10,9 @@ export const MainPart: FC = memo(() => {
 			{/*<Loading/>*/}
 			<div className={styles.mainPart}>
 				<LeftColumn />
-				<RightColumn />
+				<div style={{marginTop: '10px', paddingBottom: '10px'}}>
+					<RightColumn />
+				</div>
 			</div>
 		</>
 	);

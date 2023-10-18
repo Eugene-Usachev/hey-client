@@ -1,0 +1,19 @@
+.post {
+    $padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    width: 615px;
+    padding: $padding;
+    box-shadow: var(--box-shadow-low);
+    border-radius: 16px;
+    background-color: var(--colors-ui-base);
+    margin-bottom: 5px;
+    border: 1px solid var(--colors-hover);
+
+    .date {
+        color: var(--contrast09);
+        font-size: var(--fs-sm);
+        margin-bottom: 5px;
+    }
+}

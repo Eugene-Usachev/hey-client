@@ -111,7 +111,7 @@ export const Input:FC<Props> = memo<Props>(({
         if (onChange) {
             onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
-    }, [error]);
+    }, [error, reg, maxLength, minLength, checkSpace, onChange, onChangeValue]);
     const onKeyUpEvent = useCallback((e: KeyboardEvent) => {
         if ( (e.key === 'Enter' || e.keyCode === 13) && onEnter != undefined) {
             if (onEnter(Value)) {

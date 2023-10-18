@@ -1,0 +1,12 @@
+.textArea {
+    outline: none;
+    overflow-wrap: break-word;
+}
+
+body[data-theme='dark'] .placeholder {
+    color: rgba(255, 255, 255, .7);
+}
+
+body[data-theme='light'] .placeholder {
+    color: rgba(127, 127, 127, .7);
+}

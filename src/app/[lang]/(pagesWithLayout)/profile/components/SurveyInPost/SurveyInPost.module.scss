@@ -1,0 +1,28 @@
+.surveyInPost {
+    padding: 10px;
+    border-radius: 15px;
+    display: grid;
+
+    .question {
+        display: flex;
+        justify-self: center;
+        font-size: var(--fs-lg2);
+        margin-bottom: 15px;
+    }
+
+    .line {
+        $padding: 10px;
+        display: flex;
+        flex-flow: column;
+        width: calc(100% - $padding*2);
+        padding: $padding;
+        background-color: var(--ligth05);
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    .active {
+         background-color: var(--ligth08);
+     }
+}

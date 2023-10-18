@@ -4,10 +4,10 @@ import styles from './Cross.module.scss';
 interface Props {
     close: () => void;
     style?: React.CSSProperties;
-    size: number;
+    size?: number;
 }
 
-export const Cross:FC = memo<Props>(({ close, style , size=20}) => {
+export const Cross:FC<Props> = memo<Props>(({ close, style , size=20}) => {
 
     return (
         <div className={styles.cross} style={style ? {width: size, height: size, ...style} : {width: size, height: size}} onClick={close}>

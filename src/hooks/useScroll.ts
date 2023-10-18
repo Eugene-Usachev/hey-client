@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 
-export const useScroll = (parentRef: React.MutableRefObject<HTMLElement>, childrenRef: React.MutableRefObject<HTMLElement>, callback) => {
+export const useScroll = (parentRef: React.MutableRefObject<HTMLElement>, childrenRef: React.MutableRefObject<HTMLElement>, callback: () => unknown) => {
 	const observer = useRef<IntersectionObserver>();
 
 	useEffect(() => {

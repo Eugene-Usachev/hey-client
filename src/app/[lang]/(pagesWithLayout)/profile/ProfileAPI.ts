@@ -103,6 +103,44 @@ export class ProfileAPI {
 			})
 		})
 	}
+
+	async createPost(post: PostDTO, survey: CreateSurveyDTO | null): Promise<Response> {
+		const postJSON = JSON.stringify(post);
+		const surveyJSON = survey !== null ? JSON.stringify(survey) : "";
+		const formData = new FormData();
+		formData.append("post", postJSON);
+		formData.append("survey", surveyJSON);
+
+		return this.sender.postAuth("/api/post/", {
+			body: formData
+		});
+	}
+
+	async getPosts(params: getPostsParams): Promise<Response> {
+		const { authorId, offset } = params;
+		if (!authorId || authorId < 1 || typeof authorId !== "number") {
+			throw new Error("Missing params");
+		}
+		if (offset === undefined || offset < 0 || typeof offset !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.get(`/api/post/${authorId}?offset=${offset}`, {
+			cache: 'no-cache',
+		})
+	}
+}
+
+export interface CreateSurveyDTO {
+	data: string[];
+	background: number;
+	is_multi_voices: boolean;
+}
+
+export interface PostDTO {
+	data:        string;
+	files:       string[];
+	have_survey: boolean;
 }
 
 export let api = new ProfileAPI({
@@ -140,4 +178,9 @@ export interface changeProfileParams {
 	attitudeToAlcohol: number;
 	attitudeToSmocking: number;
 	attitudeToSport: number;
+}
+
+export interface getPostsParams {
+	authorId: number;
+	offset: number;
 }

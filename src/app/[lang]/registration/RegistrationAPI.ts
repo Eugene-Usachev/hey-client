@@ -2,7 +2,6 @@ import {API, APIConfig} from "@/libs/api/API";
 import {refresh} from "@/requests/refresh";
 import {logout} from "@/utils/logout";
 import {MessageStyles} from "@/libs/api/Logger";
-import {USERID} from "@/app/config";
 
 export class RegistrationAPI {
 	public readonly sender: API;
