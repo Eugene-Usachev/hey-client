@@ -6,7 +6,7 @@ interface Props {
     text: string;
 }
 
-export const InfoAlertElem: FC = memo<Props>(({ text }) => {
+export const InfoAlertElem: FC<Props> = memo<Props>(({ text }) => {
     const [isExists, setIsExists] = useState(true);
 
     const remove = useCallback(() => {

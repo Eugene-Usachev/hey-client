@@ -3,14 +3,18 @@ import React, {FC, useEffect, useRef, useState} from 'react';
 import styles from './PostFeed.module.scss';
 import {observer} from "mobx-react-lite";
 import {PostStore} from "@/stores/PostStore";
-import {Post} from "@/app/[lang]/(pagesWithLayout)/profile/components/Post/Post";
+import {Post, PostDict} from "@/app/[lang]/(pagesWithLayout)/profile/components/Post/Post";
 import {ProfileStore} from "@/stores/ProfileStore";
 
-interface PostFeedProps {
-
+interface PostFeedDict {
+    postDict: PostDict;
 }
 
-export const PostFeed: FC<PostFeedProps> = observer<PostFeedProps>(() => {
+interface PostFeedProps {
+    dict: PostFeedDict;
+}
+
+export const PostFeed: FC<PostFeedProps> = observer<PostFeedProps>(({dict}) => {
 
     const [postVisible, setPostVisible] = useState(20);
     const [posts, setPosts] = useState([...PostStore.posts.slice(0, postVisible)]);
@@ -51,13 +55,12 @@ export const PostFeed: FC<PostFeedProps> = observer<PostFeedProps>(() => {
             {posts.map(post => {
                 return (
                     <Post
+                        dict={dict.postDict}
                         key={post.id}
                         data={post.data}
                         date={post.date}
                         files={post.files}
-                        parentUserId={post.parentUserId}
-                        liked_by={post.liked_by}
-                        disliked_by={post.disliked_by}
+                        likesStatus={post.likesStatus}
                         likes={post.likes}
                         survey={post.survey}
                         dislikes={post.dislikes}

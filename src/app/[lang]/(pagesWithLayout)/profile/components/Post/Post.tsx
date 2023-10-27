@@ -2,10 +2,23 @@ import React, {memo, FC} from 'react';
 import styles from './Post.module.scss';
 import {Post as PostInterface} from "@/stores/PostStore";
 import {parseUnixDate} from "@/utils/ParseUnixDate";
-import {SurveyInPost} from "@/app/[lang]/(pagesWithLayout)/profile/components/SurveyInPost/SurveyInPost";
+import {
+    SurveyInPost,
+    SurveyInPostDict
+} from "@/app/[lang]/(pagesWithLayout)/profile/components/SurveyInPost/SurveyInPost";
+import {ButtonsPanel} from "@/app/[lang]/(pagesWithLayout)/profile/components/ButtonsPanel/ButtonsPanel";
+import {getDictionary} from "@/app/dictionaries";
 
-export const Post:FC<PostInterface> = memo<PostInterface>(({
-    date, data, files, parentUserId, liked_by, disliked_by, likes, survey, dislikes, id
+export interface PostDict {
+    surveyInPostDict: SurveyInPostDict;
+}
+
+interface PostProps extends PostInterface {
+    dict: PostDict;
+}
+
+export const Post:FC<PostProps> = memo<PostProps>(({
+    date, data, files, likesStatus, likes, survey, dislikes, id, dict
                                                            }) => {
 
     return (
@@ -13,17 +26,8 @@ export const Post:FC<PostInterface> = memo<PostInterface>(({
             <div className={styles.date}>{date !== 0 ? parseUnixDate(date) : new Date().toLocaleString()}</div>
             {data}
             {survey !== null && <SurveyInPost
+                surveyInPostDict={dict.surveyInPostDict}
                 data={survey.data}
-                sl0vby={survey.sl1vby}
-                sl1vby={survey.sl1vby}
-                sl2vby={survey.sl2vby}
-                sl3vby={survey.sl3vby}
-                sl4vby={survey.sl4vby}
-                sl5vby={survey.sl5vby}
-                sl6vby={survey.sl6vby}
-                sl7vby={survey.sl7vby}
-                sl8vby={survey.sl8vby}
-                sl9vby={survey.sl9vby}
                 background={survey.background}
                 isMultiVoices={survey.isMultiVoices}
                 parentPostId={id}
@@ -37,8 +41,9 @@ export const Post:FC<PostInterface> = memo<PostInterface>(({
                 sl7v={survey.sl7v}
                 sl8v={survey.sl8v}
                 sl9v={survey.sl9v}
-                voted_by={survey.voted_by}
+                votedFor={survey.votedFor}
             />}
+            <ButtonsPanel likes={likes} likesStatus={likesStatus} dislikes={dislikes}/>
         </div>
     );
 });

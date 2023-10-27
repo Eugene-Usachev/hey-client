@@ -125,6 +125,9 @@
       "PossibleAnswer": "Possible answer",
       "AnonymousSurvey": "Anonymous survey",
       "ManyAnswerOptions": "Many answer options"
+    },
+    "SurveyInPost": {
+        "Vote": "Vote"
     }
   },
   "UI": {

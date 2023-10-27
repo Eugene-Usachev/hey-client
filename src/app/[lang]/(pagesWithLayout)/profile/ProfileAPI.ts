@@ -125,8 +125,74 @@ export class ProfileAPI {
 			throw new Error("Missing params");
 		}
 
+		const fst = localStorage.getItem("accessToken");
+		if (!fst) {
+			return this.sender.get(`/api/post/${authorId}?offset=${offset}`, {
+				cache: 'no-cache',
+			})
+		}
+
 		return this.sender.get(`/api/post/${authorId}?offset=${offset}`, {
 			cache: 'no-cache',
+			headers: {
+				"Authorization": fst,
+			},
+		})
+	}
+
+	async likePost(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/post/${id}/likes/like`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async unlikePost(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/post/${id}/likes/unlike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async dislikePost(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/post/${id}/dislikes/dislike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async undislikePost(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/post/${id}/dislikes/undislike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async voteInSurvey(id: number, votedFor: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+		if (votedFor < 1 || typeof votedFor !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/post/${id}/survey`, {
+			cache: 'no-cache',
+			body: JSON.stringify({
+				voted_for: votedFor
+			})
 		})
 	}
 }

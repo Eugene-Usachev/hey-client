@@ -1,16 +1,19 @@
 import {action, observable, runInAction} from "mobx";
 import {api, CreateSurveyDTO, PostDTO} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
-import {USERID} from "@/app/config";
 import {ProfileStore} from "@/stores/ProfileStore";
+
+export const enum likesStatus {
+	like = 1,
+	dislike = -1,
+	none = 0
+}
 
 export interface Post {
 	id: number;
-	parentUserId: number;
 	likes: number;
-	liked_by: number[];
 	dislikes: number;
-	disliked_by: number[];
+	likesStatus: likesStatus;
 	data: string;
 	date: number;
 	files: string[];
@@ -19,11 +22,9 @@ export interface Post {
 
 interface PostFromServer {
 	id: number;
-	parent_user_id: number;
 	likes: number;
-	liked_by: number[];
 	dislikes: number;
-	disliked_by: number[];
+	likes_status: number;
 	data: string;
 	date: number;
 	files: string[];
@@ -34,56 +35,36 @@ export interface Survey {
 	parentPostId: number;
 	data: string[];
 	sl0v: number;
-	sl0vby: number[];
 	sl1v: number;
-	sl1vby: number[];
 	sl2v: number;
-	sl2vby: number[];
 	sl3v: number;
-	sl3vby: number[];
 	sl4v: number;
-	sl4vby: number[];
 	sl5v: number;
-	sl5vby: number[];
 	sl6v: number;
-	sl6vby: number[];
 	sl7v: number;
-	sl7vby: number[];
 	sl8v: number;
-	sl8vby: number[];
 	sl9v: number;
-	sl9vby: number[];
-	voted_by: number[];
+	votedFor: number[];
 	background: number;
 	isMultiVoices: boolean;
 }
 
 interface SurveyFromServer {
-	parent_post_id: number;
-	data: string[];
-	sl0v: number;
-	sl0vby: number[];
-	sl1v: number;
-	sl1vby: number[];
-	sl2v: number;
-	sl2vby: number[];
-	sl3v: number;
-	sl3vby: number[];
-	sl4v: number;
-	sl4vby: number[];
-	sl5v: number;
-	sl5vby: number[];
-	sl6v: number;
-	sl6vby: number[];
-	sl7v: number;
-	sl7vby: number[];
-	sl8v: number;
-	sl8vby: number[];
-	sl9v: number;
-	sl9vby: number[];
-	voted_by: number[];
-	background: number;
-	isMultiVoices: boolean;
+	parent_post_id: number,
+	data: string[],
+	sl0v: number,
+	sl1v: number,
+	sl2v: number,
+	sl3v: number,
+	sl4v: number,
+	sl5v: number,
+	sl6v: number,
+	sl7v: number,
+	sl8v: number,
+	sl9v: number,
+	voted_for: number,
+	background: number,
+	is_multi_voices: boolean
 }
 
 interface PostStoreInterface {
@@ -91,9 +72,16 @@ interface PostStoreInterface {
 	offset: number;
 	isAllPost: boolean;
 	wasGetPosts: boolean;
+	isGettingPosts: boolean;
 
 	addPost(post: PostDTO, survey: CreateSurveyDTO | null): Promise<Response>;
 	getPosts(): void;
+
+	likePost(id: number): Promise<void>;
+	unlikePost(id: number): Promise<void>;
+	dislikePost(id: number): Promise<void>;
+	undislikePost(id: number): Promise<void>;
+	voteInSurvey(id: number, votedFor: number[]): Promise<void>;
 }
 
 export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
@@ -101,6 +89,7 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 	offset: 0,
 	isAllPost: false,
 	wasGetPosts: false,
+	isGettingPosts: false,
 
 	addPost: action(async (postDTO: PostDTO, surveyDTO: CreateSurveyDTO | null) => {
 		const res = await api.createPost(postDTO, surveyDTO);
@@ -121,11 +110,9 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 		const id = (await res.json() as { id: number }).id;
 		const post: Post = {
 			id: id,
-			parentUserId: +USERID,
 			likes: 0,
-			liked_by: [+USERID],
 			dislikes: 0,
-			disliked_by: [+USERID],
+			likesStatus: likesStatus.none,
 			data: postDTO.data,
 			date:  0,
 			files: postDTO.files,
@@ -133,26 +120,16 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 				parentPostId: id,
 				data: surveyDTO.data,
 				sl0v: 0,
-				sl0vby: [],
 				sl1v: 0,
-				sl1vby: [],
 				sl2v: 0,
-				sl2vby: [],
 				sl3v: 0,
-				sl3vby: [],
 				sl4v: 0,
-				sl4vby: [],
 				sl5v: 0,
-				sl5vby: [],
 				sl6v: 0,
-				sl6vby: [],
 				sl7v: 0,
-				sl7vby: [],
 				sl8v: 0,
-				sl8vby: [],
 				sl9v: 0,
-				sl9vby: [],
-				voted_by: [],
+				votedFor: [],
 				background: surveyDTO.background,
 				isMultiVoices: surveyDTO.is_multi_voices,
 			} : null,
@@ -162,9 +139,11 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 	}),
 
 	getPosts: action(async () => {
-		if (PostStore.isAllPost || ProfileStore.id === -1) {
+		if (PostStore.isAllPost || ProfileStore.id === -1 || PostStore.isGettingPosts) {
 			return;
 		}
+
+		PostStore.isGettingPosts = true;
 
 		const res = await api.getPosts({
 			offset: PostStore.offset,
@@ -194,43 +173,38 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			if (post.have_survey) {
 				for (const survey of parseResponse.surveys) {
 					if (survey.parent_post_id == post.id) {
+						const votedFor = [];
+						// survey.voted_for is uint16. Every bit is a vote, like 0101000000000000 means vote for 2 line and 4 line.
+						for (let i = 0; i < 16; i++) {
+							if (survey.voted_for & (1 << i)) {
+								votedFor.push(i);
+							}
+						}
 						surveyForPost = {
 							parentPostId: post.id,
 							data: survey.data,
 							sl0v: survey.sl0v,
-							sl0vby: survey.sl0vby,
 							sl1v: survey.sl1v,
-							sl1vby: survey.sl1vby,
 							sl2v: survey.sl2v,
-							sl2vby: survey.sl2vby,
 							sl3v: survey.sl3v,
-							sl3vby: survey.sl3vby,
 							sl4v: survey.sl4v,
-							sl4vby: survey.sl4vby,
 							sl5v: survey.sl5v,
-							sl5vby: survey.sl5vby,
 							sl6v: survey.sl6v,
-							sl6vby: survey.sl6vby,
 							sl7v: survey.sl7v,
-							sl7vby: survey.sl7vby,
 							sl8v: survey.sl8v,
-							sl8vby: survey.sl8vby,
 							sl9v: survey.sl9v,
-							sl9vby: survey.sl9vby,
-							voted_by: survey.voted_by,
+							votedFor: votedFor,
 							background: survey.background,
-							isMultiVoices: survey.isMultiVoices,
+							isMultiVoices: survey.is_multi_voices,
 						}
 					}
 				}
 			}
 			buf.push({
 				id: post.id,
-				parentUserId: post.parent_user_id,
 				likes: post.likes,
-				liked_by: post.liked_by,
 				dislikes: post.dislikes,
-				disliked_by: post.disliked_by,
+				likesStatus: post.likes_status,
 				data: post.data,
 				date: post.date,
 				files: post.files,
@@ -242,6 +216,115 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			PostStore.offset += parseResponse.posts.length;
 			PostStore.isAllPost = parseResponse.posts.length < 20;
 			PostStore.posts = [...PostStore.posts, ...buf];
+			PostStore.isGettingPosts = false;
+		});
+	}),
+
+	likePost: action(async (id: number) => {
+		const res = await api.likePost(id);
+		if (res.status !== 204) {
+			ErrorAlert("Error liking post. Status: " + res.status);
+			return;
+		}
+
+		const post = PostStore.posts.find(p => p.id === id) as Post;
+		runInAction(() => {
+			post.likesStatus = likesStatus.like;
+			post.likes++;
+		});
+	}),
+
+	unlikePost: action(async (id: number) => {
+		const res = await api.unlikePost(id);
+		if (res.status !== 204) {
+			ErrorAlert("Error unliking post. Status: " + res.status);
+			return;
+		}
+
+		const post = PostStore.posts.find(p => p.id === id) as Post;
+		runInAction(() => {
+			post.likesStatus = likesStatus.none;
+			post.likes--;
+		});
+	}),
+
+	dislikePost: action(async (id: number) => {
+		const res = await api.dislikePost(id);
+		if (res.status !== 204) {
+			ErrorAlert("Error disliking post. Status: " + res.status);
+			return;
+		}
+
+		const post = PostStore.posts.find(p => p.id === id) as Post;
+		runInAction(() => {
+			post.likesStatus = likesStatus.dislike;
+			post.dislikes++;
+		});
+	}),
+
+	undislikePost: action(async (id: number) => {
+		const res = await api.undislikePost(id);
+		if (res.status !== 204) {
+			ErrorAlert("Error undisliking post. Status: " + res.status);
+			return;
+		}
+
+		const post = PostStore.posts.find(p => p.id === id) as Post;
+		runInAction(() => {
+			post.likesStatus = likesStatus.none;
+			post.dislikes--;
+		});
+	}),
+
+	voteInSurvey: action(async (id: number, votedFor: number[]) => {
+		let votedForUint16 = 0;
+		for (const v of votedFor) {
+			votedForUint16 |= (1 << v);
+		}
+		const res = await api.voteInSurvey(id, votedForUint16);
+		if (res.status !== 204) {
+			ErrorAlert("Error voting in survey. Status: " + res.status);
+			return;
+		}
+
+		const post = PostStore.posts.find(p => p.id === id) as Post;
+		runInAction(() => {
+			post.survey!.votedFor = votedFor;
+			for (const v of votedFor) {
+				switch (v) {
+					case 0:
+						post.survey!.sl0v++;
+						break;
+					case 1:
+						post.survey!.sl1v++;
+						break;
+					case 2:
+						post.survey!.sl2v++;
+						break;
+					case 3:
+						post.survey!.sl3v++;
+						break;
+					case 4:
+						post.survey!.sl4v++;
+						break;
+					case 5:
+						post.survey!.sl5v++;
+						break;
+					case 6:
+						post.survey!.sl6v++;
+						break;
+					case 7:
+						post.survey!.sl7v++;
+						break;
+					case 8:
+						post.survey!.sl8v++;
+						break;
+					case 9:
+						post.survey!.sl9v++;
+					default:
+						continue;
+				}
+			}
 		});
 	})
 });

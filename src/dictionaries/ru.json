@@ -125,6 +125,9 @@
         "PossibleAnswer": "Возможный ответ",
         "AnonymousSurvey": "Анонимный опрос",
         "ManyAnswerOptions": "Несколько вариантов ответа"
+    },
+    "SurveyInPost": {
+        "Vote": "Проголосовать"
     }
   },
   "UI": {

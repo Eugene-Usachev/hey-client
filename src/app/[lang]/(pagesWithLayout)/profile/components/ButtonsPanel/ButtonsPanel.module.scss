@@ -1,0 +1,38 @@
+.buttonsPanel {
+    $radius: 19px;
+    $active-bg: var(--ligth05);
+
+    .likesBlock {
+        cursor: pointer;
+        display: flex;
+        background: var(--contrast04);
+        width: fit-content;
+        border-radius: $radius;
+    }
+
+    .likeButton {
+        font-size: 18px;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        width: 50px;
+        padding: 5px 10px;
+    }
+
+    .likeButton:hover {
+        background-color: $active-bg;
+    }
+
+    .likeButton:not(:last-child) {
+        border-radius: $radius 0 0 $radius;
+        border-right: 1px solid var(--contrast02);
+    }
+
+    .likeButton:not(:first-child) {
+        border-radius: 0 $radius $radius 0;
+    }
+
+    .active {
+        background-color: $active-bg;
+    }
+}
