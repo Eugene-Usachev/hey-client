@@ -75,13 +75,14 @@ interface PostStoreInterface {
 	isGettingPosts: boolean;
 
 	addPost(post: PostDTO, survey: CreateSurveyDTO | null): Promise<Response>;
-	getPosts(): void;
+	getPosts(): Promise<number>;
 
 	likePost(id: number): Promise<void>;
 	unlikePost(id: number): Promise<void>;
 	dislikePost(id: number): Promise<void>;
 	undislikePost(id: number): Promise<void>;
 	voteInSurvey(id: number, votedFor: number[]): Promise<void>;
+	deletePost(id: number): Promise<void>;
 }
 
 export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
@@ -114,7 +115,7 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			dislikes: 0,
 			likesStatus: likesStatus.none,
 			data: postDTO.data,
-			date:  0,
+			date: 0,
 			files: postDTO.files,
 			survey: surveyDTO !== null ? {
 				parentPostId: id,
@@ -134,13 +135,15 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 				isMultiVoices: surveyDTO.is_multi_voices,
 			} : null,
 		}
-		PostStore.posts = [post, ...PostStore.posts];
+		runInAction(() => {
+			PostStore.posts = [post, ...PostStore.posts];
+		});
 		return res;
 	}),
 
-	getPosts: action(async () => {
+	getPosts: action(async (): Promise<number> => {
 		if (PostStore.isAllPost || ProfileStore.id === -1 || PostStore.isGettingPosts) {
-			return;
+			return 0;
 		}
 
 		PostStore.isGettingPosts = true;
@@ -153,13 +156,13 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			switch (res.status) {
 				case 400:
 					ErrorAlert("Error getting posts. Status: 400");
-					return;
+					return 0;
 				case 500:
 					ErrorAlert("Error getting posts. Status: 500");
-					return;
+					return 0;
 				default:
 					ErrorAlert("Error getting posts. Status: " + res.status);
-					return;
+					return 0;
 			}
 		}
 
@@ -168,6 +171,14 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			surveys: SurveyFromServer[];
 		} = await res.json();
 		const buf: Post[] = [];
+		if (!parseResponse || parseResponse.posts.length === 0) {
+			PostStore.wasGetPosts = true;
+			PostStore.offset += parseResponse.posts.length;
+			PostStore.isAllPost = true;
+			PostStore.posts = [];
+			PostStore.isGettingPosts = false;
+			return 0;
+		}
 		for (const post of parseResponse.posts) {
 			let surveyForPost: Survey | null = null;
 			if (post.have_survey) {
@@ -218,6 +229,8 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 			PostStore.posts = [...PostStore.posts, ...buf];
 			PostStore.isGettingPosts = false;
 		});
+
+		return parseResponse.posts.length;
 	}),
 
 	likePost: action(async (id: number) => {
@@ -229,6 +242,9 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 
 		const post = PostStore.posts.find(p => p.id === id) as Post;
 		runInAction(() => {
+			if (post.likesStatus == likesStatus.dislike) {
+				post.dislikes--;
+			}
 			post.likesStatus = likesStatus.like;
 			post.likes++;
 		});
@@ -257,6 +273,9 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 
 		const post = PostStore.posts.find(p => p.id === id) as Post;
 		runInAction(() => {
+			if (post.likesStatus == likesStatus.like) {
+				post.likes--;
+			}
 			post.likesStatus = likesStatus.dislike;
 			post.dislikes++;
 		});
@@ -325,6 +344,18 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 						continue;
 				}
 			}
+		});
+	}),
+
+	deletePost: action(async (id: number) => {
+		const res = await api.deletePost(id);
+		if (res.status !== 204) {
+			ErrorAlert("Error deleting post. Status: " + res.status);
+			return;
+		}
+
+		runInAction(() => {
+			PostStore.posts = PostStore.posts.filter(p => p.id !== id);
 		});
 	})
 });

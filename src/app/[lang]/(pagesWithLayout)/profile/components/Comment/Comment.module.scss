@@ -1,0 +1,30 @@
+.comment {
+    display: flex;
+    flex-direction: column;
+
+    $padding: 8px;
+
+    width: 595px - 2 * $padding;
+    padding: $padding;
+    box-shadow: var(--box-shadow-low);
+    border-radius: 12px;
+    background-color: var(--colors-ui-base);
+    margin-top: 5px;
+    border: 1px solid var(--colors-hover);
+    word-break: break-all;
+
+    .top {
+        display: flex;
+        align-items: center;
+
+        .nameSurname {
+            display: flex;
+            margin-right: 10px;
+        }
+
+        .date {
+            color: var(--contrast09);
+            font-size: var(--fs-sm);
+        }
+    }
+}

@@ -1,9 +1,10 @@
-.buttonsPanel {
+.commentButtonsPanel {
     display: flex;
     justify-content: space-between;
 
     $radius: 19px;
     $active-bg: var(--ligth05);
+
 
     .likesBlock {
         cursor: pointer;

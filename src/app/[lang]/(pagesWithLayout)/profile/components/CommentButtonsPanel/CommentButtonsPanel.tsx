@@ -1,47 +1,48 @@
-"use client";
-import React, {FC, useCallback} from 'react';
-import {observer} from "mobx-react-lite";
-import styles from './ButtonsPanel.module.scss';
-import {likesStatus as likesStatusType, PostStore} from "@/stores/PostStore";
-import {BiComment, BiLike, BiDislike} from "react-icons/bi";
+import React, {memo, FC, useCallback} from 'react';
+import styles from './CommentButtonsPanel.module.scss';
+import {likesStatus as likesStatusType} from "@/stores/PostStore";
+import {CommentStore} from "@/stores/CommentStore";
+import {BiDislike, BiLike} from "react-icons/bi";
 import {getFormatNumber} from "@/utils/getFormatNumber";
-import {FiTrash} from "react-icons/fi";
 import {USERID} from "@/app/config";
 import {ProfileStore} from "@/stores/ProfileStore";
+import {FiTrash} from "react-icons/fi";
 
-interface ButtonsPanelProps {
+interface CommentButtonsPanelProps {
     likes: number;
     dislikes: number;
     likesStatus: likesStatusType;
-    toggleIsOpenCommentBlock: () => void;
     id: number;
+    authorId: number;
+    postId: number;
 }
 
-export const ButtonsPanel:FC<ButtonsPanelProps> = observer<ButtonsPanelProps>((
-    {likesStatus, id, likes, dislikes, toggleIsOpenCommentBlock}) => {
+export const CommentButtonsPanel:FC<CommentButtonsPanelProps> = memo<CommentButtonsPanelProps>(({
+    likesStatus, id, likes, dislikes, authorId, postId
+                                                                                                }) => {
 
     const like = useCallback(() => {
         if (likesStatus === likesStatusType.like) {
-            PostStore.unlikePost(id);
+            CommentStore.unlikeComment(postId, id);
             return;
-        };
-        PostStore.likePost(id);
-    }, [id, likesStatus]);
+        }
+        CommentStore.likeComment(postId, id);
+    }, [id, likesStatus, postId]);
 
     const dislike = useCallback(() => {
         if (likesStatus === likesStatusType.dislike) {
-            PostStore.undislikePost(id);
+            CommentStore.undislikeComment(postId, id);
             return;
         }
-        PostStore.dislikePost(id);
-    }, [id, likesStatus]);
+        CommentStore.dislikeComment(postId, id);
+    }, [id, likesStatus, postId]);
 
-    const deletePost = useCallback(() => {
-        PostStore.deletePost(id);
-    }, [id]);
+    const deleteComment = useCallback(() => {
+        CommentStore.deleteComment(postId, id);
+    }, [id, postId]);
 
     return (
-        <div className={styles.buttonsPanel}>
+        <div className={styles.commentButtonsPanel}>
             <div style={{display: "flex"}}>
                 <div className={styles.likesBlock}>
                     <div className={styles.likeButton + " " + (likesStatus === likesStatusType.like ? styles.active : "")} onClick={like}>
@@ -53,13 +54,10 @@ export const ButtonsPanel:FC<ButtonsPanelProps> = observer<ButtonsPanelProps>((
                         {getFormatNumber(dislikes)}
                     </div>
                 </div>
-                <div className={styles.buttonBlock}>
-                    <BiComment className={styles.button} onClick={() => toggleIsOpenCommentBlock()}/>
-                </div>
             </div>
-            {+USERID === ProfileStore.id &&
+            {+USERID === authorId &&
                 <div className={styles.buttonBlock}>
-                    <FiTrash className={styles.button} onClick={deletePost}/>
+                    <FiTrash className={styles.button} onClick={deleteComment}/>
                 </div>
             }
         </div>

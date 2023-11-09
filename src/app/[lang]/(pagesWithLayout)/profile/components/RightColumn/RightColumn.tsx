@@ -14,7 +14,11 @@ export async function RightColumn() {
 			<CreatePostBlock dict={dict.profile.CreatePostBlock}/>
 			<PostFeed
 				dict={{
-					postDict: {surveyInPostDict: dict.profile.SurveyInPost}
+					postDict: {surveyInPostDict: dict.profile.SurveyInPost},
+					commentBlockDicts: {
+						commentBlock: dict.profile.CommentBlock,
+						inputDict: dict.UI.Input
+					}
 				}}
 			/>
 		</div>

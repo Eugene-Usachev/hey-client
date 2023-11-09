@@ -128,6 +128,11 @@
     },
     "SurveyInPost": {
         "Vote": "Проголосовать"
+    },
+    "CommentBlock": {
+        "WriteYourComment": "Напишите свой комментарий",
+        "NoComments": "Нет комментариев",
+        "You": "Вы"
     }
   },
   "UI": {

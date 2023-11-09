@@ -3,8 +3,9 @@ import styles from './Input.module.scss';
 import {checkStringForValid, checkValidCodes} from "@/utils/checkString";
 import {BiHide, BiShow} from "react-icons/bi";
 import {RxCross1} from "react-icons/rx";
+import {AiOutlineEnter} from "react-icons/ai";
 
-export type InputType = 'default' | 'password' | 'cross' | 'linked';
+export type InputType = 'default' | 'password' | 'cross' | 'linked' | "send";
 export type regType = 'eng_and_rus' | 'all' | 'eng' | 'only_numbers' | RegExp;
 
 export interface InputDict {
@@ -184,6 +185,44 @@ export const Input:FC<Props> = memo<Props>(({
     }, []);
 
     switch (type) {
+        case "send":
+            const realStyleSend = style ? {...style, paddingRight: '25px', width: 'calc(100% - 35px)'} : {paddingRight: '25px', width: 'calc(100% - 35px)'};
+            return (
+                <div className={styles.inputBlock} style={blockStyle}>
+                    {error !== checkValidCodes.ok && isActive
+                        ? error ==checkValidCodes.empty
+                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                            : error == checkValidCodes.tooShort
+                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                : <></>
+                        : Value.length > 0 && withLabel
+                            ? <div className={styles.label}>{placeholder}</div>
+                            : <></>
+                    }
+                    <div className={styles.inputCrossBlock} onClick={() => {
+                        if (onEnter!(Value)) {
+                            setValue('');
+                            inputRef.current.blur();
+                        }
+                    }}>
+                        <AiOutlineEnter/>
+                    </div>
+                    <input
+                        disabled={!isActive}
+                        placeholder={placeholder as string}
+                        ref={inputRef}
+                        type={"text"}
+                        onFocus={onFocusEvent}
+                        onBlur={onBlurEvent}
+                        onKeyUp={onKeyUpEvent as React.KeyboardEventHandler}
+                        style={realStyleSend}
+                        className={getClassName()}
+                        value={Value}
+                        onChange={onEventChange}
+                        {...restProps}
+                    />
+                </div>
+            )
         case "password":
             return (
                 <div className={styles.inputBlock} style={blockStyle}>

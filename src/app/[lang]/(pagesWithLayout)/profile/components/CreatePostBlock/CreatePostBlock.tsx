@@ -87,7 +87,7 @@ export const CreatePostBlock: FC<CreatePostBlockProps> = observer<CreatePostBloc
 		if (surveyLinesCleared.length > 0) {
 			surveyDTO = {
 				background: chosenColorForSurvey,
-				data: surveyLines,
+				data: surveyLinesCleared,
 				is_multi_voices: isManyAnswerOptions,
 			};
 		}

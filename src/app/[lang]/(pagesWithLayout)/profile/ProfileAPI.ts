@@ -3,6 +3,7 @@ import {refresh} from "@/requests/refresh";
 import {logout} from "@/utils/logout";
 import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
+import {MiniUser} from "@/stores/MiniUsersStore";
 
 export class ProfileAPI {
 	public readonly sender: API;
@@ -140,6 +141,20 @@ export class ProfileAPI {
 		})
 	}
 
+	async getMiniUsers(userIds: number[]): Promise<MiniUser[]> {
+		let stringsIds = JSON.stringify(userIds);
+		stringsIds = stringsIds.slice(1, stringsIds.length - 1);
+		stringsIds = '(' + stringsIds + ')';
+		const res = await this.sender.get("/api/user/many/?idsOfUsers=" + stringsIds, {
+			cache: 'no-cache',
+		});
+
+		if (res.status === 200) {
+			return await res.json();
+		}
+		return [];
+	}
+
 	async likePost(id: number): Promise<Response> {
 		if (!id || id < 1 || typeof id !== "number") {
 			throw new Error("Missing params");
@@ -193,6 +208,108 @@ export class ProfileAPI {
 			body: JSON.stringify({
 				voted_for: votedFor
 			})
+		})
+	}
+
+	async deletePost(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.deleteAuth(`/api/post/${id}`, {
+			cache: 'no-cache',
+		});
+	}
+
+	async getComments(params: getCommentsParams): Promise<Response> {
+		const { postId, offset } = params;
+		if (!postId || postId < 1 || typeof postId !== "number") {
+			throw new Error("Missing params");
+		}
+		if (offset === undefined || offset < 0 || typeof offset !== "number") {
+			throw new Error("Missing params");
+		}
+
+		const fst = localStorage.getItem("accessToken");
+		if (!fst) {
+			return this.sender.get(`/api/comment/${postId}?offset=${offset}`, {
+				cache: 'no-cache',
+			})
+		}
+
+		return this.sender.get(`/api/comment/${postId}?offset=${offset}`, {
+			cache: 'no-cache',
+			headers: {
+				"Authorization": fst,
+			},
+		})
+	}
+
+	async createComment(postId: number, comment: CommentDTO): Promise<Response> {
+		return this.sender.postAuth("/api/comment/" + postId, {
+			body: JSON.stringify(comment),
+		})
+	}
+
+	async likeComment(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/comment/${id}/likes/like`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async unlikeComment(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/comment/${id}/likes/unlike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async dislikeComment(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/comment/${id}/dislikes/dislike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async undislikeComment(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.patchAuth(`/api/comment/${id}/dislikes/undislike`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async deleteComment(id: number): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		return this.sender.deleteAuth(`/api/comment/${id}`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async updateComment(id: number, comment: CommentUpdateDTO): Promise<Response> {
+		if (!id || id < 1 || typeof id !== "number") {
+			throw new Error("Missing params");
+		}
+
+		const commentJSON = JSON.stringify(comment);
+		return this.sender.patchAuth(`/api/comment/${id}`, {
+			body: commentJSON,
+			cache: 'no-cache',
 		})
 	}
 }
@@ -249,4 +366,20 @@ export interface changeProfileParams {
 export interface getPostsParams {
 	authorId: number;
 	offset: number;
+}
+
+export interface getCommentsParams {
+	postId: number;
+	offset: number;
+}
+
+export interface CommentDTO {
+	parent_comment_id: number;
+	data: string;
+	files: string[];
+}
+
+export interface CommentUpdateDTO {
+	data: string;
+	files: string[];
 }

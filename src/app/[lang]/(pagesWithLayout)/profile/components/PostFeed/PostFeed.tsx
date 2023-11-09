@@ -5,9 +5,11 @@ import {observer} from "mobx-react-lite";
 import {PostStore} from "@/stores/PostStore";
 import {Post, PostDict} from "@/app/[lang]/(pagesWithLayout)/profile/components/Post/Post";
 import {ProfileStore} from "@/stores/ProfileStore";
+import {CommentBlockDicts} from "@/app/[lang]/(pagesWithLayout)/profile/components/CommentBlock/CommentBlock";
 
 interface PostFeedDict {
     postDict: PostDict;
+    commentBlockDicts: CommentBlockDicts;
 }
 
 interface PostFeedProps {
@@ -16,45 +18,43 @@ interface PostFeedProps {
 
 export const PostFeed: FC<PostFeedProps> = observer<PostFeedProps>(({dict}) => {
 
-    const [postVisible, setPostVisible] = useState(20);
-    const [posts, setPosts] = useState([...PostStore.posts.slice(0, postVisible)]);
+    const [postsVisible, setPostsVisible] = useState(0);
+    const [posts, setPosts] = useState([...PostStore.posts.slice(0, postsVisible)]);
     const lastPost = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
-    const selfElement = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
     const observer = useRef<IntersectionObserver>();
 
     useEffect(() => {
-        if (!PostStore.wasGetPosts) PostStore.getPosts();
+        if (!PostStore.wasGetPosts) PostStore.getPosts().then((numberOfPosts) => {
+            setPostsVisible(numberOfPosts);
+        });
     }, [ProfileStore.id]);
 
     useEffect(() => {
 
-        const options = {
-            root: selfElement.current,
-            rootMargin: "0px",
-            threshold: 0
-        }
-
         observer.current = new IntersectionObserver(([target]) => {
             if (target.isIntersecting) {
-                PostStore.getPosts();
+                PostStore.getPosts().then((numberOfPosts) => {
+                    setPostsVisible(postsVisible + numberOfPosts);
+                });
             }
-        }, options);
+        });
         (observer.current as IntersectionObserver).observe(lastPost.current);
 
         return () => {
             observer.current?.disconnect();
         }
-    }, [lastPost.current, selfElement.current]);
+    }, [lastPost.current, postsVisible]);
 
     useEffect(() => {
-        setPosts([...PostStore.posts.slice(0, postVisible)]);
-    }, [PostStore.posts]);
+        setPosts([...PostStore.posts.slice(0, postsVisible)]);
+    }, [PostStore.posts, postsVisible]);
 
     return (
-        <div className={styles.postFeed} ref={selfElement}>
+        <div className={styles.postFeed}>
             {posts.map(post => {
                 return (
                     <Post
+                        commentBlockDicts={dict.commentBlockDicts}
                         dict={dict.postDict}
                         key={post.id}
                         data={post.data}

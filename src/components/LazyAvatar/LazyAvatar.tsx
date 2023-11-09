@@ -11,12 +11,12 @@ interface Props {
     style?: React.CSSProperties;
 }
 
-export const LazyAvatar:FC<Props> = memo<Props>(({src, size, borderRadius= 50, style = {}}) => {
+export const LazyAvatar:FC<Props> = memo<Props>(({src, size, borderRadius= 50, style}) => {
 
     const [isShowing, setIsShowing] = useState(false);
-    const img = useRef<HTMLImageElement>(null as HTMLImageElement);
+    const img = useRef<HTMLImageElement>(null as unknown as HTMLImageElement);
     const Show = useCallback(() => {
-        setIsShowing(true)
+        setIsShowing(true);
     }, []);
 
     useEffect(() => {

@@ -10,6 +10,7 @@
     background-color: var(--colors-ui-base);
     margin-bottom: 5px;
     border: 1px solid var(--colors-hover);
+    word-break: break-all;
 
     .date {
         color: var(--contrast09);
