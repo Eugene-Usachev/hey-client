@@ -307,43 +307,47 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 		}
 
 		const post = PostStore.posts.find(p => p.id === id) as Post;
-		runInAction(() => {
-			post.survey!.votedFor = votedFor;
-			for (const v of votedFor) {
-				switch (v) {
-					case 0:
-						post.survey!.sl0v++;
-						break;
-					case 1:
-						post.survey!.sl1v++;
-						break;
-					case 2:
-						post.survey!.sl2v++;
-						break;
-					case 3:
-						post.survey!.sl3v++;
-						break;
-					case 4:
-						post.survey!.sl4v++;
-						break;
-					case 5:
-						post.survey!.sl5v++;
-						break;
-					case 6:
-						post.survey!.sl6v++;
-						break;
-					case 7:
-						post.survey!.sl7v++;
-						break;
-					case 8:
-						post.survey!.sl8v++;
-						break;
-					case 9:
-						post.survey!.sl9v++;
-					default:
-						continue;
-				}
+		const survey: Survey = JSON.parse(JSON.stringify(post.survey!));
+		survey.votedFor = votedFor;
+		for (const v of votedFor) {
+			switch (v) {
+				case 0:
+					survey.sl0v++;
+					break;
+				case 1:
+					survey.sl1v++;
+					break;
+				case 2:
+					survey.sl2v++;
+					break;
+				case 3:
+					survey.sl3v++;
+					break;
+				case 4:
+					survey.sl4v++;
+					break;
+				case 5:
+					survey.sl5v++;
+					break;
+				case 6:
+					survey.sl6v++;
+					break;
+				case 7:
+					survey.sl7v++;
+					break;
+				case 8:
+					survey.sl8v++;
+					break;
+				case 9:
+					survey.sl9v++;
+					break;
+				default:
+					return;
 			}
+		}
+
+		runInAction(() => {
+			post.survey = survey;
 		});
 	}),
 

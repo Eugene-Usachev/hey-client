@@ -30,7 +30,8 @@ export const LazyAvatar:FC<Props> = memo<Props>(({src, size, borderRadius= 50, s
 
     return (
         <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.lazyAvatar + " skeleton"}>
-            {src != undefined && <Image priority={false} onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar} src={src == "" ? "/NULL.png" : STATIC_USERS + src } alt={""} width={size} height={size}/>}
+            {src != undefined && <Image priority={false} onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar}
+                    src={src == "" ? "/NULL.png" : STATIC_USERS + src } alt={""} width={size} height={size}/>}
         </div>
     );
 });

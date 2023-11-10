@@ -33,8 +33,11 @@ export const Post:FC<PostProps> = memo<PostProps>(({
     }, [isCommentBlockOpen]);
 
     return (
-        <>
-            <div className={styles.post}>
+        <div className={styles.post}>
+            <div style={{
+                borderBottom: isCommentBlockOpen ? "1px solid #e6e6e6" : "",
+                paddingBottom: isCommentBlockOpen ? "10px" : ""
+            }}>
                 <div className={styles.date}>{date !== 0 ? parseUnixDate(date) : new Date().toLocaleString()}</div>
                 {data}
                 {survey !== null && <SurveyInPost
@@ -58,6 +61,6 @@ export const Post:FC<PostProps> = memo<PostProps>(({
                 <ButtonsPanel toggleIsOpenCommentBlock={toggleIsOpenCommentBlock} id={id} likes={likes} likesStatus={likesStatus} dislikes={dislikes}/>
             </div>
             {isCommentBlockOpen && <CommentBlock id={id} dicts={commentBlockDicts}/>}
-        </>
+        </div>
     );
 });

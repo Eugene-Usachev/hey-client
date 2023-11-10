@@ -20,6 +20,8 @@ interface CommentBlockProps {
     dicts: CommentBlockDicts;
 }
 
+// TODO BUG: scroll to top after load more than 20 comments
+
 export const CommentBlock:FC<CommentBlockProps> = observer<CommentBlockProps>(({id, dicts}) => {
 
     const observer = useRef<IntersectionObserver>();
@@ -47,9 +49,9 @@ export const CommentBlock:FC<CommentBlockProps> = observer<CommentBlockProps>(({
     useEffect(() => {
         observer.current = new IntersectionObserver(([target]) => {
             if (target.isIntersecting) {
-                // PostStore.getPosts().then((numberOfPosts) => {
-                //     setCommentsVisible(commentsVisible + numberOfPosts);
-                // });
+                CommentStore.getCommentsForPost(id).then((numberOfComments) => {
+                    setCommentsVisible(commentsVisible + numberOfComments);
+                });
             }
         });
         (observer.current as IntersectionObserver).observe(lastComment.current);

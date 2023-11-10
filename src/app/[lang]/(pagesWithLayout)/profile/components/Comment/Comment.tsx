@@ -10,6 +10,8 @@ import {USERID} from "@/app/config";
 import {TopProfileStore} from "@/stores/TopProfileStore";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import Link from "next/link";
+import {getHREF} from "@/utils/getHREF";
+import {ProfileStore} from "@/stores/ProfileStore";
 
 interface CommentProps extends CommentInterface {
     dict: {
@@ -54,11 +56,13 @@ export const Comment:FC<CommentProps> = memo<CommentProps>(({
 
     return (
         <div className={styles.comment}>
-            <Link href={"/"}>
-                <LazyAvatar src={user.avatar} size={50} borderRadius={"50%"} />
-            </Link>
             <div className={styles.top}>
-                <div className={styles.nameSurname}>{user.name} {user.surname}</div>
+                <Link href={getHREF(`profile/${user.id}`)} style={{marginRight: '5px', marginBottom: '5px'}}>
+                    <LazyAvatar src={user.avatar === "" ? "/NULL.png" :`/${user.id}/Image/${user.avatar}`} size={32} borderRadius={"50%"} />
+                </Link>
+                <Link href={getHREF(`profile/${user.id}`)}>
+                    <div className={styles.nameSurname}>{user.name} {user.surname}</div>
+                </Link>
                 <div className={styles.date}>{date !== 0 ? parseUnixDate(date) : new Date().toLocaleString()}</div>
             </div>
             {data}

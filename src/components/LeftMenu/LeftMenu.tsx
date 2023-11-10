@@ -21,9 +21,9 @@ export const LeftMenu: FC<LeftMenuProps> = observer(({dict}) => {
 	const router = useRouter();
 
 	const toProfile = useCallback(() => {
-		const lang = (window.location.href.split("/"))[3];
-		router.push(`${lang}/profile/${USERID}`);
-	}, [USERID]);
+		const lang = TopProfileStore.lang;
+		router.push(`/${lang}/profile/${USERID}`);
+	}, [USERID, router, TopProfileStore.lang]);
 
 	return (
 		<>

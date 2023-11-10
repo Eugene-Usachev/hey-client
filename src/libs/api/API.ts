@@ -13,7 +13,6 @@ export class API {
 	private readonly refreshFunc: () => Promise<Response>;
 	private readonly domain: string;
 	private readonly logoutFunc: () => void;
-	private isStackStopped: boolean  = false;
 
 	constructor(cfg: APIConfig) {
 		this.logger = new Logger(cfg.loggerCfg);
@@ -27,9 +26,6 @@ export class API {
 		this.logger.fetchSend(url, method);
 		params.method = method;
 		let response: Response;
-		if (this.isStackStopped) {
-			await getPromiseFromEvent(document.querySelector("body"), "refresh")
-		}
 		if (!params.headers) params.headers = {
 			Authorization: "",
 		};
@@ -42,27 +38,29 @@ export class API {
 				this.logoutFunc();
 				throw new Error("No access token");
 			}
-			params.headers!["Authorization"] = accessToken;
+			// @ts-ignore
+			params.headers!["Authorization"] = accessToken as string;
 			response = await fetch(`${this.domain}${url}`,params);
-			if (response.status !== 200) {
+			if (response.status === 401) {
 				this.logoutFunc();
 				throw new Error("No authorization");
 			}
 		} else {
+			// @ts-ignore
 			params.headers!["Authorization"] = accessToken;
 			response = await fetch(`${this.domain}${url}`,params);
 
 			if (response.status === 401) {
-				this.isStackStopped = true;
 				await this.refreshFunc();
 				accessToken = localStorage.getItem("accessToken");
 				if (!accessToken) {
 					this.logoutFunc();
 					throw new Error("No access token");
 				}
+				// @ts-ignore
 				params.headers!["Authorization"] = accessToken;
 				response = await fetch(`${this.domain}${url}`,params);
-				if (response.status !== 200) {
+				if (response.status === 401) {
 					this.logoutFunc();
 					throw new Error("No authorization");
 				}
@@ -125,16 +123,13 @@ export class API {
 	}
 
 	async refresh<T>(func: (...params: any[]) => Promise<T>, ...params: any[]): Promise<T> {
-		this.isStackStopped = true;
 		let response: T;
+		// @ts-ignore
 		if (this.refreshFunc) {
 			response = await func(params)
 		}
 
-		document.querySelector("body").dispatchEvent(new Event("refresh"));
-
-		this.isStackStopped = false;
-
+		// @ts-ignore
 		return response;
 	}
 }
