@@ -17,9 +17,11 @@ export const MainFont = Roboto({
 })
 
 export default function RootLayout({
-									   children, params
+									   children,
+									   params
 								   }: {
-	children: React.ReactNode
+	children: React.ReactNode,
+	params: {lang: string}
 }) {
 
 	lang.current = params.lang;

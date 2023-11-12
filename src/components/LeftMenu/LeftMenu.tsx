@@ -25,6 +25,11 @@ export const LeftMenu: FC<LeftMenuProps> = observer(({dict}) => {
 		router.push(`/${lang}/profile/${USERID}`);
 	}, [USERID, router, TopProfileStore.lang]);
 
+	const toFriends = useCallback(() => {
+		const lang = TopProfileStore.lang;
+		router.push(`/${lang}/friends/${USERID}`);
+	}, [USERID, router, TopProfileStore.lang]);
+
 	return (
 		<>
 			{TopProfileStore.isGet && !TopProfileStore.isAuthorized
@@ -34,7 +39,7 @@ export const LeftMenu: FC<LeftMenuProps> = observer(({dict}) => {
 				</div>
 				: <div className={styles.leftMenu}>
 					<div className={styles.button} onClick={toProfile}>{dict.MyProfile}</div>
-					<div className={styles.button}>{dict.Friends}</div>
+					<div className={styles.button} onClick={toFriends}>{dict.Friends}</div>
 					<div className={styles.button} style={{borderBottom: "none"}}>{dict.Messages}</div>
 				</div>
 			}

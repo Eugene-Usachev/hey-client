@@ -1,0 +1,31 @@
+.userLine {
+    padding: 5px 0;
+    width: calc(100% - 10px);
+    border-bottom: 1px solid var(--contrast03);
+    display: flex;
+    align-items: center;
+
+    .rightPart {
+        display: flex;
+        flex-flow: column;
+        height: 54px;
+        justify-content: center;
+    }
+
+    .button {
+        margin-right: 10px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 8px;
+        border: 1px solid var(--contrast03);
+    }
+
+    .button:hover {
+        background: var(--contrast03);
+    }
+
+    .nameAndSurnameBlock {
+        font-style: var(--fs-lg);
+        margin-bottom: 8px;
+    }
+}

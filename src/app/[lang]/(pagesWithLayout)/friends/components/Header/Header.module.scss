@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    margin-left: 10px;
+    width: calc(100% - 20px);
+    padding-top: 5px;
+    height: fit-content;
+    border-bottom: 1px solid var(--contrast03);
+
+    .button {
+        margin-right: 10px;
+        border-radius: 12px 12px 0 0;
+        cursor: pointer;
+        height: fit-content;
+        padding: 10px;
+    }
+
+    .active {
+        background-color: var(--contrast03);
+    }
+
+    .button:hover {
+        background-color: var(--contrast03);
+    }
+}

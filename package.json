@@ -18,7 +18,11 @@
     "profile_rfc": "generate-react component --type=defaultProfile",
     "profile_rfco": "generate-react component --type=rfcoProfile",
     "profile_rfcp": "generate-react component --type=rfcpProfile",
-    "profile_rfcop": "generate-react component --type=rfcopProfile"
+    "profile_rfcop": "generate-react component --type=rfcopProfile",
+    "friends_rfc": "generate-react component --type=defaultFriends",
+    "friends_rfco": "generate-react component --type=rfcoFriends",
+    "friends_rfcp": "generate-react component --type=rfcpFriends",
+    "friends_rfcop": "generate-react component --type=rfcopFriends"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -32,7 +36,7 @@
     "generate-react-cli": "^8.3.0",
     "mobx-react-lite": "^3.4.3",
     "negotiator": "^0.6.3",
-    "next": "13.5.4",
+    "next": "14.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",

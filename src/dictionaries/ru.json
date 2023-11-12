@@ -135,6 +135,19 @@
         "You": "Вы"
     }
   },
+  "friends": {
+    "header": {
+      "Subscribers": "Подписчики",
+      "Friends": "Друзья",
+      "MutualFriends": "Общие друзья"
+    },
+    "userLine": {
+      "SendFriendshipRequest": "Отправить заявку в друзья",
+      "CancelFriendshipRequest": "Отменить заявку в друзья",
+      "AddToFriends": "Добавить в друзья",
+      "DeleteFromFriends": "Удалить из друзей"
+    }
+  },
   "UI": {
     "Input": {
       "TheFieldIsIncomplete": "Поле недостаточно заполнено, длина этого поля должна быть не меньше",
