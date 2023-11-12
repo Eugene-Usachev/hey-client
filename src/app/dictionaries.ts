@@ -6,3 +6,8 @@ const dictionaries = {
 export let lang = {current: "en"}
 
 export const getDictionary = async () => dictionaries[lang.current]()
+
+export const getDictionaryByLang = async (lang: string) => {
+	// @ts-ignore
+	return dictionaries[lang]();
+}

@@ -11,7 +11,6 @@ import {TopProfileStore} from "@/stores/TopProfileStore";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import Link from "next/link";
 import {getHREF} from "@/utils/getHREF";
-import {ProfileStore} from "@/stores/ProfileStore";
 
 interface CommentProps extends CommentInterface {
     dict: {

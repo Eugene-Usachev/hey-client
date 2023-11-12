@@ -135,6 +135,19 @@
       "You": "You"
     }
   },
+  "friends": {
+    "header": {
+      "Subscribers": "Subscribers",
+      "Friends": "Friends",
+      "MutualFriends": "Mutual friends"
+    },
+    "userLine": {
+      "SendFriendshipRequest": "Send a friend request",
+      "CancelFriendshipRequest": "Cancel a friend request",
+      "AddToFriends": "Add to friends",
+      "DeleteFromFriends": "Delete from friends"
+    }
+  },
   "UI": {
     "Input": {
       "TheFieldIsIncomplete": "The field is incomplete, the length of this field must be at least",
