@@ -1,4 +1,5 @@
 import {Suspense} from "react";
+import {MainPart} from "@/app/[lang]/(pagesWithLayout)/messenger/components/MainPart/MainPart";
 
 interface MessengerPageProps {
 	params: {lang: string}
@@ -9,7 +10,7 @@ export default function MessengerPage(query: MessengerPageProps) {
 
 	return (
 		<Suspense>
-			<div></div>
+			<MainPart />
 		</Suspense>
 	);
 }

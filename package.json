@@ -22,7 +22,11 @@
     "friends_rfc": "generate-react component --type=defaultFriends",
     "friends_rfco": "generate-react component --type=rfcoFriends",
     "friends_rfcp": "generate-react component --type=rfcpFriends",
-    "friends_rfcop": "generate-react component --type=rfcopFriends"
+    "friends_rfcop": "generate-react component --type=rfcopFriends",
+    "messenger_rfc": "generate-react component --type=defaultMessenger",
+    "messenger_rfco": "generate-react component --type=rfcoMessenger",
+    "messenger_rfcp": "generate-react component --type=rfcpMessenger",
+    "messenger_rfcop": "generate-react component --type=rfcopMessenger"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

@@ -138,6 +138,7 @@
       "withStory": false,
       "withLazy": false
     },
+
     "defaultFriends": {
       "customTemplates": {
         "component": "templates/default/TemplateName.tsx",
@@ -177,6 +178,51 @@
         "style": "templates/rfcp/TemplateName.module.scss"
       },
       "path": "src/app/[lang]/(pagesWithLayout)/friends/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+
+    "defaultMessenger": {
+      "customTemplates": {
+        "component": "templates/default/TemplateName.tsx",
+        "style": "templates/default/TemplateName.module.scss"
+      },
+      "path": "src/app/[lang]/(pagesWithLayout)/messenger/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcoMessenger": {
+      "customTemplates": {
+        "component": "templates/rfco/TemplateName.tsx",
+        "style": "templates/rfco/TemplateName.module.scss"
+      },
+      "path": "src/app/[lang]/(pagesWithLayout)/messenger/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcopMessenger": {
+      "customTemplates": {
+        "component": "templates/rfcop/TemplateName.tsx",
+        "style": "templates/rfcop/TemplateName.module.scss"
+      },
+      "path": "src/app/[lang]/(pagesWithLayout)/messenger/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+    "rfcpMessenger": {
+      "customTemplates": {
+        "component": "templates/rfcp/TemplateName.tsx",
+        "style": "templates/rfcp/TemplateName.module.scss"
+      },
+      "path": "src/app/[lang]/(pagesWithLayout)/messenger/components",
       "withStyle": true,
       "withTest": false,
       "withStory": false,
