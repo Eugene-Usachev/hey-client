@@ -39,7 +39,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		const chatsList: object = JSON.parse(data.chatsList);
 		runInAction(() => {
 			for (const [key, value] of Object.entries(chatsList)) {
-				ChatsStore.chatLists.insert({name: key, chatsIds: value});
+				ChatsStore.chatLists.insertObj({name: key, chatsIds: value}, 'name');
 			}
 			ChatsStore.isGetting = false;
 			ChatsStore.subscribers = data.subscribers;
@@ -49,7 +49,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	newChatsList: action(async (name: string, chatsIds: number[]) => {
-		if (ChatsStore.chatLists.search(name) > -1) {
+		if (ChatsStore.chatLists.searchObj<ChatList>(name, 'name').isSome()) {
 			WarningAlert("Chat with this name already exists");
 			return;
 		}
@@ -62,7 +62,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		body += "}";
 
 		const res = await api.updateChatsList(body);
-		if (res.status !== 201) {
+		if (res.status !== 204) {
 			switch (res.status) {
 				case 400:
 					ErrorAlert("Bad request");
@@ -73,12 +73,15 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 				case 500:
 					ErrorAlert("Internal server error");
 					break;
+				default:
+					ErrorAlert(`Unknown status code: ${res.status}`);
+					break;
 			}
 			return;
 		}
 
 		runInAction(() => {
-			ChatsStore.chatLists.insert({name: name, chatsIds: chatsIds});
+			ChatsStore.chatLists.insertObj({name: name, chatsIds: chatsIds}, 'name');
 		});
 	})
 });

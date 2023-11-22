@@ -40,7 +40,7 @@ export function searchObj<ValueType extends Object, KeyType extends keyof ValueT
 }
 
 export function getByKey <T extends Object, KeyType extends keyof T>(arr: T[], value: any, attributeName: KeyType): T {
-	const index = arr.searchObj<T, KeyType>(value, attributeName);
+	const index = searchObj<T, KeyType>(arr, value, attributeName);
 	if (index > -1) {
 		return arr[index];
 	}
@@ -48,7 +48,7 @@ export function getByKey <T extends Object, KeyType extends keyof T>(arr: T[], v
 }
 
 export function getByKeyIfExists <T extends Object, KeyType extends keyof T>(arr: T[], value: any, key: KeyType): T | undefined {
-	const index = arr.searchObj<T, KeyType>(value, key);
+	const index = searchObj<T, KeyType>(arr, value, key);
 	if (index > -1) {
 		return arr[index];
 	}
@@ -110,7 +110,7 @@ export function qSortObj <T extends Object>(array: T[], key: keyof T) {
 }
 
 export const insert = <ArrayType extends any[], ValueType>(array: ArrayType, value: ValueType): boolean => {
-	const index = array.search(value);
+	const index = search(array, value);
 	if (index < 0) {
 		array.splice(-(index + 1), 0, value);
 		return true;
@@ -119,7 +119,7 @@ export const insert = <ArrayType extends any[], ValueType>(array: ArrayType, val
 }
 
 export const insertObj = <ValueType extends Object, KeyType extends keyof ValueType>(array: ValueType[], value: ValueType, attributeName: KeyType): boolean => {
-	const index = array.searchObj<ValueType, KeyType>(value[attributeName] as any, attributeName)
+	const index = searchObj<ValueType, KeyType>(array, value[attributeName] as any, attributeName)
 	if (index < 0) {
 		array.splice(-(index + 1), 0, value);
 		return true;
@@ -128,7 +128,7 @@ export const insertObj = <ValueType extends Object, KeyType extends keyof ValueT
 };
 
 export const remove = <ArrayType extends any[], ValueType>(array: ArrayType, value: ValueType): boolean => {
-	const index = array.search(value);
+	const index = search(array, value);
 	if (index > -1) {
 		array.splice(index, 1);
 		return true;
@@ -137,7 +137,7 @@ export const remove = <ArrayType extends any[], ValueType>(array: ArrayType, val
 }
 
 export const removeObj = <ValueType extends Object, KeyType extends keyof ValueType>(array: ValueType[], value: ValueType, attributeName: KeyType): boolean => {
-	const index = array.searchObj<ValueType, KeyType>(value, attributeName);
+	const index = searchObj<ValueType, KeyType>(array, value, attributeName);
 	if (index > -1) {
 		array.splice(index, 1);
 		return true;
@@ -147,22 +147,22 @@ export const removeObj = <ValueType extends Object, KeyType extends keyof ValueT
 
 export const removeAll = function <ArrayType extends any>(array: ArrayType[], value: ArrayType): number {
 	let count = 0;
-	let index = array.search(value);
+	let index = search(array, value);
 	while (index > -1) {
 		array.splice(index, 1);
 		count++;
-		index = array.search(value);
+		index = search(array, value);
 	}
 	return count;
 };
 
 export const removeAllObj = <ArrayType extends Object, KeyType extends keyof ArrayType>(array: ArrayType[], value: ArrayType, attributeName: KeyType): number => {
 	let count = 0;
-	let index = array.searchObj<ArrayType, KeyType>(value, attributeName);
+	let index = searchObj<ArrayType, KeyType>(array, value, attributeName);
 	while (index > -1) {
 		array.splice(index, 1);
 		count++;
-		index = array.searchObj<ArrayType, KeyType>(value, attributeName);
+		index = searchObj<ArrayType, KeyType>(array, value, attributeName);
 	}
 	return count;
 }

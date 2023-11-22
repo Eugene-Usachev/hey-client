@@ -10,6 +10,7 @@ import {
 	search,
 	searchObj
 } from "./arraysMethods";
+import {None, Option, Some} from "@/libs/rustTypes/option";
 
 export const initFastArrays = (willShow: boolean) => {
 	Array.prototype.checkSorted = function<T> (this: T[]) {
@@ -66,17 +67,23 @@ export const initFastArrays = (willShow: boolean) => {
 	};
 
 	Array.prototype.search = function <T>(this: T[], value: T, compareFn?: CompareFn<T>) {
-		return search(this, value, compareFn)
+		const res = search(this, value, compareFn);
+		if (res < 0) return None();
+		return Some(res);
 	}
-	Array.prototype.searchObj = function <T extends Object>(value: any, key: keyof T, compareFn?: CompareFn<T[]>): number {
-		return searchObj(this, value, key, compareFn)
+	Array.prototype.searchObj = function <T extends Object>(value: any, key: keyof T, compareFn?: CompareFn<T[]>): Option<number> {
+		const res = searchObj(this, value, key, compareFn);
+		if (res < 0) return None();
+		return Some(res);
 	}
 
-	Array.prototype.getByKey = function<T extends Object>(value: T, key: keyof T): T {
-		return getByKey(this, value, key)
+	Array.prototype.getByKey = function<T extends Object>(value: T, key: keyof T): Option<T> {
+		const res = getByKeyIfExists(this, value, key);
+		if (res === undefined) return None();
+		return Some(res);
 	}
-	Array.prototype.getByKeyIfExists = function<T extends Object>(value: T, key: keyof T): T | undefined {
-		return getByKeyIfExists(this, value, key)
+	Array.prototype.getByKeyUnchecked = function<T extends Object>(value: T, key: keyof T): T {
+		return getByKey(this, value, key);
 	}
 
 	Array.prototype.insert = function<ArrayType extends any>(value: ArrayType): boolean {
@@ -121,12 +128,12 @@ declare global {
 		/** search searches for a value in a sorted array and returns its position.
 		 *  If the value is not found, returns a negative position.
 		 *  The compareFn parameter is an optional comparison function to use in the search.*/
-		search<T>(value: T, compareFn?: CompareFn<T>): number;
+		search<T>(value: T, compareFn?: CompareFn<T>): Option<number>;
 
 		/** searchObj searches for an object with a given value of key in a sorted array and returns its position.
 		 *  If the object is not found, returns a negative position.
 		 *  The compareFn parameter is an optional comparison function to use in the search.*/
-		searchObj<T extends Object, KeyType extends keyof T>(value: any, key: KeyType, compareFn?: CompareFn<T[]>): number
+		searchObj<T extends Object>(value: any, key: keyof T, compareFn?: CompareFn<T[]>): Option<number>
 
 		/**
 		 * getByKey finds an item from an array of objects by its key.
@@ -135,7 +142,7 @@ declare global {
 		 * @Returns: T: The object with the matching key
 		 * @Throws NotFound: No item found in the array with that key
 		 */
-		getByKey<T extends Object>(value: any, key: keyof T): T
+		getByKey<T extends Object>(value: any, key: keyof T): Option<T>
 
 		/**
 		 * getByKey finds an item from an array of objects by its key.
@@ -143,7 +150,7 @@ declare global {
 		 * @Param: key what the function is looking for in an object.
 		 * @Returns: T: The object with the matching key or undefined if no item found.
 		 */
-		getByKeyIfExists<T extends Object>(value: any, key: keyof T): T | undefined
+		getByKeyUnchecked<T extends Object>(value: any, key: keyof T): T
 
 		/** insert inserts a value into a sorted array, maintaining the order of the array.
 		 * @Returns a boolean indicating whether the operation was successful.*/
