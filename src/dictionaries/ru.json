@@ -148,6 +148,17 @@
       "DeleteFromFriends": "Удалить из друзей"
     }
   },
+  "messenger": {
+      "ChatsBlock": {
+        "NoChats": "Вы ещё не участвуете ни в одного чате",
+        "TypeNameOfChat": "Введите название чата или списка чатов"
+      },
+    "WindowToCreateChatsList": {
+      "EnterName": "Введите название для списка чатов",
+      "Create": "Создать",
+      "Cancel": "Отмена"
+    }
+  },
   "UI": {
     "Input": {
       "TheFieldIsIncomplete": "Поле недостаточно заполнено, длина этого поля должна быть не меньше",

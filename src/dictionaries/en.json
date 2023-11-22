@@ -148,6 +148,17 @@
       "DeleteFromFriends": "Delete from friends"
     }
   },
+  "messenger": {
+    "ChatsBlock": {
+      "NoChats": "No chats yet",
+      "TypeNameOfChat": "Enter a chat name or list of chats"
+    },
+    "WindowToCreateChatsList": {
+      "EnterName": "Enter a name for a list of chats",
+      "Create": "Create",
+      "Cancel": "Cancel"
+    }
+  },
   "UI": {
     "Input": {
       "TheFieldIsIncomplete": "The field is incomplete, the length of this field must be at least",

@@ -16,6 +16,21 @@ export class MessengerAPI {
 			cache: 'no-cache',
 		})
 	}
+
+	async getChats(chatsId: number[]): Promise<Response> {
+		if (chatsId.length === 0) throw new Error("Empty chatsId");
+		return this.sender.getAuth(`/api/chat/${chatsId.join(",")}`, {
+			cache: 'no-cache',
+		})
+	}
+
+	async updateChatsList(chatsList: string): Promise<Response> {
+		return this.sender.patchAuth(`/api/chat/list/`, {
+			body: chatsList,
+			cache: 'no-cache',// @ts-ignore
+			contentType: "plain/text"
+		});
+	}
 }
 
 export let api = new MessengerAPI({
