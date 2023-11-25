@@ -37,6 +37,7 @@ interface Props extends React.HTMLAttributes<HTMLInputElement>{
     defaultValue?: string;
     // for 'linked' and 'close' and 'password'
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+    error?: string;
 }
 
 export const Input:FC<Props> = memo<Props>(({
@@ -60,12 +61,13 @@ export const Input:FC<Props> = memo<Props>(({
             defaultValue = '',
             onClick,
             onChange,
+            error = "",
             ...restProps
         }) => {
     const [Value, setValue] = useState(startValue as string);
     const [hide, setHide] = useState(type === "password");
     const [focus, setFocus] = useState(false);
-    const [error, setError] = useState<checkValidCodes>(checkValidCodes.ok);
+    const [innerError, setInnerError] = useState<checkValidCodes>(checkValidCodes.ok);
     const inputRef = useRef(null) as React.MutableRefObject<HTMLInputElement>;
     const defaultValueError: checkValidCodes = useMemo(() => {
         if (!defaultValue) {
@@ -81,15 +83,19 @@ export const Input:FC<Props> = memo<Props>(({
             newClassName += ' ' + className;
         }
         if (isActive) {
-            switch (error) {
-                case checkValidCodes.ok:
-                    break;
-                case checkValidCodes.empty:
-                    newClassName += ' ' + styles.error;
-                    break;
-                case checkValidCodes.tooShort:
-                    newClassName += ' ' + styles.error;
-                    break;
+            if (error != "") {
+                newClassName += ' ' + styles.error;
+            } else {
+                switch (innerError) {
+                    case checkValidCodes.ok:
+                        break;
+                    case checkValidCodes.empty:
+                        newClassName += ' ' + styles.error;
+                        break;
+                    case checkValidCodes.tooShort:
+                        newClassName += ' ' + styles.error;
+                        break;
+                }
             }
         } else {
             newClassName += ' ' + styles.disable;
@@ -103,8 +109,8 @@ export const Input:FC<Props> = memo<Props>(({
     const onEventChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const checkResult = checkStringForValid(e.target.value, reg as regType, maxLength, minLength as number, checkSpace);
         setValue(checkResult[0]);
-        if (error !== checkValidCodes.ok) {
-            setError(checkResult[1]);
+        if (innerError !== checkValidCodes.ok) {
+            setInnerError(checkResult[1]);
         }
         if (onChangeValue) {
             onChangeValue(checkResult[0]);
@@ -112,7 +118,7 @@ export const Input:FC<Props> = memo<Props>(({
         if (onChange) {
             onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
-    }, [error, reg, maxLength, minLength, checkSpace, onChange, onChangeValue]);
+    }, [innerError, reg, maxLength, minLength, checkSpace, onChange, onChangeValue]);
     const onKeyUpEvent = useCallback((e: KeyboardEvent) => {
         if ( (e.key === 'Enter' || e.keyCode === 13) && onEnter != undefined) {
             if (onEnter(Value)) {
@@ -125,19 +131,19 @@ export const Input:FC<Props> = memo<Props>(({
         setFocus(false);
         if (Value.length < minLength) {
             if (Value.length === 0) {
-                setError(checkValidCodes.empty);
+                setInnerError(checkValidCodes.empty);
             } else {
-                setError(checkValidCodes.tooShort);
+                setInnerError(checkValidCodes.tooShort);
             }
         } else {
-            if (error !== checkValidCodes.ok) {
-                setError(checkValidCodes.ok);
+            if (innerError !== checkValidCodes.ok) {
+                setInnerError(checkValidCodes.ok);
             }
         }
         if (onBlur != undefined) {
             onBlur(e);
         }
-    }, [Value, error]);
+    }, [Value, innerError]);
     const onFocusEvent = useCallback((e: React.FocusEvent) => {
         setFocus(true);
         if (onFocus != undefined) {
@@ -178,7 +184,7 @@ export const Input:FC<Props> = memo<Props>(({
         if (onChangeValue) {
             onChangeValue(defaultValue)
         }
-        setError(defaultValueError)
+        setInnerError(defaultValueError)
         if (onChange) {
             onChange(e as React.ChangeEvent<HTMLInputElement>)
         }
@@ -189,15 +195,17 @@ export const Input:FC<Props> = memo<Props>(({
             const realStyleSend = style ? {...style, paddingRight: '25px', width: 'calc(100% - 35px)'} : {paddingRight: '25px', width: 'calc(100% - 35px)'};
             return (
                 <div className={styles.inputBlock} style={blockStyle}>
-                    {error !== checkValidCodes.ok && isActive
-                        ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
-                            : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                    {error != ""
+                        ? <div className={styles.errorText}>{error}</div>
+                        : innerError !== checkValidCodes.ok && isActive
+                            ? innerError ==checkValidCodes.empty
+                                ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                                : innerError == checkValidCodes.tooShort
+                                    ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                    : <></>
+                            : Value.length > 0 && withLabel
+                                ? <div className={styles.label}>{placeholder}</div>
                                 : <></>
-                        : Value.length > 0 && withLabel
-                            ? <div className={styles.label}>{placeholder}</div>
-                            : <></>
                     }
                     <div className={styles.inputCrossBlock} onClick={() => {
                         if (onEnter!(Value)) {
@@ -226,15 +234,17 @@ export const Input:FC<Props> = memo<Props>(({
         case "password":
             return (
                 <div className={styles.inputBlock} style={blockStyle}>
-                    {error !== checkValidCodes.ok && isActive
-                        ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
-                            : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                    {error != ""
+                        ? <div className={styles.errorText}>{error}</div>
+                        : innerError !== checkValidCodes.ok && isActive
+                            ? innerError ==checkValidCodes.empty
+                                ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                                : innerError == checkValidCodes.tooShort
+                                    ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                    : <></>
+                            : Value.length > 0 && withLabel
+                                ? <div className={styles.label}>{placeholder}</div>
                                 : <></>
-                        : Value.length > 0 && withLabel
-                            ? <div className={styles.label}>{placeholder}</div>
-                            : <></>
                     }
                     <div style={{display: 'grid'}}>
                         <input
@@ -264,15 +274,17 @@ export const Input:FC<Props> = memo<Props>(({
             const realStyle = style ? {...style, paddingRight: '25px', width: 'calc(100% - 35px)'} : {paddingRight: '25px', width: 'calc(100% - 35px)'};
             return (
                 <div className={styles.inputBlock} style={blockStyle}>
-                    {error !== checkValidCodes.ok && isActive
-                        ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
-                            : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                    {error != ""
+                        ? <div className={styles.errorText}>{error}</div>
+                        : innerError !== checkValidCodes.ok && isActive
+                            ? innerError ==checkValidCodes.empty
+                                ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                                : innerError == checkValidCodes.tooShort
+                                    ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                    : <></>
+                            : Value.length > 0 && withLabel
+                                ? <div className={styles.label}>{placeholder}</div>
                                 : <></>
-                        : Value.length > 0 && withLabel
-                            ? <div className={styles.label}>{placeholder}</div>
-                            : <></>
                     }
                     <div className={styles.inputCrossBlock} onClick={clear}>
                         <RxCross1/>
@@ -296,15 +308,17 @@ export const Input:FC<Props> = memo<Props>(({
         case "linked":
             return (
                 <div className={styles.inputBlock} style={blockStyle}>
-                    {error !== checkValidCodes.ok && isActive
-                        ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
-                            : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                    {error != ""
+                        ? <div className={styles.errorText}>{error}</div>
+                        : innerError !== checkValidCodes.ok && isActive
+                            ? innerError ==checkValidCodes.empty
+                                ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                                : innerError == checkValidCodes.tooShort
+                                    ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                    : <></>
+                            : Value.length > 0 && withLabel
+                                ? <div className={styles.label}>{placeholder}</div>
                                 : <></>
-                        : Value.length > 0 && withLabel
-                            ? <div className={styles.label}>{placeholder}</div>
-                            : <></>
                     }
                     <div style={{display: 'flex'}}>
                         <div className={styles.linkedBlock} onClick={onClick as MouseEventHandler<HTMLDivElement>}>
@@ -333,15 +347,17 @@ export const Input:FC<Props> = memo<Props>(({
         default:
             return (
                 <div className={styles.inputBlock} style={blockStyle}>
-                    {error !== checkValidCodes.ok && isActive
-                        ? error ==checkValidCodes.empty
-                            ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
-                            : error == checkValidCodes.tooShort
-                                ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                    {error != ""
+                        ? <div className={styles.errorText}>{error}</div>
+                        : innerError !== checkValidCodes.ok && isActive
+                            ? innerError ==checkValidCodes.empty
+                                ? <div className={styles.errorText}>{dict.ThisFieldMustNotBeEmpty}</div>
+                                : innerError == checkValidCodes.tooShort
+                                    ? <div className={styles.errorText}>{dict.TheFieldIsIncomplete + " " + minLength}</div>
+                                    : <></>
+                            : Value.length > 0 && withLabel
+                                ? <div className={styles.label}>{placeholder}</div>
                                 : <></>
-                        : Value.length > 0 && withLabel
-                            ? <div className={styles.label}>{placeholder}</div>
-                            : <></>
                     }
                     <input
                         disabled={!isActive}

@@ -16,6 +16,7 @@ export default async function MessengerPage(query: MessengerPageProps) {
 			<MainPart dict={{
 				ChatsBlock: dict.messenger.ChatsBlock,
 				WindowToCreateChatsList: dict.messenger.WindowToCreateChatsList,
+				WindowToCreateChat: dict.messenger.WindowToCreateChat,
 				UI: dict.UI
 			}}/>
 		</Suspense>

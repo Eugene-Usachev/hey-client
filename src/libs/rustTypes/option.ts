@@ -5,6 +5,10 @@ export class Option<T> {
 		this.value = value;
 	}
 
+	public set(value: T): void {
+		this.value = value;
+	}
+
 	public unwrap(): T {
 		if (!this.value) {
 			throw new Error("Option is empty");

@@ -11,6 +11,7 @@ export interface WindowToCreateChatsListDict {
     EnterName: string;
     Create: string;
     Cancel: string;
+    ThisNameAlreadyExists: string;
 }
 
 interface WindowToCreateChatsListProps {
@@ -26,6 +27,9 @@ export const WindowToCreateChatsList:FC<WindowToCreateChatsListProps> = observer
 
     const create = useCallback(() => {
         if (name.length > 0) {
+            if (ChatsStore.chatLists.searchObj(name, 'name').isSome()) {
+                return;
+            }
             ChatsStore.newChatsList(name, []).then(() => {
                 close();
             });
@@ -43,9 +47,10 @@ export const WindowToCreateChatsList:FC<WindowToCreateChatsListProps> = observer
                         blockStyle={{marginBottom: '10px'}}
                         placeholder={dict.windowToCreateChatsList.EnterName}
                         style={{width: '380px'}} dict={dict.inputDict}
-                        checkSpace={true}
+                        checkSpace={false}
                         maxLength={64}
                         minLength={1}
+                        error={ChatsStore.chatLists.searchObj(name, 'name').isSome() ? dict.windowToCreateChatsList.ThisNameAlreadyExists : ''}
                         type={"default"}
                         onChangeValue={(value) => {
                             setName(value);

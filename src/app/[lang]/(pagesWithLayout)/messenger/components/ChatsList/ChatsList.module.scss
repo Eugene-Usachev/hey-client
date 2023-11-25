@@ -1,0 +1,34 @@
+.chatsList {
+    $padding: 7px 10px;
+
+    padding: $padding;
+    align-items: center;
+    display: flex;
+    border-radius: 12px;
+    background-color: var(--colors-ui-base);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 5px;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .buttonsPanel {
+        display: flex;
+    }
+
+    .button {
+        cursor: pointer;
+        height: 18px;
+        width: 18px;
+        fill: rgba(0, 0, 0, .8);
+        padding: 5px;
+    }
+
+    .button:hover {
+        background-color: rgba(0, 0, 0, .1);
+        border-radius: 50%;
+    }
+}
+
+.chatsList:hover {
+    box-shadow: var(--box-shadow-low);
+}

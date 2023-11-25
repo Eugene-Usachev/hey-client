@@ -11,13 +11,16 @@ export interface MiniUser {
 export interface MiniUsersStore {
 	users: MiniUser[];
 
-	setUsers(users: MiniUser[]): void;
+	addUsers(users: MiniUser[]): void;
 }
 
 export const MiniUsersStore: MiniUsersStore = observable<MiniUsersStore>({
 	users: [],
 
-	setUsers: action((users: MiniUser[]) => {
-		MiniUsersStore.users.push(...users);
+	addUsers: action((users: MiniUser[]) => {
+		for (const user of users) {
+			// TODO we use sort bonus only in messenger now
+			MiniUsersStore.users.insertObj<MiniUser>(user, 'id');
+		}
 	})
 });

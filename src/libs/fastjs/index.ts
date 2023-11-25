@@ -89,7 +89,7 @@ export const initFastArrays = (willShow: boolean) => {
 	Array.prototype.insert = function<ArrayType extends any>(value: ArrayType): boolean {
 		return insert(this, value)
 	}
-	Array.prototype.insertObj = function<ValueType extends Object, KeyType extends keyof ValueType>(value: ValueType, attributeName: KeyType): boolean {
+	Array.prototype.insertObj = function<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): boolean {
 		return insertObj(this, value, attributeName)
 	}
 
@@ -157,7 +157,7 @@ declare global {
 		insert<ArrayType extends any[], ValueType>(value: ValueType): boolean
 		/** insertObj inserts an object into a sorted array by the given attributeName.
 		 * @Returns a boolean indicating whether the operation was successful.*/
-		insertObj<ValueType extends Object, KeyType extends keyof ValueType>(value: ValueType, attributeName: KeyType): boolean
+		insertObj<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): boolean
 
 		/**remove remove elem by value in sorted arrays.
 		 * @Returns: a boolean indicating whether the operation was successful.*/

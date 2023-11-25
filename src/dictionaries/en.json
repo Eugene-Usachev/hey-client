@@ -156,7 +156,14 @@
     "WindowToCreateChatsList": {
       "EnterName": "Enter a name for a list of chats",
       "Create": "Create",
-      "Cancel": "Cancel"
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A list with this name already exists"
+    },
+    "WindowToCreateChat": {
+      "EnterName": "Enter a name for chat",
+      "Create": "Create",
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A chat with this name already exists"
     }
   },
   "UI": {

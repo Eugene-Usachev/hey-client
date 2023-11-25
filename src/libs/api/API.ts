@@ -1,5 +1,6 @@
 import {Logger, LoggerConfig} from "./Logger";
-import {getPromiseFromEvent} from "@/utils/getPromiseFromEvent";
+import {None, Option, Some} from "@/libs/rustTypes/option";
+import {WsMethods} from "@/libs/api/WsMethods";
 
 export interface APIConfig {
 	refreshFunc: () => Promise<Response>;
@@ -14,11 +15,77 @@ export class API {
 	private readonly domain: string;
 	private readonly logoutFunc: () => void;
 
+	public ws: Option<WebSocket>;
+	public isWsConnecting: boolean;
+	private wsHandler: Option<(res: MessageEvent) => void>;
+
 	constructor(cfg: APIConfig) {
 		this.logger = new Logger(cfg.loggerCfg);
 		this.refreshFunc = cfg.refreshFunc;
 		this.domain = cfg.domain;
 		this.logoutFunc = cfg.logoutFunc;
+		this.ws = None();
+		this.isWsConnecting = false;
+		this.wsHandler = None();
+	}
+
+	async wsConnect(): Promise<void> {
+		if (this.ws.isSome() || this.isWsConnecting) {
+			return;
+		}
+
+		this.isWsConnecting = true;
+
+		let fst = localStorage.getItem("accessToken");
+		if (!fst) {
+			await this.refreshFunc();
+			fst = localStorage.getItem("accessToken");
+			if (!fst) {
+				fst = "";
+			}
+		}
+
+		const domain = ((): string => {
+			const split = this.domain.split("/");
+			if (split[0] === "http:") {
+				split[0] = "ws:";
+			} else {
+				split[0] = "wss:";
+			}
+			return split.join("/");
+		})();
+		let ws: WebSocket;
+
+		if (fst !== "") {
+			ws = new WebSocket(`${domain}/ws?auth=${fst}`);
+		} else {
+			ws = new WebSocket(`${domain}/ws`);
+		}
+		this.ws = Some(ws);
+		this.isWsConnecting = false;
+
+		this.ws.unwrap().onmessage = (event) => {
+			if (this.wsHandler.isSome()) {
+				this.wsHandler.unwrap()(event);
+			}
+		}
+	}
+
+	async wsDisconnect(): Promise<void> {
+		if (this.ws.isSome()) {
+			this.ws.unwrap().close();
+		}
+	}
+
+	wsSetHandler(handler: (res: MessageEvent) => void): void {
+		this.wsHandler = Some(handler);
+	}
+
+	async wsSend(req: WsRequest): Promise<void> {
+		if (this.ws.isNone()) {
+			await this.wsConnect();
+		}
+		this.ws.unwrap().send(`${req.method}${req.body}`);
 	}
 
 	async sendRequestAuth(url: string, method: string, params: RequestInit): Promise<Response> {
@@ -136,4 +203,9 @@ export class API {
 
 export function NewAPI(cfg: APIConfig): API {
 	return new API(cfg);
+}
+
+export interface WsRequest {
+	method: WsMethods;
+	body: string;
 }
