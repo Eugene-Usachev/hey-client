@@ -58,6 +58,19 @@ body[data-theme="light"] .input:hover {
     z-index: 1;
 }
 
+.button {
+    position: absolute;
+    height: 20px;
+    padding: 2px 5px;
+    background-color: var(--green);
+    cursor: pointer;
+    border-radius: 6px;
+    bottom: 5px;
+    right: 5px;
+    align-self: center;
+    z-index: 1;
+}
+
 .inputCrossBlock {
     cursor: pointer;
     font-size: 20px;

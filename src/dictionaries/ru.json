@@ -151,19 +151,57 @@
   "messenger": {
       "ChatsBlock": {
         "NoChats": "Вы ещё не участвуете ни в одного чате",
-        "TypeNameOfChat": "Введите название чата или списка чатов"
+        "TypeNameOfChat": "Введите название списка чатов"
       },
     "WindowToCreateChatsList": {
       "EnterName": "Введите название для списка чатов",
       "Create": "Создать",
       "Cancel": "Отмена",
-      "ThisNameAlreadyExists": "Список с таким названием уже существует"
+      "ThisNameAlreadyExists": "Список с таким названием уже существует",
+      "TypeNameOfChat": "Введите название чата"
+    },
+    "WindowToUpdateChatsList": {
+      "EnterName": "Введите название для списка чатов",
+      "Accept": "Принять",
+      "Cancel": "Отмена",
+      "Delete": "Удалить",
+      "ThisNameAlreadyExists": "Список с таким названием уже существует",
+      "TypeNameOfChat": "Введите название чата"
     },
     "WindowToCreateChat": {
+      "AddTheUser": "Добавить пользователя",
+      "EnterUserID": "Введите id пользователя",
+      "YourID": "Ваш id: ",
       "EnterName": "Введите название для чата",
+      "TypeNameOfUser": "Введите имя пользователя",
+      "ChooseAtLeastOneUser": "Выберите хотя бы одного пользователя",
+      "OnlyNotGroupChatCanHasNoName": "Только не групповые чаты могут не иметь название",
+      "OnlyGroupChatCanHasName": "Только групповые чаты могут иметь название",
       "Create": "Создать",
       "Cancel": "Отмена",
       "ThisNameAlreadyExists": "Чат с таким названием уже существует"
+    },
+    "WindowToUpdateChat": {
+      "AddTheUser": "Добавить пользователя",
+      "EnterUserID": "Введите id пользователя",
+      "YourID": "Ваш id: ",
+      "EnterName": "Введите название для чата",
+      "TypeNameOfUser": "Введите имя пользователя",
+      "ChooseAtLeastOneUser": "Выберите хотя бы одного пользователя",
+      "OnlyNotGroupChatCanHasNoName": "Только не групповые чаты могут не иметь название",
+      "OnlyGroupChatCanHasName": "Только групповые чаты могут иметь название",
+      "Accept": "Принять",
+      "Cancel": "Отмена",
+      "ThisNameAlreadyExists": "Чат с таким названием уже существует"
+    },
+    "ChatsList": {
+      "favorites": "Избранное",
+      "other": "Остальное",
+      "friends": "Друзья"
+    },
+    "Chat": {
+      "NoMessages": "В этом чате ещё нет сообщений",
+      "ChooseChat": "Выберите чат"
     }
   },
   "UI": {

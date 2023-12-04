@@ -408,4 +408,171 @@ export class Eye {
         }
         console.log(`%c${isTimeNecessary ? formatDate() : ''}fetch to |%c${methodText}%c "${url}"   |%c ${statusCode} %c|    ${time} ms`, realStyle, methodStyle, realStyle, statusCodeStyle, realStyle);
     }
+
+    wsSend(method: string, methodByEffect: WsMethodByEffect, isTimeNecessary = true) {
+        const realStyle = this.baseStyle.join(';') + ';' + this.infoStyle.join(';') + ';';
+        let methodStyle: string = '';
+        switch (methodByEffect) {
+            case WsMethodByEffect.GET: {
+                methodStyle = [
+                    "background-color: #245980",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.CREATE: {
+                methodStyle = [
+                    "background-color: #00a550",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.DELETE: {
+                methodStyle = [
+                    "background-color: #fa0000",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.UPDATE: {
+                methodStyle = [
+                    "background-color: #ff8000",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.ALIVE: {
+                methodStyle = [
+                    "background-color: #245980",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+        }
+        let methodText = method;
+        while (methodText.length < 7) {
+            methodText += ' '
+        }
+        console.log(`%c${isTimeNecessary ? formatDate() : ''}ws message to |%c${methodText}%c`, realStyle, methodStyle, realStyle);
+    }
+
+    wsGet(method: string, methodByEffect: WsMethodByEffect, logLevel: LogLevel = LogLevel.INFO, isTimeNecessary = true) {
+        let realStyle;
+        switch (logLevel) {
+            case LogLevel.ERROR: {
+                realStyle = this.baseStyle.join(';') + ';' + this.errorStyle.join(';') + ';';
+                break;
+            }
+            case LogLevel.INFO: {
+                realStyle = this.baseStyle.join(';') + ';' + this.infoStyle.join(';') + ';';
+                break;
+            }
+            case LogLevel.WARN: {
+                realStyle = this.baseStyle.join(';') + ';' + this.warnStyle.join(';') + ';';
+                break;
+            }
+            case LogLevel.SUCCESS: {
+                realStyle = this.baseStyle.join(';') + ';' + this.successStyle.join(';') + ';';
+                break;
+            }
+        }
+        let methodStyle: string = '';
+        switch (methodByEffect) {
+            case WsMethodByEffect.GET: {
+                methodStyle = [
+                    "background-color: #245980",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.CREATE: {
+                methodStyle = [
+                    "background-color: #00a550",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.DELETE: {
+                methodStyle = [
+                    "background-color: #fa0000",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.UPDATE: {
+                methodStyle = [
+                    "background-color: #ff8000",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+            case WsMethodByEffect.ALIVE: {
+                methodStyle = [
+                    "background-color: #245980",
+                    "color: #fff",
+                    "width: 100%",
+                    "padding: 2px 4px",
+                    "font-size: 14px",
+                    "border-radius: 2px"
+                ].join(';') + ';';
+                break;
+            }
+        }
+        let methodText = method;
+        while (methodText.length < 7) {
+            methodText += ' '
+        }
+        console.log(`%c${isTimeNecessary ? formatDate() : ''}ws message with method |%c${methodText}%c`, realStyle, methodStyle, realStyle);
+    }
+}
+
+export const enum LogLevel {
+    INFO = 0,
+    SUCCESS = 1,
+    ERROR = 2,
+    WARN = 3
+}
+
+export const enum WsMethodByEffect {
+    GET = 'GET',
+    UPDATE = 'UPDATE',
+    DELETE = 'DELETE',
+    CREATE = 'CREATE',
+    ALIVE = 'ALIVE',
 }

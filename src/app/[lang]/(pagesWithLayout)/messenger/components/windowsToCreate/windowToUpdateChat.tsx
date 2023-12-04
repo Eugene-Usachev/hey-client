@@ -5,14 +5,14 @@ import styles from './windowsToCreate.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {Input, InputDict} from "@/components/Input/Input";
-import {ChatsStore} from "@/stores/ChatsStore";
+import {Chat, ChatsStore} from "@/stores/ChatsStore";
 import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
 import {api} from "@/app/[lang]/(pagesWithLayout)/messenger/MessengerAPI";
 import {Checkbox} from "@mui/material";
 import {USERID} from "@/app/config";
 
-export interface WindowToCreateChatDict {
+export interface WindowToUpdateChatDict {
 	AddTheUser: string;
 	EnterUserID: string;
 	YourID: string;
@@ -21,27 +21,45 @@ export interface WindowToCreateChatDict {
 	ChooseAtLeastOneUser: string;
 	OnlyNotGroupChatCanHasNoName: string;
 	OnlyGroupChatCanHasName: string;
-	Create: string;
+	Accept: string;
 	Cancel: string;
 	ThisNameAlreadyExists: string;
 }
 
-interface WindowToCreateChatProps {
+interface WindowToUpdateChatProps {
 	dict: {
 		inputDict: InputDict;
-		windowToCreateChatsList: WindowToCreateChatDict;
+		windowToUpdateChatsList: WindowToUpdateChatDict;
 	};
+	chat: Chat;
 	close: () => void;
-	listName: string;
 }
 
-export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToCreateChatProps>(({dict, close, listName}) => {
-	const [name, setName] = useState("");
+const getUsers = (usersId: number[]): MiniUser[] => {
+	return MiniUsersStore.users.filter((user) => usersId.includes(user.id));
+}
+const getUserSlice = (oldList: MiniUser[], delta: number): MiniUser[] => {
+	const newList = [...oldList];
+	let i = 0;
+	for (const user of MiniUsersStore.users) {
+		if (newList.findIndex((userInList) => userInList.id === user.id) === -1) {
+			newList.push(user);
+			i++;
+		}
+		if (i === delta) {
+			break;
+		}
+	}
+	return newList;
+}
+
+export const WindowToUpdateChat:FC<WindowToUpdateChatProps> = observer<WindowToUpdateChatProps>(({dict, chat, close}) => {
+	const [name, setName] = useState(chat.name);
 	const [filterValue, setFilterValue] = useState("");
 	const [loading, setLoading] = useState(true);
-	const [usersVisible, setUsersVisible] = useState(20);
-	const [users, setUsers] = useState([...MiniUsersStore.users.slice(0, usersVisible)]);
-	const [chosenUsers, setChosenUsers] = useState<number[]>([]);
+	const [usersVisible, setUsersVisible] = useState(chat.members.length + 20);
+	const [users, setUsers] = useState(getUserSlice(getUsers(chat.members), 20));
+	const [chosenUsers, setChosenUsers] = useState<number[]>(chat.members);
 	const [typedId, setTypedId] = useState<number>(-1);
 	const lastElem = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 	const observer = useRef<IntersectionObserver>();
@@ -55,7 +73,7 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 	}, []);
 
 	useEffect(() => {
-		setUsers([...MiniUsersStore.users.slice(0, usersVisible)]);
+		setUsers(getUserSlice(getUsers(chat.members), 20));
 	}, [MiniUsersStore.users.length]);
 
 	useEffect(() => {
@@ -97,33 +115,30 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 		});
 	}, [typedId, chosenUsers, usersVisible]);
 
-	const create = useCallback(() => {
+	const accept = useCallback(() => {
 		if (chosenUsers.length === 0) {
-			ErrorAlert(dict.windowToCreateChatsList.ChooseAtLeastOneUser);
+			ErrorAlert(dict.windowToUpdateChatsList.ChooseAtLeastOneUser);
 			return;
 		}
 		if (name.length === 0 && chosenUsers.length > 1) {
-			ErrorAlert(dict.windowToCreateChatsList.OnlyNotGroupChatCanHasNoName);
+			ErrorAlert(dict.windowToUpdateChatsList.OnlyNotGroupChatCanHasNoName);
 			return;
 		}
-		// if (name.length > 0 && chosenUsers.length === 1) {
-		// 	ErrorAlert(dict.windowToCreateChatsList.OnlyGroupChatCanHasName);
-		// 	return;
-		// }
 		if (name.length > 0) {
 			if (ChatsStore.chatsLists.searchObj(name, 'name').isSome()) {
-				ErrorAlert(dict.windowToCreateChatsList.ThisNameAlreadyExists);
+				ErrorAlert(dict.windowToUpdateChatsList.ThisNameAlreadyExists);
 				return;
 			}
 		}
 
-		ChatsStore.createChat({
+		ChatsStore.updateChat({
+			id: chat.id,
 			name: name,
-			members: [+USERID, ...chosenUsers],
+			members: [...chosenUsers],
 			avatar: ""
-		}, listName)
+		});
 		close();
-	}, [name, dict.windowToCreateChatsList.ChooseAtLeastOneUser, dict.windowToCreateChatsList.OnlyNotGroupChatCanHasNoName, dict.windowToCreateChatsList.ThisNameAlreadyExists, chosenUsers, close, listName]);
+	}, [name, dict.windowToUpdateChatsList.ChooseAtLeastOneUser, dict.windowToUpdateChatsList.OnlyNotGroupChatCanHasNoName, dict.windowToUpdateChatsList.ThisNameAlreadyExists, chosenUsers, close, chat.id]);
 
 	useEffect(() => {
 		observer.current = new IntersectionObserver(([target]) => {
@@ -146,25 +161,25 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 		<>
 			<ModalWindow close={close} />
 			<div className={styles.window}>
-				{/* TODO r*/}
 				<LazyAvatar src={""} size={128} borderRadius={"50%"} />
 				<div style={{display: 'flex', flexFlow: 'column'}}>
 					<Input
 						blockStyle={{marginBottom: '10px'}}
-						placeholder={dict.windowToCreateChatsList.EnterName}
+						placeholder={dict.windowToUpdateChatsList.EnterName}
 						style={{width: '380px'}} dict={dict.inputDict}
 						checkSpace={false}
 						maxLength={64}
 						minLength={0}
-						error={ChatsStore.chatsLists.searchObj(name, 'name').isSome() ? dict.windowToCreateChatsList.ThisNameAlreadyExists : ''}
+						startValue={name}
+						error={ChatsStore.chatsLists.searchObj(name, 'name').isSome() ? dict.windowToUpdateChatsList.ThisNameAlreadyExists : ''}
 						type={"default"}
 						onChangeValue={(value) => {
 							setName(value);
 						}}/>
 					<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
-						{/*{dict.windowToCreateChatsList.YourID} {+USERID}.*/}
-						<Input dict={dict.inputDict} checkSpace={false} blockStyle={{width: '100%'}} placeholder={dict.windowToCreateChatsList.EnterUserID} maxLength={22} minLength={0} type={"button"}
-							   buttonText={dict.windowToCreateChatsList.AddTheUser} reg={"only_numbers"} onClick={addUserById}
+						{/*{dict.windowToUpdateChatsList.YourID} {+USERID}.*/}
+						<Input dict={dict.inputDict} checkSpace={false} blockStyle={{width: '100%'}} placeholder={dict.windowToUpdateChatsList.EnterUserID} maxLength={22} minLength={0} type={"button"}
+							   buttonText={dict.windowToUpdateChatsList.AddTheUser} reg={"only_numbers"} onClick={addUserById}
 							   onChangeValue={(value) => {setTypedId(+value);}}
 						/>
 					</div>
@@ -172,7 +187,7 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 						<Input
 							inputClass={styles.filterInput}
 							blockClass={styles.filterInputBlock}
-							placeholder={dict.windowToCreateChatsList.TypeNameOfUser}
+							placeholder={dict.windowToUpdateChatsList.TypeNameOfUser}
 							dict={dict.inputDict}
 							checkSpace={false}
 							maxLength={1000000}
@@ -208,8 +223,8 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 						</div>
 					</div>
 					<div className={styles.buttonsPanel}>
-						<div className={styles.button} onClick={close} style={{backgroundColor: 'var(--red)'}}>{dict.windowToCreateChatsList.Cancel}</div>
-						<div className={styles.button} onClick={create} style={{backgroundColor: 'var(--green)'}}>{dict.windowToCreateChatsList.Create}</div>
+						<div className={styles.button} onClick={close} style={{backgroundColor: 'var(--red)'}}>{dict.windowToUpdateChatsList.Cancel}</div>
+						<div className={styles.button} onClick={accept} style={{backgroundColor: 'var(--green)'}}>{dict.windowToUpdateChatsList.Accept}</div>
 					</div>
 				</div>
 			</div>

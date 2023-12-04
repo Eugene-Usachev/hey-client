@@ -17,7 +17,11 @@ export default async function MessengerPage(query: MessengerPageProps) {
 				ChatsBlock: dict.messenger.ChatsBlock,
 				WindowToCreateChatsList: dict.messenger.WindowToCreateChatsList,
 				WindowToCreateChat: dict.messenger.WindowToCreateChat,
-				UI: dict.UI
+				UI: dict.UI,
+				ChatsList: dict.messenger.ChatsList,
+				WindowToUpdateChatsList: dict.messenger.WindowToUpdateChatsList,
+				Chat: dict.messenger.Chat,
+				WindowToUpdateChat: dict.messenger.WindowToUpdateChat
 			}}/>
 		</Suspense>
 	);

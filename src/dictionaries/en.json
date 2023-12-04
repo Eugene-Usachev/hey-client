@@ -151,19 +151,57 @@
   "messenger": {
     "ChatsBlock": {
       "NoChats": "No chats yet",
-      "TypeNameOfChat": "Enter a chat name or list of chats"
+      "TypeNameOfChat": "Enter a name of list of chats"
     },
     "WindowToCreateChatsList": {
       "EnterName": "Enter a name for a list of chats",
       "Create": "Create",
       "Cancel": "Cancel",
-      "ThisNameAlreadyExists": "A list with this name already exists"
+      "ThisNameAlreadyExists": "A list with this name already exists",
+      "TypeNameOfChat": "Type a name of chat"
+    },
+    "WindowToUpdateChatsList": {
+      "EnterName": "Enter a name for a list of chats",
+      "Accept": "Accept",
+      "Cancel": "Cancel",
+      "Delete": "Delete",
+      "ThisNameAlreadyExists": "A list with this name already exists",
+      "TypeNameOfChat": "Type a name of chat"
     },
     "WindowToCreateChat": {
+      "AddTheUser": "add the user",
+      "EnterUserID": "Enter the user id",
+      "YourID": "Your id: ",
       "EnterName": "Enter a name for chat",
+      "TypeNameOfUser": "Type a name of user",
+      "ChooseAtLeastOneUser": "Choose at least one user",
+      "OnlyNotGroupChatCanHasNoName": "Only not group chats can have no name",
+      "OnlyGroupChatCanHasName": "Only group chat can have name",
       "Create": "Create",
       "Cancel": "Cancel",
       "ThisNameAlreadyExists": "A chat with this name already exists"
+    },
+    "WindowToUpdateChat": {
+      "AddTheUser": "add the user",
+      "EnterUserID": "Enter the user id",
+      "YourID": "Your id: ",
+      "EnterName": "Enter a name for chat",
+      "TypeNameOfUser": "Type a name of user",
+      "ChooseAtLeastOneUser": "Choose at least one user",
+      "OnlyNotGroupChatCanHasNoName": "Only not group chats can have no name",
+      "OnlyGroupChatCanHasName": "Only group chat can have name",
+      "Accept": "Accept",
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A chat with this name already exists"
+    },
+    "ChatsList": {
+      "favorites": "Favorite",
+      "other": "Other",
+      "friends": "Friends"
+    },
+    "Chat": {
+      "NoMessages": "No messages yet",
+      "ChooseChat": "Choose a chat"
     }
   },
   "UI": {

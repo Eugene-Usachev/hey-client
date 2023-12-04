@@ -5,8 +5,11 @@ import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
 import {WsMethods} from "@/libs/api/WsMethods";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
-import {Chat, ChatsStore} from "@/stores/ChatsStore";
+import {Chat, ChatFromServer, ChatsStore} from "@/stores/ChatsStore";
 import {MiniUser} from "@/stores/MiniUsersStore";
+import {eye} from "@/libs/infojs/infojs";
+import {LogLevel, WsMethodByEffect} from "@/libs/infojs/eye";
+import {getEffectFromMethod, wsMethods} from "@/types/wsMethods";
 
 export class MessengerAPI {
 	public readonly sender: API;
@@ -32,16 +35,20 @@ export class MessengerAPI {
 
 	async getChats(chatsId: number[]): Promise<Response> {
 		if (chatsId.length === 0) throw new Error("Empty chatsId");
-		return this.sender.getAuth(`/api/chat/${chatsId.join(",")}`, {
+		return this.sender.getAuth(`/api/chat/?chatsIds=${chatsId.join(",")}`, {
 			cache: 'no-cache',
 		})
 	}
 
-	async updateChatsList(chatsList: string): Promise<Response> {
+	async updateChatsList(chatsList: string, isSetRawChatsToEmpty: boolean): Promise<Response> {
+		const data = JSON.stringify({
+			is_set_raw_chats_to_empty: isSetRawChatsToEmpty,
+			new_chats_lists: chatsList
+		});
+
 		return this.sender.patchAuth(`/api/chat/list/`, {
-			body: chatsList,
-			cache: 'no-cache',// @ts-ignore
-			contentType: "plain/text"
+			body: data,
+			cache: 'no-cache'
 		});
 	}
 
@@ -53,6 +60,7 @@ export class MessengerAPI {
 			await this.sender.wsConnect();
 			sender = this.sender.ws.unwrap();
 		}
+		eye.wsSend(wsMethods.NEW_CHAT, getEffectFromMethod(wsMethods.NEW_CHAT))
 		sender.send(`${WsMethods.createChat}${JSON.stringify(dto)}`);
 	}
 
@@ -64,6 +72,7 @@ export class MessengerAPI {
 			await this.sender.wsConnect();
 			sender = this.sender.ws.unwrap();
 		}
+		eye.wsSend(wsMethods.UPDATE_CHAT, getEffectFromMethod(wsMethods.UPDATE_CHAT))
 		sender.send(`${WsMethods.updateChat}${JSON.stringify(dto)}`);
 	}
 
@@ -75,6 +84,7 @@ export class MessengerAPI {
 			await this.sender.wsConnect();
 			sender = this.sender.ws.unwrap();
 		}
+		eye.wsSend(wsMethods.DELETE_CHAT, getEffectFromMethod(wsMethods.DELETE_CHAT))
 		sender.send(`${WsMethods.deleteChat}${chatId}`);
 	}
 
@@ -109,34 +119,22 @@ export let api = new MessengerAPI({
 	logoutFunc: logout,
 });
 
-const wsHandler = (event: MessageEvent) => {
-	if (event.data === "Welcome") {
-		return;
-	}
-
-	let data: {method: string, data: string};
-	try {
-		data = JSON.parse(event.data);
-	} catch (e) {
-		ErrorAlert("Unexpected error in wsHandler");
-		return;
-	}
-
-	switch (data.method) {
-		case "newChat": {
-			let chat: Chat = JSON.parse(data.data);
+const wsHandler = (method: string, data: any) => {
+	switch (method) {
+		case wsMethods.NEW_CHAT: {
+			let chat: ChatFromServer = data;
 			ChatsStore.handleNewChat(chat);
 			return;
 		}
 
-		case "updateChat": {
-			let chat: Chat = JSON.parse(data.data);
+		case wsMethods.UPDATE_CHAT: {
+			let chat: Chat = data;
 			ChatsStore.handleUpdateChat(chat);
 			return;
 		}
 
-		case "deleteChat": {
-			ChatsStore.handleDeleteChat(+JSON.parse(data.data));
+		case wsMethods.DELETE_CHAT: {
+			ChatsStore.handleDeleteChat(+data);
 			return;
 		}
 
@@ -152,7 +150,7 @@ export interface ChatDTO {
 }
 
 export interface UpdateChatDTO {
-	chat_id: number;
+	id: number;
 	name: string;
 	avatar: string;
 	members: number[];

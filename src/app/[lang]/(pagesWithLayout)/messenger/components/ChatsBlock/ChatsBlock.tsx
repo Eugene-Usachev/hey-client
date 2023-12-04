@@ -1,12 +1,12 @@
 "use client";
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './ChatsBlock.module.scss';
-import {ChatsStore, ChatsList as ChatsListInterface} from "@/stores/ChatsStore";
+import {Chat, ChatsStore} from "@/stores/ChatsStore";
 import {Input, InputDict} from "@/components/Input/Input";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import {WindowMode} from "@/app/[lang]/(pagesWithLayout)/messenger/components/MainPart/MainPart";
-import {ChatsList} from "@/app/[lang]/(pagesWithLayout)/messenger/components/ChatsList/ChatsList";
+import {ChatsList, ChatsListDict} from "@/app/[lang]/(pagesWithLayout)/messenger/components/ChatsList/ChatsList";
 
 export interface ChatsBlockDict {
     input: InputDict;
@@ -14,37 +14,41 @@ export interface ChatsBlockDict {
         NoChats: string;
         TypeNameOfChat: string;
     }
+    chatsList: ChatsListDict;
 }
 
 export interface ChatsBlockProps {
     dict: ChatsBlockDict;
     setWindowMode: (mode: WindowMode) => void;
+    setActiveList: (name: string) => void;
+    setActiveChat: (chat: Chat) => void;
+    setNameOfChatsListWhichEditing: (name: string) => void;
 }
 
-export const ChatsBlock: FC<ChatsBlockProps> = observer<ChatsBlockProps>(({dict, setWindowMode}) => {
+export const ChatsBlock: FC<ChatsBlockProps> = observer<ChatsBlockProps>(({dict, setActiveChat, setNameOfChatsListWhichEditing, setWindowMode, setActiveList}) => {
     const [filterValue, setFilterValue] = useState("");
     const [isSearching, setIsSearching] = useState(false);
-    const [chatsLists, setChatsLists] = useState(ChatsStore.chatLists.slice(0, 20));
+    const [chatsLists, setChatsLists] = useState(ChatsStore.chatsLists);
 
     useEffect(() => {
-        setChatsLists(ChatsStore.chatLists.slice(0, 20));
-    }, [ChatsStore.chatLists.length]);
+        setChatsLists(ChatsStore.chatsLists);
+    }, [ChatsStore.chatsLists, ChatsStore.chatsLists.length]);
 
     useEffect(() => {
         if (!ChatsStore.wasGet) {
-            ChatsStore.getChatList().then(() => {
-                setChatsLists([...ChatsStore.chatLists]);
+            ChatsStore.getChatsLists().then(() => {
+                setChatsLists([...ChatsStore.chatsLists]);
             });
         }
     }, []);
 
     useEffect(() => {
         if (filterValue !== "") {
-            setChatsLists([...ChatsStore.chatLists.filter((value) => {
-                return value.name.toLowerCase().includes(filterValue.toLowerCase());
+            setChatsLists([...ChatsStore.chatsLists.filter((value) => {
+                return value.localName.toLowerCase().includes(filterValue.toLowerCase());
             })]);
         } else {
-            setChatsLists([...ChatsStore.chatLists]);
+            setChatsLists([...ChatsStore.chatsLists]);
         }
     }, [filterValue]);
 
@@ -78,9 +82,14 @@ export const ChatsBlock: FC<ChatsBlockProps> = observer<ChatsBlockProps>(({dict,
                 />
                 {!isSearching && <MdOutlineCreateNewFolder onClick={() => {setWindowMode(WindowMode.CreateChatsList)}} className={styles.button}/>}
             </div>
-            {chatsLists.map((value) => {
-                return <ChatsList key={value.name} setWindowMode={setWindowMode}  name={value.name} chatsIds={value.chatsIds}/>
-            })}
+            <div className={styles.list}>
+                {chatsLists.map((value) => {
+                    return <ChatsList key={value.name} setActiveChat={setActiveChat} dict={dict.chatsList}
+                                      setWindowMode={setWindowMode} chatsList={value}
+                                      setNameOfChatsListWhichEditing={setNameOfChatsListWhichEditing}
+                                      setActiveList={setActiveList}/>
+                })}
+            </div>
         </div>
     );
 });

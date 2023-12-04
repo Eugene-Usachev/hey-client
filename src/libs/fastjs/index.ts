@@ -86,23 +86,23 @@ export const initFastArrays = (willShow: boolean) => {
 		return getByKey(this, value, key);
 	}
 
-	Array.prototype.insert = function<ArrayType extends any>(value: ArrayType): boolean {
+	Array.prototype.insert = function<ValueType extends any>(value: ValueType): boolean {
 		return insert(this, value)
 	}
 	Array.prototype.insertObj = function<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): boolean {
 		return insertObj(this, value, attributeName)
 	}
 
-	Array.prototype.remove = function<ArrayType extends any>(value: ArrayType): boolean {
+	Array.prototype.remove = function<ValueType extends any>(value: ValueType): boolean {
 		return remove(this, value);
 	}
-	Array.prototype.removeObj = function<ArrayType extends Object, KeyType extends keyof ArrayType>(value: ArrayType, attributeName: KeyType): boolean {
+	Array.prototype.removeObj = function<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): boolean {
 		return removeObj(this, value, attributeName)
 	}
-	Array.prototype.removeAll = function<ArrayType extends any>(value: ArrayType): number {
+	Array.prototype.removeAll = function<ValueType extends any>(value: ValueType): number {
 		return removeAll(this, value);
 	}
-	Array.prototype.removeAllObj = function<ArrayType extends Object, KeyType extends keyof ArrayType>(value: ArrayType, attributeName: KeyType): number {
+	Array.prototype.removeAllObj = function<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): number {
 		return removeAllObj(this, value, attributeName);
 	}
 	if (willShow) {
@@ -137,47 +137,47 @@ declare global {
 
 		/**
 		 * getByKey finds an item from an array of objects by its key.
-		 * @Param: value what the function is looking for. Not an object, value of field.
-		 * @Param: key what the function is looking for in an object.
 		 * @Returns: T: The object with the matching key
 		 * @Throws NotFound: No item found in the array with that key
+		 * @param value what the function is looking for. Not an object, value of field.
+		 * @param key what the function is looking for in an object.
 		 */
 		getByKey<T extends Object>(value: any, key: keyof T): Option<T>
 
 		/**
 		 * getByKey finds an item from an array of objects by its key.
-		 * @Param: value what the function is looking for. Not an object, value of field.
-		 * @Param: key what the function is looking for in an object.
 		 * @Returns: T: The object with the matching key or undefined if no item found.
+		 * @param value what the function is looking for. Not an object, value of field.
+		 * @param key what the function is looking for in an object.
 		 */
 		getByKeyUnchecked<T extends Object>(value: any, key: keyof T): T
 
 		/** insert inserts a value into a sorted array, maintaining the order of the array.
 		 * @Returns a boolean indicating whether the operation was successful.*/
-		insert<ArrayType extends any[], ValueType>(value: ValueType): boolean
+		insert<ValueType>(value: ValueType): boolean
 		/** insertObj inserts an object into a sorted array by the given attributeName.
 		 * @Returns a boolean indicating whether the operation was successful.*/
 		insertObj<ValueType extends Object>(value: ValueType, attributeName: keyof ValueType): boolean
 
-		/**remove remove elem by value in sorted arrays.
+		/**remove elem by value in sorted arrays.
 		 * @Returns: a boolean indicating whether the operation was successful.*/
 		remove<ArrayType extends any[], ValueType>(value: ValueType): boolean
-		/**remove remove elem by value and key in sorted objects arrays.
+		/**remove elem by value and key in sorted objects arrays.
 		 * @Returns: a boolean indicating whether the operation was successful.*/
-		removeObj<ArrayType extends Object, KeyType extends keyof ArrayType>(value: ArrayType, attributeName: KeyType): boolean
+		removeObj<ValueType extends Object>(value: any, attributeName: keyof ValueType): boolean
 		/**
 		 * Removes all elements with the specified value from the array and returns the number of elements removed.
 		 * @param value The value to remove from the array.
 		 * @returns The number of elements removed.
 		 */
-		removeAll<ArrayType extends any>(value: ArrayType): number
+		removeAll<ValueType extends any>(value: ValueType): number
 		/**
 		 * Removes all occurrences of an object from the array.
 		 * @param value The object to remove.
 		 * @param attributeName The name of the attribute to use for comparison.
 		 * @returns The number of elements removed.
 		 */
-		removeAllObj<ArrayType extends Object, KeyType extends keyof ArrayType>(value: ArrayType, attributeName: KeyType): number
+		removeAllObj<ValueType extends Object>(value: any, attributeName: keyof ValueType): number
 	}
 	interface String {
 		parse<ResultType>(): ResultType

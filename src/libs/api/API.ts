@@ -1,6 +1,11 @@
 import {Logger, LoggerConfig} from "./Logger";
 import {None, Option, Some} from "@/libs/rustTypes/option";
 import {WsMethods} from "@/libs/api/WsMethods";
+import {getEffectFromMethod, wsMethods} from "@/types/wsMethods";
+import {eye} from "@/libs/infojs/infojs";
+import {LogLevel, WsMethodByEffect} from "@/libs/infojs/eye";
+import {ErrorAlert} from "@/components/Alerts/Alerts";
+import {Chat, ChatFromServer, ChatsStore} from "@/stores/ChatsStore";
 
 export interface APIConfig {
 	refreshFunc: () => Promise<Response>;
@@ -17,7 +22,7 @@ export class API {
 
 	public ws: Option<WebSocket>;
 	public isWsConnecting: boolean;
-	private wsHandler: Option<(res: MessageEvent) => void>;
+	private wsHandler: Option<wsHandler>;
 
 	constructor(cfg: APIConfig) {
 		this.logger = new Logger(cfg.loggerCfg);
@@ -66,7 +71,7 @@ export class API {
 
 		this.ws.unwrap().onmessage = (event) => {
 			if (this.wsHandler.isSome()) {
-				this.wsHandler.unwrap()(event);
+				HandleWS(event, this.wsHandler.unwrap());
 			}
 		}
 	}
@@ -77,7 +82,7 @@ export class API {
 		}
 	}
 
-	wsSetHandler(handler: (res: MessageEvent) => void): void {
+	wsSetHandler(handler: wsHandler): void {
 		this.wsHandler = Some(handler);
 	}
 
@@ -208,4 +213,34 @@ export function NewAPI(cfg: APIConfig): API {
 export interface WsRequest {
 	method: WsMethods;
 	body: string;
+}
+
+export type wsHandler = (method: string, data: any) => void;
+
+export function HandleWS(event: MessageEvent, handler: wsHandler) {
+	const responses = event.data.split('}{'); // Split the response into individual queries
+	responses.forEach((response: string, index: number) => {
+		if (response === wsMethods.WELCOME) {
+			eye.wsGet("welcome message", WsMethodByEffect.ALIVE, LogLevel.INFO);
+			return;
+		}
+
+		let data: { method: wsMethods, data: any };
+		try {
+			if (index !== 0) {
+				response = '{' + response; // Add missing opening brace for all queries except the first one
+			}
+			if (index !== responses.length - 1) {
+				response = response + '}'; // Add missing closing brace for all queries except the last one
+			}
+			data = JSON.parse(response);
+		} catch (e) {
+			eye.error("ws: handle error message: " + response);
+			ErrorAlert("Unexpected error in wsHandler");
+			return;
+		}
+		eye.wsGet(data.method, getEffectFromMethod(data.method));
+
+		handler(data.method, data.data);
+	});
 }

@@ -21,9 +21,8 @@ export const checkStringForValid = (value: string, reg: regType, maxLength: numb
 	if (reg !== 'all') {
 		switch (reg) {
 			case'eng':{newValue = newValue.replace (/[^A-Za-z\d\s]+/g, '');break;}
-			case "number":{newValue = newValue.replace (/[^\d\s]+/g, '');break;}
-			case "strictNumber":{newValue = newValue.replace (/\D/g, '');break;}
-			case "eng_AND_rus":{newValue = newValue.replace (/[^A-Za-zа-яА-Я\d\s]+/g, '');break;}
+			case "only_numbers":{newValue = newValue.replace (/\D/g, '');break;}
+			case "eng_and_rus":{newValue = newValue.replace (/[^A-Za-zа-яА-Я\d\s]+/g, '');break;}
 			default: {
 				if (reg) {
 					newValue = newValue.replace(reg, '');

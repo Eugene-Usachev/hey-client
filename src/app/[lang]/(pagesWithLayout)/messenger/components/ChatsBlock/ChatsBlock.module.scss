@@ -13,4 +13,12 @@
         border-radius: 50%;
         background-color: var(--contrast02);
     }
+
+    .list {
+        display: flex;
+        flex-flow: column;
+        height: calc(100% - 32px);
+        overflow: hidden;
+        overflow-y: scroll;
+    }
 }
