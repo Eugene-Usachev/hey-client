@@ -9,10 +9,10 @@ export interface ProfileInfo {
 	subscribers: number[];
 	avatar: string;
 	birthday: string;
-	favourites_books: string;
-	favourites_films: string;
-	favourites_games: string;
-	favourites_meals: string;
+	favorites_books: string;
+	favorites_films: string;
+	favorites_games: string;
+	favorites_meals: string;
 	description: string;
 	family_status: number;
 	place_of_residence: string;
@@ -48,10 +48,10 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 	subscribers: [],
 	avatar: '',
 	birthday: '',
-	favourites_books: '',
-	favourites_films: '',
-	favourites_games: '',
-	favourites_meals: '',
+	favorites_books: '',
+	favorites_films: '',
+	favorites_games: '',
+	favorites_meals: '',
 	description: '',
 	family_status: -1,
 	place_of_residence: '',
@@ -70,10 +70,10 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 		ProfileStore.subscribers = info.subscribers;
 		ProfileStore.avatar = info.avatar;
 		ProfileStore.birthday = info.birthday;
-		ProfileStore.favourites_books = info.favourites_books;
-		ProfileStore.favourites_films = info.favourites_films;
-		ProfileStore.favourites_games = info.favourites_games;
-		ProfileStore.favourites_meals = info.favourites_meals;
+		ProfileStore.favorites_books = info.favorites_books;
+		ProfileStore.favorites_films = info.favorites_films;
+		ProfileStore.favorites_games = info.favorites_games;
+		ProfileStore.favorites_meals = info.favorites_meals;
 		ProfileStore.description = info.description;
 		ProfileStore.family_status = info.family_status;
 		ProfileStore.place_of_residence = info.place_of_residence;
@@ -130,9 +130,9 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 		ProfileStore.attitude_to_sport = params.attitudeToSport;
 		ProfileStore.attitude_to_alcohol = params.attitudeToAlcohol;
 		ProfileStore.dreams = params.dreams;
-		ProfileStore.favourites_meals = params.favoriteMeals;
-		ProfileStore.favourites_books = params.favoriteBooks;
-		ProfileStore.favourites_films = params.favoriteFilms;
-		ProfileStore.favourites_games = params.favoriteGames;
+		ProfileStore.favorites_meals = params.favoriteMeals;
+		ProfileStore.favorites_books = params.favoriteBooks;
+		ProfileStore.favorites_films = params.favoriteFilms;
+		ProfileStore.favorites_games = params.favoriteGames;
 	}
 })

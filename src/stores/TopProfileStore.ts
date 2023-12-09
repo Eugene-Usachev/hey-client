@@ -6,7 +6,7 @@ interface TopProfileStoreInterface {
 	avatar: string | undefined;
 	name: string;
 	surname: string;
-	lang: 'ru' | 'eng';
+	lang: 'ru' | 'en';
 	isGet: boolean;
 	isAuthorized: boolean;
 
@@ -25,7 +25,7 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 	surname: '',
 	theme: 'dark',
 	avatar: undefined,
-	lang: 'eng',
+	lang: 'en',
 	isGet: false,
 	isAuthorized: false,
 
@@ -64,15 +64,15 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 				break;
 			case "eng":
 				setLang("eng");
-				TopProfileStore.lang = "eng";
+				TopProfileStore.lang = "en";
 				break;
 			default:
 				setLang("eng");
-				TopProfileStore.lang = "eng";
+				TopProfileStore.lang = "en";
 				break;
 		}
 	}),
-	changeLang: action((lang: 'ru' | 'eng') => {
+	changeLang: action((lang: 'ru' | 'en') => {
 		setLang(lang);
 		TopProfileStore.lang = lang;
 	}),

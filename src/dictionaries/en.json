@@ -96,10 +96,10 @@
       "AttitudeToAlcohol": "Attitude to alcohol",
       "AttitudeToSmocking": "Attitude to smoking",
       "AttitudeToSport": "Attitude to sport",
-      "FavoriteMeals": "Favorite meals",
-      "FavoriteFilms": "Favorite films",
-      "FavoriteGames": "Favorite games",
-      "FavoriteBooks": "Favorite books",
+      "FavoriteMeals": "Favorites meals",
+      "FavoriteFilms": "Favorites films",
+      "FavoriteGames": "Favorites games",
+      "FavoriteBooks": "Favorites books",
       "Dreams": "Dreams",
       "ShowMore": "Show more",
       "ShowLess": "Show less",
@@ -146,6 +146,64 @@
       "CancelFriendshipRequest": "Cancel a friend request",
       "AddToFriends": "Add to friends",
       "DeleteFromFriends": "Delete from friends"
+    }
+  },
+  "messenger": {
+    "ChatsBlock": {
+      "NoChats": "No chats yet",
+      "TypeNameOfChat": "Enter a name of list of chats"
+    },
+    "WindowToCreateChatsList": {
+      "EnterName": "Enter a name for a list of chats",
+      "Create": "Create",
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A list with this name already exists",
+      "TypeNameOfChat": "Type a name of chat"
+    },
+    "WindowToUpdateChatsList": {
+      "EnterName": "Enter a name for a list of chats",
+      "Accept": "Accept",
+      "Cancel": "Cancel",
+      "Delete": "Delete",
+      "ThisNameAlreadyExists": "A list with this name already exists",
+      "TypeNameOfChat": "Type a name of chat"
+    },
+    "WindowToCreateChat": {
+      "AddTheUser": "add the user",
+      "EnterUserID": "Enter the user id",
+      "YourID": "Your id: ",
+      "EnterName": "Enter a name for chat",
+      "TypeNameOfUser": "Type a name of user",
+      "ChooseAtLeastOneUser": "Choose at least one user",
+      "OnlyNotGroupChatCanHasNoName": "Only not group chats can have no name",
+      "OnlyGroupChatCanHasName": "Only group chat can have name",
+      "Create": "Create",
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A chat with this name already exists"
+    },
+    "WindowToUpdateChat": {
+      "AddTheUser": "add the user",
+      "EnterUserID": "Enter the user id",
+      "YourID": "Your id: ",
+      "EnterName": "Enter a name for chat",
+      "TypeNameOfUser": "Type a name of user",
+      "ChooseAtLeastOneUser": "Choose at least one user",
+      "OnlyNotGroupChatCanHasNoName": "Only not group chats can have no name",
+      "OnlyGroupChatCanHasName": "Only group chat can have name",
+      "Accept": "Accept",
+      "Cancel": "Cancel",
+      "ThisNameAlreadyExists": "A chat with this name already exists",
+      "Delete": "Delete"
+    },
+    "ChatsList": {
+      "favorites": "Favorites",
+      "other": "Other",
+      "friends": "Friends"
+    },
+    "Chat": {
+      "NoMessages": "No messages yet",
+      "ChooseChat": "Choose a chat",
+      "WriteMessage": "Write a message"
     }
   },
   "UI": {

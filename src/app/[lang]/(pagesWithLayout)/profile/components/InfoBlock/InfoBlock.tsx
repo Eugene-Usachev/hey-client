@@ -122,28 +122,28 @@ export const InfoBlock: FC<InfoBlockProps> = observer(({dict}) => {
                             <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{attitudeToSport[ProfileStore.attitude_to_sport]}</div>
                         </div>
                     }
-                    {ProfileStore.favourites_meals && ProfileStore.favourites_meals.length > 0 &&
+                    {ProfileStore.favorites_meals && ProfileStore.favorites_meals.length > 0 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.FavoriteMeals}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favourites_meals}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favorites_meals}</div>
                         </div>
                     }
-                    {ProfileStore.favourites_books && ProfileStore.favourites_books.length > 0 &&
+                    {ProfileStore.favorites_books && ProfileStore.favorites_books.length > 0 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.FavoriteBooks}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favourites_books}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favorites_books}</div>
                         </div>
                     }
-                    {ProfileStore.favourites_films && ProfileStore.favourites_films.length > 0 &&
+                    {ProfileStore.favorites_films && ProfileStore.favorites_films.length > 0 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.FavoriteFilms}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favourites_films}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favorites_films}</div>
                         </div>
                     }
-                    {ProfileStore.favourites_games && ProfileStore.favourites_games.length > 0 &&
+                    {ProfileStore.favorites_games && ProfileStore.favorites_games.length > 0 &&
                         <div className={styles.keyValueBlock}>
                             <div style={{width: `${longestKey}ch`}}>{dict.FavoriteGames}:</div>
-                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favourites_games}</div>
+                            <div style={{width: `calc(100% - ${longestKey}ch)`, overflowWrap: "break-word", marginBottom: "5px"}}>{ProfileStore.favorites_games}</div>
                         </div>
                     }
                     {ProfileStore.dreams && ProfileStore.dreams.length > 0 &&

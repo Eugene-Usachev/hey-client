@@ -190,7 +190,7 @@ export const CommentStore: CommentStoreInterface = observable<CommentStoreInterf
 
 		const needToGetArr = Array.from(needToGet);
 		if (needToGetArr.length > 0) {
-			MiniUsersStore.setUsers(await api.getMiniUsers(needToGetArr));
+			MiniUsersStore.addUsers(await api.getMiniUsers(needToGetArr));
 		}
 
 		commentsForPost.isAll = comments.length < 20;

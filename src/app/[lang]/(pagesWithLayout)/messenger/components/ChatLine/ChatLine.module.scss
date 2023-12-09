@@ -1,0 +1,12 @@
+.chatLine {
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    border-top: 1px solid var(--contrast03);
+    display: flex;
+    align-items: center;
+}
+
+.chatLine:hover {
+    background-color: var(--colors-hover);
+}

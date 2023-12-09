@@ -3,7 +3,7 @@ import styles from './ModalWindow.module.scss';
 
 interface Props {
     // children must have zIndex property more than 999
-    children: React.ReactNode;
+    children?: React.ReactNode;
     close: () => void;
     style?: React.CSSProperties
 }
