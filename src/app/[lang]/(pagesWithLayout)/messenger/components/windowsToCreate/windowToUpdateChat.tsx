@@ -24,6 +24,7 @@ export interface WindowToUpdateChatDict {
 	Accept: string;
 	Cancel: string;
 	ThisNameAlreadyExists: string;
+	Delete: string;
 }
 
 interface WindowToUpdateChatProps {
@@ -114,6 +115,11 @@ export const WindowToUpdateChat:FC<WindowToUpdateChatProps> = observer<WindowToU
 			}
 		});
 	}, [typedId, chosenUsers, usersVisible]);
+
+	const deleteChat = useCallback(() => {
+		ChatsStore.deleteChat(chat.id);
+		close();
+	}, [chat.id]);
 
 	const accept = useCallback(() => {
 		if (chosenUsers.length === 0) {
@@ -222,9 +228,12 @@ export const WindowToUpdateChat:FC<WindowToUpdateChatProps> = observer<WindowToU
 							<div style={{width: '1px', height: '1px'}} ref={lastElem}></div>
 						</div>
 					</div>
-					<div className={styles.buttonsPanel}>
-						<div className={styles.button} onClick={close} style={{backgroundColor: 'var(--red)'}}>{dict.windowToUpdateChatsList.Cancel}</div>
-						<div className={styles.button} onClick={accept} style={{backgroundColor: 'var(--green)'}}>{dict.windowToUpdateChatsList.Accept}</div>
+					<div className={styles.buttonsPanel} style={{width: '100%'}}>
+						<div className={styles.button} onClick={deleteChat} style={{backgroundColor: 'var(--red)'}}>{dict.windowToUpdateChatsList.Delete}</div>
+						<div style={{display: 'flex'}}>
+							<div className={styles.button} onClick={close} style={{backgroundColor: 'var(--red)'}}>{dict.windowToUpdateChatsList.Cancel}</div>
+							<div className={styles.button} onClick={accept} style={{backgroundColor: 'var(--green)'}}>{dict.windowToUpdateChatsList.Accept}</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -413,6 +413,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 			};
 			if (ChatsStore.waitingChats.has(chat.name)) {
 				const listName = ChatsStore.waitingChats.get(chat.name) as string;
+				console.log(listName, ChatsStore.chatsLists.checkSorted(), ChatsStore.chatsLists)
 				if (ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'name').chatsIds.indexOf(chat.id) !== -1) {
 					return;
 				}

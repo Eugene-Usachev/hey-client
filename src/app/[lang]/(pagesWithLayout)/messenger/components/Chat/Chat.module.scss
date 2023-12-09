@@ -1,4 +1,13 @@
 .chat {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    $headerHeight: 20px;
+    $headerPadding: 5px;
+    $inputHeight: 34px;
+    $inputBottomPadding: 15px;
+    $listHeight: calc(100% - #{$headerHeight} - (#{$headerPadding} * 2) - #{$inputHeight} - #{$inputBottomPadding});
+
     .header {
         display: flex;
         align-items: center;
@@ -9,11 +18,11 @@
         .button {
             display: flex;
             align-items: center;
-            padding: 5px;
+            padding: $headerPadding;
             justify-content: center;
             border-radius: 50%;
             cursor: pointer;
-            height: 20px;
+            height: $headerHeight;
             width: 20px;
             font-size: 20px;
         }
@@ -21,6 +30,23 @@
         .button:hover {
             background-color: var(--colors-hover);
         }
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        height: $listHeight;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+
+    .inputBlock {
+        padding-right: 5px;
+        padding-left: 5px;
+        position: relative;
+        bottom: 0;
+        height: $inputHeight;
+        padding-bottom: $inputBottomPadding;
     }
 }
 

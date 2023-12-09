@@ -1,6 +1,7 @@
 import {Suspense} from "react";
 import {MainPart} from "@/app/[lang]/(pagesWithLayout)/messenger/components/MainPart/MainPart";
 import {getDictionary} from "@/app/dictionaries";
+import {Loading} from "@/app/[lang]/(pagesWithLayout)/messenger/components/Loading/Loading";
 
 interface MessengerPageProps {
 	params: {lang: string}
@@ -12,7 +13,7 @@ export default async function MessengerPage(query: MessengerPageProps) {
 	const dict = await getDictionary();
 
 	return (
-		<Suspense>
+		<Suspense fallback={<Loading />}>
 			<MainPart dict={{
 				ChatsBlock: dict.messenger.ChatsBlock,
 				WindowToCreateChatsList: dict.messenger.WindowToCreateChatsList,

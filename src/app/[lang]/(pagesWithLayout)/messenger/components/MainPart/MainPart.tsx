@@ -86,7 +86,7 @@ export const MainPart = memo(({ dict }: MainPartProps) => {
                     windowToUpdateChatsList: dict.WindowToUpdateChat
                 }} close={setChatWindowMode}/>}
                 {windowMode === WindowMode.Chat && activeChat.isSome()
-                    ? <Chat dict={dict.Chat} setWindowMode={setWindowMode} chat={activeChat.unwrap()}/>
+                    ? <Chat dict={dict.Chat} inputDict={dict.UI.Input} setWindowMode={setWindowMode} chat={activeChat.unwrap()}/>
                     : <div style={{display: 'flex', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', fontSize: '20px'}}>
                         {dict.Chat.ChooseChat}
                     </div>

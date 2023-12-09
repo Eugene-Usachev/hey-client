@@ -29,7 +29,7 @@ interface Props extends React.HTMLAttributes<HTMLInputElement>{
     blockClass?: string;
     placeholder?: string;
     withLabel?: boolean;
-    checkSpace: boolean;
+    checkSpace?: boolean;
     maxLength: number;
     minLength: number;
     blockStyle?: React.CSSProperties;
@@ -144,7 +144,7 @@ export const Input:FC<Props> = memo<Props>(({
                 inputRef.current.blur();
             }
         }
-    }, []);
+    }, [onEnter, Value]);
     const onBlurEvent = useCallback((e: React.FocusEvent) => {
         setFocus(false);
         if (Value.length < minLength) {

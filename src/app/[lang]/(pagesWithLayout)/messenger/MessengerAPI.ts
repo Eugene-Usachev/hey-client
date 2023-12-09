@@ -3,13 +3,11 @@ import {refresh} from "@/requests/refresh";
 import {logout} from "@/utils/logout";
 import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
-import {WsMethods} from "@/libs/api/WsMethods";
-import {ErrorAlert} from "@/components/Alerts/Alerts";
+import {WsRequestMethods} from "@/libs/api/WsRequestMethods";
 import {Chat, ChatFromServer, ChatsStore} from "@/stores/ChatsStore";
 import {MiniUser} from "@/stores/MiniUsersStore";
-import {eye} from "@/libs/infojs/infojs";
-import {LogLevel, WsMethodByEffect} from "@/libs/infojs/eye";
-import {getEffectFromMethod, wsMethods} from "@/types/wsMethods";
+import {WsResponseMethod} from "@/types/wsResponseMethod";
+import {MessageFromServer, MessagesStore} from "@/stores/MessagesStore";
 
 export class MessengerAPI {
 	public readonly sender: API;
@@ -53,39 +51,58 @@ export class MessengerAPI {
 	}
 
 	async createChat(dto: ChatDTO): Promise<void> {
-		let sender: WebSocket;
-		if (this.sender.ws.isSome()) {
-			sender = this.sender.ws.unwrap();
-		} else {
-			await this.sender.wsConnect();
-			sender = this.sender.ws.unwrap();
-		}
-		eye.wsSend(wsMethods.NEW_CHAT, getEffectFromMethod(wsMethods.NEW_CHAT))
-		sender.send(`${WsMethods.createChat}${JSON.stringify(dto)}`);
+		this.sender.wsSend({
+			requestMethod: WsRequestMethods.createChat,
+			responseMethod: WsResponseMethod.NEW_CHAT,
+			body: JSON.stringify(dto)
+		});
 	}
 
 	async updateChat(dto: UpdateChatDTO): Promise<void> {
-		let sender: WebSocket;
-		if (this.sender.ws.isSome()) {
-			sender = this.sender.ws.unwrap();
-		} else {
-			await this.sender.wsConnect();
-			sender = this.sender.ws.unwrap();
-		}
-		eye.wsSend(wsMethods.UPDATE_CHAT, getEffectFromMethod(wsMethods.UPDATE_CHAT))
-		sender.send(`${WsMethods.updateChat}${JSON.stringify(dto)}`);
+		this.sender.wsSend({
+			requestMethod: WsRequestMethods.updateChat,
+			responseMethod: WsResponseMethod.UPDATE_CHAT,
+			body: JSON.stringify(dto)
+		});
 	}
 
 	async deleteChat(chatId: number): Promise<void> {
-		let sender: WebSocket;
-		if (this.sender.ws.isSome()) {
-			sender = this.sender.ws.unwrap();
-		} else {
-			await this.sender.wsConnect();
-			sender = this.sender.ws.unwrap();
-		}
-		eye.wsSend(wsMethods.DELETE_CHAT, getEffectFromMethod(wsMethods.DELETE_CHAT))
-		sender.send(`${WsMethods.deleteChat}${chatId}`);
+		this.sender.wsSend({
+			requestMethod: WsRequestMethods.deleteChat,
+			responseMethod: WsResponseMethod.DELETE_CHAT,
+			body: chatId.toString()
+		});
+	}
+
+	async getMessages(chatId: number, offset: number): Promise<Response> {
+		if (!USERID || +USERID < 1) throw new Error("Empty USERID");
+		return this.sender.getAuth(`/api/message/${chatId}?offset=${offset}`, {
+			cache: 'no-cache',
+		});
+	}
+
+	async sendMessage(message: MessageDTO): Promise<void> {
+		this.sender.wsSend({
+			responseMethod: WsResponseMethod.NEW_MESSAGE,
+			requestMethod: WsRequestMethods.sendMessage,
+			body: JSON.stringify(message)
+		});
+	}
+
+	async updateMessage(message: UpdateMessageDTO): Promise<void> {
+		this.sender.wsSend({
+			responseMethod: WsResponseMethod.UPDATE_MESSAGE,
+			requestMethod: WsRequestMethods.updateMessage,
+			body: JSON.stringify(message)
+		});
+	}
+
+	async deleteMessage(messageId: number): Promise<void> {
+		this.sender.wsSend({
+			responseMethod: WsResponseMethod.DELETE_MESSAGE,
+			requestMethod: WsRequestMethods.deleteMessage,
+			body: messageId.toString()
+		});
 	}
 
 	async getMiniUsers(userIds: number[]): Promise<MiniUser[]> {
@@ -121,20 +138,37 @@ export let api = new MessengerAPI({
 
 const wsHandler = (method: string, data: any) => {
 	switch (method) {
-		case wsMethods.NEW_CHAT: {
+		case WsResponseMethod.NEW_CHAT: {
 			let chat: ChatFromServer = data;
 			ChatsStore.handleNewChat(chat);
 			return;
 		}
 
-		case wsMethods.UPDATE_CHAT: {
+		case WsResponseMethod.UPDATE_CHAT: {
 			let chat: Chat = data;
 			ChatsStore.handleUpdateChat(chat);
 			return;
 		}
 
-		case wsMethods.DELETE_CHAT: {
+		case WsResponseMethod.DELETE_CHAT: {
 			ChatsStore.handleDeleteChat(+data);
+			return;
+		}
+
+		case WsResponseMethod.NEW_MESSAGE: {
+			let message: MessageFromServer = data;
+			MessagesStore.handleNewMessage(message);
+			return;
+		}
+
+		case WsResponseMethod.UPDATE_MESSAGE: {
+			let message: UpdateMessageDTO = data;
+			MessagesStore.handleUpdateMessage(message);
+			return;
+		}
+
+		case WsResponseMethod.DELETE_MESSAGE: {
+			MessagesStore.handleDeleteMessage(+data);
 			return;
 		}
 
@@ -154,4 +188,17 @@ export interface UpdateChatDTO {
 	name: string;
 	avatar: string;
 	members: number[];
+}
+
+export interface UpdateMessageDTO {
+	message_id: number;
+	data: string;
+}
+
+export interface MessageDTO {
+	data: string;
+	files: string[];
+	message_parent_id: number;
+	parent_chat_id: number;
+	parent_user_id: number;
 }

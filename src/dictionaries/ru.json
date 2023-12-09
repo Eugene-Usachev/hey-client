@@ -192,7 +192,8 @@
       "OnlyGroupChatCanHasName": "Только групповые чаты могут иметь название",
       "Accept": "Принять",
       "Cancel": "Отмена",
-      "ThisNameAlreadyExists": "Чат с таким названием уже существует"
+      "ThisNameAlreadyExists": "Чат с таким названием уже существует",
+      "Delete": "Удалить"
     },
     "ChatsList": {
       "favorites": "Избранное",
@@ -201,7 +202,8 @@
     },
     "Chat": {
       "NoMessages": "В этом чате ещё нет сообщений",
-      "ChooseChat": "Выберите чат"
+      "ChooseChat": "Выберите чат",
+      "WriteMessage": "Напишите сообщение"
     }
   },
   "UI": {

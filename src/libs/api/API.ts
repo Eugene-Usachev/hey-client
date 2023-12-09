@@ -1,7 +1,7 @@
 import {Logger, LoggerConfig} from "./Logger";
 import {None, Option, Some} from "@/libs/rustTypes/option";
-import {WsMethods} from "@/libs/api/WsMethods";
-import {getEffectFromMethod, wsMethods} from "@/types/wsMethods";
+import {getNameFromMethod, WsRequestMethods} from "@/libs/api/WsRequestMethods";
+import {getEffectFromMethod, WsResponseMethod} from "@/types/wsResponseMethod";
 import {eye} from "@/libs/infojs/infojs";
 import {LogLevel, WsMethodByEffect} from "@/libs/infojs/eye";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
@@ -87,10 +87,11 @@ export class API {
 	}
 
 	async wsSend(req: WsRequest): Promise<void> {
-		if (this.ws.isNone()) {
+		if (this.ws.isNone() || !this.ws.unwrap().OPEN) {
 			await this.wsConnect();
 		}
-		this.ws.unwrap().send(`${req.method}${req.body}`);
+		eye.wsSend(getNameFromMethod(req.requestMethod), getEffectFromMethod(req.responseMethod))
+		this.ws.unwrap().send(`${req.requestMethod}${req.body}`);
 	}
 
 	async sendRequestAuth(url: string, method: string, params: RequestInit): Promise<Response> {
@@ -211,7 +212,8 @@ export function NewAPI(cfg: APIConfig): API {
 }
 
 export interface WsRequest {
-	method: WsMethods;
+	requestMethod: WsRequestMethods;
+	responseMethod: WsResponseMethod;
 	body: string;
 }
 
@@ -220,12 +222,12 @@ export type wsHandler = (method: string, data: any) => void;
 export function HandleWS(event: MessageEvent, handler: wsHandler) {
 	const responses = event.data.split('}{'); // Split the response into individual queries
 	responses.forEach((response: string, index: number) => {
-		if (response === wsMethods.WELCOME) {
+		if (response === WsResponseMethod.WELCOME) {
 			eye.wsGet("welcome message", WsMethodByEffect.ALIVE, LogLevel.INFO);
 			return;
 		}
 
-		let data: { method: wsMethods, data: any };
+		let data: { method: WsResponseMethod, data: any };
 		try {
 			if (index !== 0) {
 				response = '{' + response; // Add missing opening brace for all queries except the first one

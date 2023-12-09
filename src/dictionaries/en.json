@@ -96,10 +96,10 @@
       "AttitudeToAlcohol": "Attitude to alcohol",
       "AttitudeToSmocking": "Attitude to smoking",
       "AttitudeToSport": "Attitude to sport",
-      "FavoriteMeals": "Favorite meals",
-      "FavoriteFilms": "Favorite films",
-      "FavoriteGames": "Favorite games",
-      "FavoriteBooks": "Favorite books",
+      "FavoriteMeals": "Favorites meals",
+      "FavoriteFilms": "Favorites films",
+      "FavoriteGames": "Favorites games",
+      "FavoriteBooks": "Favorites books",
       "Dreams": "Dreams",
       "ShowMore": "Show more",
       "ShowLess": "Show less",
@@ -192,16 +192,18 @@
       "OnlyGroupChatCanHasName": "Only group chat can have name",
       "Accept": "Accept",
       "Cancel": "Cancel",
-      "ThisNameAlreadyExists": "A chat with this name already exists"
+      "ThisNameAlreadyExists": "A chat with this name already exists",
+      "Delete": "Delete"
     },
     "ChatsList": {
-      "favorites": "Favorite",
+      "favorites": "Favorites",
       "other": "Other",
       "friends": "Friends"
     },
     "Chat": {
       "NoMessages": "No messages yet",
-      "ChooseChat": "Choose a chat"
+      "ChooseChat": "Choose a chat",
+      "WriteMessage": "Write a message"
     }
   },
   "UI": {

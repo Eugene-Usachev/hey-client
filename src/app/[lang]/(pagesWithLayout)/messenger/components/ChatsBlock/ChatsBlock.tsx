@@ -7,6 +7,7 @@ import {Input, InputDict} from "@/components/Input/Input";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import {WindowMode} from "@/app/[lang]/(pagesWithLayout)/messenger/components/MainPart/MainPart";
 import {ChatsList, ChatsListDict} from "@/app/[lang]/(pagesWithLayout)/messenger/components/ChatsList/ChatsList";
+import {RightColumn} from "@/app/[lang]/(pagesWithLayout)/messenger/components/Loading/RightColumn";
 
 export interface ChatsBlockDict {
     input: InputDict;
@@ -54,8 +55,7 @@ export const ChatsBlock: FC<ChatsBlockProps> = observer<ChatsBlockProps>(({dict,
 
 
     if (!ChatsStore.wasGet) {
-        // TODO loading
-        return <></>;
+        return <RightColumn />;
     }
 
     return (
