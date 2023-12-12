@@ -82,17 +82,11 @@ export const UsersList:FC<UsersListProps> = observer<UsersListProps>(({dicts}) =
 
     return (
         <div className={styles.usersList}>
-            {list.map((user) => {
-                if (!user) return <></>;
+            {list.map((user, index) => {
+                if (!user) return <div key={"empty" + index}></div>;
                 return (
                     <UserLine key={user.id} dict={dicts.userLine}
-                        id={user.id}
-                        name={user.name}
-                        avatar={user.avatar}
-                        surname={user.surname}
-                        isClientSub={user.isClientSub}
-                        friendStatus={user.friendStatus}
-                        isOnline={user.isOnline}
+                        user={user}
                     />
                 )
             })}

@@ -3,7 +3,6 @@ import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './windowsToCreate.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {Input, InputDict} from "@/components/Input/Input";
 import {ChatsStore} from "@/stores/ChatsStore";
 import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
@@ -11,6 +10,8 @@ import {ErrorAlert} from "@/components/Alerts/Alerts";
 import {api} from "@/app/[lang]/(pagesWithLayout)/messenger/MessengerAPI";
 import {Checkbox} from "@mui/material";
 import {USERID} from "@/app/config";
+import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface WindowToCreateChatDict {
 	AddTheUser: string;
@@ -146,8 +147,7 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 		<>
 			<ModalWindow close={close} />
 			<div className={styles.window}>
-				{/* TODO r*/}
-				<LazyAvatar src={""} size={128} borderRadius={"50%"} />
+				<LazyAvatar src={""} size={128} borderRadius={"50%"}/>
 				<div style={{display: 'flex', flexFlow: 'column'}}>
 					<Input
 						blockStyle={{marginBottom: '10px'}}
@@ -190,7 +190,7 @@ export const WindowToCreateChat:FC<WindowToCreateChatProps> = observer<WindowToC
 								return (
 									<div key={user.id} className={styles.element}>
 										<div style={{display: 'flex', alignItems: 'center'}}>
-											<LazyAvatar style={{marginRight: '5px'}} src={user.avatar} size={24} borderRadius={"50%"} />
+											<UserAvatar style={{marginRight: '5px'}} user={user} size={24} borderRadius={"50%"} />
 											{user.name} {user.surname}
 										</div>
 										<Checkbox checked={chosenUsers.indexOf(user.id) > -1} onChange={() => {

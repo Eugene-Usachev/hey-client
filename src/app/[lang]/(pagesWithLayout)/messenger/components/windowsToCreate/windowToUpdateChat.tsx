@@ -11,6 +11,7 @@ import {ErrorAlert} from "@/components/Alerts/Alerts";
 import {api} from "@/app/[lang]/(pagesWithLayout)/messenger/MessengerAPI";
 import {Checkbox} from "@mui/material";
 import {USERID} from "@/app/config";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface WindowToUpdateChatDict {
 	AddTheUser: string;
@@ -211,7 +212,7 @@ export const WindowToUpdateChat:FC<WindowToUpdateChatProps> = observer<WindowToU
 								return (
 									<div key={user.id} className={styles.element}>
 										<div style={{display: 'flex', alignItems: 'center'}}>
-											<LazyAvatar style={{marginRight: '5px'}} src={user.avatar} size={24} borderRadius={"50%"} />
+											<UserAvatar style={{marginRight: '5px'}} user={user} size={24} borderRadius={"50%"} />
 											{user.name} {user.surname}
 										</div>
 										<Checkbox checked={chosenUsers.indexOf(user.id) > -1} onChange={() => {

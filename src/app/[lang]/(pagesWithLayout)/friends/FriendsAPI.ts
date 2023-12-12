@@ -3,11 +3,54 @@ import {refresh} from "@/requests/refresh";
 import {logout} from "@/utils/logout";
 import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
+import {WsResponseMethod} from "@/types/wsResponseMethod";
+import {FriendsStore} from "@/stores/FriendsStore";
+import {WsRequestMethods} from "@/libs/api/WsRequestMethods";
+
+const wsHandler = (method: string, data: any) => {
+	switch (method) {
+		case WsResponseMethod.GET_ONLINE_USERS: {
+			FriendsStore.setUsersOnline(data);
+			return;
+		}
+
+		case WsResponseMethod.USER_ONLINE: {
+			FriendsStore.setUsersOnline([+data]);
+			return;
+		}
+
+		case WsResponseMethod.USER_OFFLINE: {
+			FriendsStore.setUsersOffline([+data]);
+			return;
+		}
+
+		default:
+			return;
+	}
+}
 
 export class FriendsAPI {
 	public readonly sender: API;
 	constructor(cfg: APIConfig) {
 		this.sender = new API(cfg)
+	}
+
+	async wsConnect() {
+		await this.sender.wsConnect();
+		this.sender.wsSetHandler(wsHandler);
+	}
+
+	wsDisconnect() {
+		this.sender.wsDisconnect();
+	}
+
+	async getOnlineUsers(usersIds: number[]) {
+		if (usersIds.length === 0) throw new Error("Empty usersIds");
+		this.sender.wsSend({
+			responseMethod: WsResponseMethod.GET_ONLINE_USERS,
+			requestMethod: WsRequestMethods.getOnlineUsers,
+			body: JSON.stringify(usersIds),
+		});
 	}
 
 	async getFriendsAndSubs(id: number): Promise<Response> {

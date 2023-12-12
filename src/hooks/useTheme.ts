@@ -10,8 +10,6 @@ export const useTheme = () => {
 
 	useEffect(() => {
 		document.body.setAttribute('data-theme', theme);
-		// TODO only for dev
-		setTimeout(function () {toggleTheme()}, 10000)
 	}, [theme]);
 
 	return {

@@ -5,10 +5,8 @@ import { FaPlus } from "react-icons/fa";
 import {WindowMode} from "@/app/[lang]/(pagesWithLayout)/messenger/components/MainPart/MainPart";
 import {Chat, ChatsList as ChatsListType, ChatsStore, SpecialChatsListsName} from "@/stores/ChatsStore";
 import {observer} from "mobx-react-lite";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
-import {USERID} from "@/app/config";
-import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
 import {ChatLine} from "@/app/[lang]/(pagesWithLayout)/messenger/components/ChatLine/ChatLine";
+import {LoadingChats} from "@/app/[lang]/(pagesWithLayout)/messenger/components/Loading/LoadingChats";
 
 export interface ChatsListDict {
     favorites: string;
@@ -94,7 +92,7 @@ export const ChatsList:FC<ChatsListProps> = observer<ChatsListProps>(({chatsList
             {isOpen && (chatsList.chats.length > 0 || isLoading) &&
                 <div className={styles.list}>
                     {isLoading
-                        ? <div>Loading...</div>
+                        ? <LoadingChats />
                         : chatsList.chats.map((chat) => (
                             <ChatLine key={chat.id} chat={chat} doActiveChat={doActiveChat}/>
                         ))

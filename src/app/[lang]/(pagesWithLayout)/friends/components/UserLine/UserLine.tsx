@@ -3,11 +3,11 @@ import React, {FC, useCallback} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './UserLine.module.scss';
 import {FriendStatus} from "@/stores/ProfileStore";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import Link from "next/link";
 import {getHREF} from "@/utils/getHREF";
-import {FriendsStore} from "@/stores/FriendsStore";
+import {FriendsStore, FriendUser} from "@/stores/FriendsStore";
 import {USERID} from "@/app/config";
+import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
 
 export interface UserLineDict {
     SendFriendshipRequest: string,
@@ -19,19 +19,13 @@ export interface UserLineDict {
 interface UserLineProps {
     dict: UserLineDict;
 
-    name: string;
-    surname: string;
-    id: number;
-    avatar: string;
-    isClientSub: boolean;
-    friendStatus: FriendStatus;
-    isOnline: boolean;
+    user: FriendUser;
 }
 
 export const UserLine:FC<UserLineProps> = observer<UserLineProps>(({
-    dict, friendStatus, isClientSub, isOnline, name, surname, avatar, id
+    dict, user
 }) => {
-
+    const {name, surname, id, friendStatus, isClientSub} = user;
     const SendFriendshipRequest = useCallback(() => {
         FriendsStore.changeFriendStatus(id, FriendStatus.idol);
     }, [id]);
@@ -51,7 +45,7 @@ export const UserLine:FC<UserLineProps> = observer<UserLineProps>(({
     return (
         <div className={styles.userLine}>
             <Link href={getHREF(`profile/${id}`)} style={{marginRight: '10px'}}>
-                <LazyAvatar src={avatar === "" ? "/NULL.png" :`/${id}/Image/${avatar}`} size={64} borderRadius={"50%"}/>
+                <UserAvatar user={user} size={64} borderRadius={"50%"}/>
             </Link>
             <div className={styles.rightPart}>
                 <Link href={getHREF(`profile/${id}`)} className={styles.nameAndSurnameBlock}>

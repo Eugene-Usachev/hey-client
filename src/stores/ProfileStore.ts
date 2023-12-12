@@ -30,14 +30,16 @@ export const enum FriendStatus {
 	first,
 }
 
-export interface ProfileStoreInterface extends ProfileInfo{
+export interface ProfileStoreInterface extends ProfileInfo {
 	id: number;
+	isOnline: boolean;
 	friendStatus: FriendStatus;
 	mysubs: number[];
 
-	setInfo(id: number, info: ProfileInfo, mysubs: number[]): void
-	changeFriendStatus(status: FriendStatus): void
-	changeProfile(params: changeProfileParams): void
+	setInfo(id: number, info: ProfileInfo, mysubs: number[]): void;
+	setOnline(isOnline: boolean): void;
+	changeFriendStatus(status: FriendStatus): void;
+	changeProfile(params: changeProfileParams): void;
 }
 
 export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterface>({
@@ -61,6 +63,7 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 	dreams: '',
 	friendStatus: FriendStatus.first,
 	mysubs: [],
+	isOnline: false,
 
 	setInfo: action((id: number, info: ProfileInfo, mysubs: number[]) => {
 		ProfileStore.id = id;
@@ -82,6 +85,10 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 		ProfileStore.attitude_to_alcohol = info.attitude_to_alcohol;
 		ProfileStore.dreams = info.dreams;
 		ProfileStore.mysubs = mysubs;
+	}),
+
+	setOnline: action((isOnline: boolean) => {
+		ProfileStore.isOnline = isOnline;
 	}),
 
 	changeFriendStatus: action((status: FriendStatus) => {

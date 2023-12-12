@@ -1,13 +1,16 @@
 "use client";
-import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './windowsToCreate.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {Input, InputDict} from "@/components/Input/Input";
 import {Chat, ChatsStore} from "@/stores/ChatsStore";
-import {MiniUsersStore} from "@/stores/MiniUsersStore";
+import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
 import {Checkbox} from "@mui/material";
+import {None, Option} from "@/libs/rustTypes/option";
+import {USERID} from "@/app/config";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface WindowToCreateChatsListDict {
     EnterName: string;
@@ -120,15 +123,29 @@ export const WindowToCreateChatsList:FC<WindowToCreateChatsListProps> = observer
                                 setFilterValue(value);
                             }}/>
                         <div className={styles.list}>
-                            {chats.map((chat) => {
+                            {chats.map((chat, index) => {
                                 if (!chat.name.toLowerCase().includes(filterValue.toLowerCase())) {
-                                    return <div key={"empty"}></div>;
+                                    return <div key={"empty" + index}></div>;
                                 }
+
+                                const user = useMemo(():Option<MiniUser> => {
+                                    if (chat.isSingleUserConversation) {
+                                        let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];
+                                        return MiniUsersStore.users.getByKey<MiniUser>(otherUserId, "id");
+                                    }
+                                    return None();
+                                }, [chat.isSingleUserConversation, chat.members]);
+
+                                const name = !chat.isSingleUserConversation ? chat.name : `${user.unwrap().name} ${user.unwrap().surname}`;
+
                                 return (
                                     <div key={chat.id} className={styles.element}>
                                         <div style={{display: 'flex', alignItems: 'center'}}>
-                                            <LazyAvatar style={{marginRight: '5px'}} src={chat.avatar} size={24} borderRadius={"50%"} />
-                                            {chat.name}
+                                            {chat.isSingleUserConversation
+                                                ? <UserAvatar style={{marginRight: '5px'}} user={user.unwrap()} size={24} borderRadius={"50%"} />
+                                                : <LazyAvatar style={{marginRight: '5px'}} src={chat.avatar} size={24} borderRadius={"50%"} />
+                                            }
+                                            {name}
                                         </div>
                                         <Checkbox checked={chosenChats.indexOf(chat.id) > -1} onChange={() => {
                                             const index = chosenChats.indexOf(chat.id);

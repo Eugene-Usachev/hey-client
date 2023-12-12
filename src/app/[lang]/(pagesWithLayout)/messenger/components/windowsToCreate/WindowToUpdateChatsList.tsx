@@ -1,5 +1,5 @@
 "use client";
-import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './windowsToCreate.module.scss';
 import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
@@ -12,6 +12,8 @@ import {
 	getChatsSlice
 } from "@/app/[lang]/(pagesWithLayout)/messenger/components/windowsToCreate/windowToCreateChatsList";
 import {USERID} from "@/app/config";
+import {None, Option} from "@/libs/rustTypes/option";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface WindowToUpdateChatsListDict {
 	EnterName: string;
@@ -129,14 +131,23 @@ export const WindowToUpdateChatsList:FC<WindowToUpdateChatsListProps> = observer
 									return <div key={"empty"+index}></div>;
 								}
 
-								const name = !chat.isSingleUserConversation ? chat.name : chat.members[0] === +USERID
-									? `${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[1], 'id').name} ${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[1], 'id').surname}`
-									: `${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[0], 'id').name} ${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[0], 'id').surname}`;
+								const user = useMemo(():Option<MiniUser> => {
+									if (chat.isSingleUserConversation) {
+										let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];
+										return MiniUsersStore.users.getByKey<MiniUser>(otherUserId, "id");
+									}
+									return None();
+								}, [chat.isSingleUserConversation, chat.members]);
+
+								const name = !chat.isSingleUserConversation ? chat.name : `${user.unwrap().name} ${user.unwrap().surname}`;
 
 								return (
 									<div key={chat.id} className={styles.element}>
 										<div style={{display: 'flex', alignItems: 'center'}}>
-											<LazyAvatar style={{marginRight: '5px'}} src={chat.avatar} size={24} borderRadius={"50%"} />
+											{chat.isSingleUserConversation
+												? <UserAvatar style={{marginRight: '5px'}} user={user.unwrap()} size={24} borderRadius={"50%"} />
+												: <LazyAvatar style={{marginRight: '5px'}} src={chat.avatar} size={24} borderRadius={"50%"} />
+											}
 											{name}
 										</div>
 										<Checkbox checked={chosenChats.indexOf(chat.id) > -1} onChange={() => {

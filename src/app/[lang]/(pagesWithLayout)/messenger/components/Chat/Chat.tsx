@@ -15,6 +15,9 @@ import {MessagesStore} from "@/stores/MessagesStore";
 import {Input, InputDict} from '@/components/Input/Input';
 import {Message} from "@/app/[lang]/(pagesWithLayout)/messenger/components/Message/Message";
 import {LoadingMessages} from "@/app/[lang]/(pagesWithLayout)/messenger/components/Loading/LoadingMessages";
+import {Message as MessageType} from "@/stores/MessagesStore";
+import {None, Option} from "@/libs/rustTypes/option";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface ChatDict {
     NoMessages: string;
@@ -42,12 +45,18 @@ export const Chat:FC<ChatProps> = observer<ChatProps>(({dict,
     );
     const firstElem = useRef<HTMLDivElement | null>(null);
     const lastScrollHeight = useRef(0);
-	const [needToScroll, setNeedToScroll] = useState(false);
+    const [needToScroll, setNeedToScroll] = useState(false);
+    const user = useMemo(():Option<MiniUser> => {
+        if (chat.isSingleUserConversation) {
+            let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];
+            return MiniUsersStore.users.getByKey<MiniUser>(otherUserId, "id");
+        }
+        return None();
+    }, [chat.isSingleUserConversation, chat.members]);
     const name = useMemo(() => {
-        return !chat.isSingleUserConversation ? chat.name : chat.members[0] === +USERID
-            ? `${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[1], 'id').name} ${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[1], 'id').surname}`
-            : `${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[0], 'id').name} ${MiniUsersStore.users.getByKeyUnchecked<MiniUser>(chat.members[0], 'id').surname}`
-    }, [chat.isSingleUserConversation, chat.name, chat.members]);
+        if (!chat.isSingleUserConversation) return chat.name;
+        return user.unwrap().name + " " + user.unwrap().surname;
+        }, [chat.isSingleUserConversation, chat.name, user]);
     const [messages, setMessages] = useState(MessagesStore.chats.get(chat.id));
 
     const toggleFavorite = useCallback(() => {
@@ -153,7 +162,11 @@ export const Chat:FC<ChatProps> = observer<ChatProps>(({dict,
             <div className={styles.header}>
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <div style={{marginRight: '10px'}}>
-                        <LazyAvatar src={chat.avatar} size={40} borderRadius={"50%"} />
+                        {chat.isSingleUserConversation
+                            ? <UserAvatar user={user.unwrap()} size={40} borderRadius={"50%"} />
+                            : <LazyAvatar src={chat.avatar} size={40} borderRadius={"50%"} />
+                        }
+
                     </div>
                     {name}
                 </div>
@@ -183,7 +196,7 @@ export const Chat:FC<ChatProps> = observer<ChatProps>(({dict,
                                 </div>
                             </div>
                         )
-                        : messages.map((message, index) => {
+                        : messages.map((message: MessageType, index) => {
                             if (index === 0) {
                                 return (
                                     <div ref={firstElem}>

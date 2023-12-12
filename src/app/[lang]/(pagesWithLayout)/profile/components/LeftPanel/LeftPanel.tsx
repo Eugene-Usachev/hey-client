@@ -4,10 +4,10 @@ import {observer} from "mobx-react-lite";
 import styles from './LeftPanel.module.scss';
 import {FriendStatus, ProfileStore} from "@/stores/ProfileStore";
 import {USERID} from "@/app/config";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
 import {ChangeMenu, ChangeMenuDict} from "@/app/[lang]/(pagesWithLayout)/profile/components/ChangeMenu/ChangeMenu";
 import {InputDict} from "@/components/Input/Input";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 interface LeftPanelDictionary {
     changeProfile: string;
@@ -101,9 +101,9 @@ export const LeftPanel: FC<Props> = observer(({dictionary, changeMenuDict, input
 
     useEffect(() => {
         if (isChanging) {
-            document.getElementById("rightColumn").style.display = "none";
+            document.getElementById("rightColumn")!.style.display = "none";
         } else {
-            document.getElementById("rightColumn").style.display = "block";
+            document.getElementById("rightColumn")!.style.display = "block";
         }
     }, [isChanging]);
 
@@ -113,7 +113,8 @@ export const LeftPanel: FC<Props> = observer(({dictionary, changeMenuDict, input
 
     return (
         <div className={styles.leftPanel}>
-            <LazyAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} src={ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`} />
+            <UserAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}}
+                        user={{avatar: ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`, isOnline: ProfileStore.isOnline}} />
             {isOwner
                 ?
                     <div className={styles.button} onClick={() => {setIsChanging(true)}}>

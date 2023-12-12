@@ -1,7 +1,7 @@
 'use client';
 import React, {memo, FC, useState, useRef, useEffect, useCallback} from 'react';
 import styles from './LazyAvatar.module.scss';
-import {STATIC, STATIC_USERS} from "@/app/config";
+import {STATIC_USERS} from "@/app/config";
 import Image from "next/image";
 
 interface Props {
@@ -30,7 +30,7 @@ export const LazyAvatar:FC<Props> = memo<Props>(({src, size, borderRadius= 50, s
 
     return (
         <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.lazyAvatar + " skeleton"}>
-            {src != undefined && <img onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar}
+            {src != undefined && <Image onLoad={Show} ref={img} style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}} className={styles.lazyAvatar}
                     src={src == "" ? `${STATIC_USERS}/NULL.png` : STATIC_USERS + src } alt={""} width={size} height={size}/>}
         </div>
     );

@@ -38,57 +38,6 @@ interface SignUpFormProps {
 	inputDict: InputDict;
 }
 
-// TODO r
-// let timer = 0;
-// const onChangeLoginWithCheck = (login: string, email: string, onChangeLogin: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
-// 	onChangeLogin(login);
-// 	if (timer) clearTimeout(timer);
-// 	timer= window.setTimeout(() => {
-// 		const res = api.check({login: login, email: email});
-// 		res.then(async (res) => {
-// 			const data = await res.json();
-// 			const {isEmailBusy, isLoginBusy} = data;
-// 			if (isEmailBusy && isLoginBusy) {
-// 				setErrorMessage(dict.EmailAndLoginIsBusy);
-// 			} else if (isEmailBusy) {
-// 				setErrorMessage(dict.EmailIsBusy);
-// 			} else if (isLoginBusy) {
-// 				setErrorMessage(dict.LoginIsBusy);
-// 			} else {
-// 				setErrorMessage("");
-// 			}
-// 		});
-// 		res.catch((reason) => {
-// 			throw new Error(reason);
-// 		});
-// 	}, 2000)
-// }
-//
-// const onChangeEmailWithCheck = (login: string, email: string, onChangeEmail: (value: string) => void, setErrorMessage: (message: string) => void, dict: SignUpFormDict) => {
-// 	onChangeEmail(email);
-// 	if (timer) clearTimeout(timer);
-// 	timer = window.setTimeout(() => {
-// 		const res = api.check({login: login, email: email},);
-// 		res.then(async (res) => {
-// 			const data = await res.json();
-// 			const {isEmailBusy, isLoginBusy} = data;
-// 			if (isEmailBusy && isLoginBusy) {
-// 				setErrorMessage(dict.EmailAndLoginIsBusy);
-// 			} else if (isEmailBusy) {
-// 				setErrorMessage(dict.EmailIsBusy);
-// 			} else if (isLoginBusy) {
-// 				setErrorMessage(dict.LoginIsBusy);
-// 			} else {
-// 				setErrorMessage("");
-// 			}
-// 		})
-// 		res.catch((reason) => {
-// 			throw new Error(reason);
-// 		});
-// 	}, 2000)
-// }
-
-
 export const SignUpForm: FC<SignUpFormProps> = memo<SignUpFormProps>(({setIsLoginWindowOpen, login, onChangeLogin, onChangePassword, inputDict,
 														   password, onChangeEmail, email,
 														   onChangeSurname, onChangeName, name, surname, dict

@@ -5,7 +5,7 @@ import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
 import {WsRequestMethods} from "@/libs/api/WsRequestMethods";
 import {Chat, ChatFromServer, ChatsStore} from "@/stores/ChatsStore";
-import {MiniUser} from "@/stores/MiniUsersStore";
+import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
 import {WsResponseMethod} from "@/types/wsResponseMethod";
 import {MessageFromServer, MessagesStore} from "@/stores/MessagesStore";
 
@@ -18,6 +18,7 @@ export class MessengerAPI {
 	wsConnect() {
 		this.sender.wsConnect();
 		this.sender.wsSetHandler(wsHandler);
+		MiniUsersStore.setWsSender(this.sender);
 	}
 
 	wsDisconnect() {
@@ -114,7 +115,23 @@ export class MessengerAPI {
 		});
 
 		if (res.status === 200) {
-			return await res.json();
+			const list: {
+				name: string;
+				surname: string;
+				avatar: string;
+				id: number;
+			}[] = await res.json();
+			const r: MiniUser[] = [];
+			for (const user of list) {
+				r.push({
+					id: user.id,
+					name: user.name,
+					surname: user.surname,
+					avatar: user.avatar,
+					isOnline: false
+				})
+			}
+			return r;
 		}
 		return [];
 	}
@@ -138,6 +155,21 @@ export let api = new MessengerAPI({
 
 const wsHandler = (method: string, data: any) => {
 	switch (method) {
+		case WsResponseMethod.GET_ONLINE_USERS: {
+			MiniUsersStore.handleGetOnlineUsers(data);
+			return;
+		}
+
+		case WsResponseMethod.USER_ONLINE: {
+			MiniUsersStore.handleUserOnlineStatusChange(+data, true);
+			return;
+		}
+
+		case WsResponseMethod.USER_OFFLINE: {
+			MiniUsersStore.handleUserOnlineStatusChange(+data, false);
+			return;
+		}
+
 		case WsResponseMethod.NEW_CHAT: {
 			let chat: ChatFromServer = data;
 			ChatsStore.handleNewChat(chat);

@@ -3,7 +3,10 @@ import {refresh} from "@/requests/refresh";
 import {logout} from "@/utils/logout";
 import {MessageStyles} from "@/libs/api/Logger";
 import {USERID} from "@/app/config";
-import {MiniUser} from "@/stores/MiniUsersStore";
+import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
+import {WsResponseMethod} from "@/types/wsResponseMethod";
+import {WsRequestMethods} from "@/libs/api/WsRequestMethods";
+import {ProfileStore} from "@/stores/ProfileStore";
 
 export class ProfileAPI {
 	public readonly sender: API;
@@ -18,6 +21,24 @@ export class ProfileAPI {
 		return this.sender.get("/api/user/" + params.id, {
 			cache: 'no-cache',
 		})
+	}
+
+	async wsConnect() {
+		await this.sender.wsConnect();
+		this.sender.wsSetHandler(wsHandler);
+		MiniUsersStore.setWsSender(this.sender);
+	}
+
+	wsDisconnect() {
+		this.sender.wsDisconnect();
+	}
+
+	async isOnline(id: number) {
+		this.sender.wsSend({
+			responseMethod: WsResponseMethod.GET_ONLINE_USERS,
+			requestMethod: WsRequestMethods.getOnlineUsers,
+			body: JSON.stringify([id]),
+		});
 	}
 
 	async getSubs(): Promise<number[]> {
@@ -311,6 +332,39 @@ export class ProfileAPI {
 			body: commentJSON,
 			cache: 'no-cache',
 		})
+	}
+}
+
+const wsHandler = (method: string, data: any) => {
+	switch (method) {
+		case WsResponseMethod.GET_ONLINE_USERS: {
+			if ((data as number[]).indexOf(ProfileStore.id) > -1) {
+				ProfileStore.setOnline(true);
+			}
+			MiniUsersStore.handleGetOnlineUsers(data);
+			return;
+		}
+
+		case WsResponseMethod.USER_ONLINE: {
+			if (+data === ProfileStore.id) {
+				ProfileStore.setOnline(true);
+				return;
+			}
+			MiniUsersStore.handleUserOnlineStatusChange(+data, true);
+			return;
+		}
+
+		case WsResponseMethod.USER_OFFLINE: {
+			if (+data === ProfileStore.id) {
+				ProfileStore.setOnline(false);
+				return;
+			}
+			MiniUsersStore.handleUserOnlineStatusChange(+data, false);
+			return;
+		}
+
+		default:
+			return;
 	}
 }
 

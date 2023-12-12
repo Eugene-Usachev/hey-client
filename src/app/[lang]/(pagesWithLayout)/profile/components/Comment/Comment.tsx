@@ -11,6 +11,7 @@ import {TopProfileStore} from "@/stores/TopProfileStore";
 import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import Link from "next/link";
 import {getHREF} from "@/utils/getHREF";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 interface CommentProps extends CommentInterface {
     dict: {
@@ -42,8 +43,8 @@ export const Comment:FC<CommentProps> = memo<CommentProps>(({
                 isOnline: true
             };
         }
-        const user = MiniUsersStore.users.find((user) => user.id === parentUserId);
-        if (user !== undefined) return user;
+        const user = MiniUsersStore.users.getByKey<MiniUser>(parentUserId, "id");
+        if (user.isSome()) return user.unwrap();
         return {
             name: "Unknown",
             surname: "User",
@@ -57,7 +58,7 @@ export const Comment:FC<CommentProps> = memo<CommentProps>(({
         <div className={styles.comment}>
             <div className={styles.top}>
                 <Link href={getHREF(`profile/${user.id}`)} style={{marginRight: '5px', marginBottom: '5px'}}>
-                    <LazyAvatar src={user.avatar === "" ? "/NULL.png" :`/${user.id}/Image/${user.avatar}`} size={32} borderRadius={"50%"} />
+                    <UserAvatar user={user} size={32} borderRadius={"50%"} />
                 </Link>
                 <Link href={getHREF(`profile/${user.id}`)}>
                     <div className={styles.nameSurname}>{user.name} {user.surname}</div>

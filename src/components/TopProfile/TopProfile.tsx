@@ -8,6 +8,7 @@ import {TopProfileMenu} from "@/components/TopProfileMenu/TopProfileMenu";
 import {refreshAll} from "@/requests/refresh";
 import Link from "next/link";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 interface TopProfileProps {
     topProfileDict: {
@@ -25,7 +26,7 @@ interface TopProfileProps {
 export const TopProfile: FC<TopProfileProps> = observer(({topProfileDict, topProfileMenuDict}) => {
 
     const [isActive, setIsActive] = useState(false);
-    const block = useRef<HTMLDivElement>(null as HTMLDivElement);
+    const block = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
     const toggleActive = useCallback(() => {
         setIsActive(!isActive);
     }, [isActive]);
@@ -35,8 +36,8 @@ export const TopProfile: FC<TopProfileProps> = observer(({topProfileDict, topPro
         TopProfileStore.initLang();
         api.sender.refresh<number>(refreshAll).then((res) => {
             if (res === 200) {
-                TopProfileStore.changeNameAndSurname(localStorage.getItem("name"), localStorage.getItem("surname"))
-                TopProfileStore.changeAvatar(localStorage.getItem("avatar"))
+                TopProfileStore.changeNameAndSurname(localStorage.getItem("name")!, localStorage.getItem("surname")!)
+                TopProfileStore.changeAvatar(localStorage.getItem("avatar")!)
                 TopProfileStore.setIsAuthorized(true);
             }
         })
@@ -62,7 +63,8 @@ export const TopProfile: FC<TopProfileProps> = observer(({topProfileDict, topPro
                         <div className={styles.topProfile} ref={block}>
                             <div onClick={toggleActive} style={{display: 'flex', alignItems: 'center', justifyContent: TopProfileStore.name == "" || TopProfileStore.surname =="" ? "end" : 'space-between'}}>
                                 {TopProfileStore.name[0].toUpperCase()}{TopProfileStore.name.slice(1)} {TopProfileStore.surname[0].toUpperCase()}{TopProfileStore.surname.slice(1)}
-                                <LazyAvatar size={30} borderRadius={"50%"} src={TopProfileStore.avatar} />
+                                <UserAvatar size={30} borderRadius={"50%"}
+                                            user={{avatar: (TopProfileStore.avatar ? TopProfileStore.avatar : ""), isOnline: true}} />
                             </div>
                             {isActive && <TopProfileMenu dictionary={topProfileMenuDict}/>}
                         </div>

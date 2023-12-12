@@ -6,7 +6,7 @@ interface TopProfileStoreInterface {
 	avatar: string | undefined;
 	name: string;
 	surname: string;
-	lang: 'ru' | 'en';
+	lang: 'ru' | 'eng';
 	isGet: boolean;
 	isAuthorized: boolean;
 
@@ -20,12 +20,12 @@ interface TopProfileStoreInterface {
 	setIsAuthorized(isAuthorized: boolean): void;
 }
 
-export const TopProfileStore = observable<TopProfileStoreInterface>({
+export const TopProfileStore: TopProfileStoreInterface = observable<TopProfileStoreInterface>({
 	name: '',
 	surname: '',
 	theme: 'dark',
 	avatar: undefined,
-	lang: 'en',
+	lang: 'eng',
 	isGet: false,
 	isAuthorized: false,
 
@@ -34,14 +34,6 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 		theme = theme.length > 0 ? theme : "dark";
 		TopProfileStore.theme = theme;
 		document.body.setAttribute('data-theme', theme);
-		//TODO only for dev
-		// setTimeout(function () {
-		// 	if (TopProfileStore.theme === 'dark') {
-		// 		TopProfileStore.changeTheme('light');
-		// 	} else {
-		// 		TopProfileStore.changeTheme('dark');
-		// 	}
-		// }, 10000)
 	}),
 	changeTheme: action((theme: "dark" | "light") => {
 		TopProfileStore.theme = theme;
@@ -64,15 +56,15 @@ export const TopProfileStore = observable<TopProfileStoreInterface>({
 				break;
 			case "eng":
 				setLang("eng");
-				TopProfileStore.lang = "en";
+				TopProfileStore.lang = "eng";
 				break;
 			default:
 				setLang("eng");
-				TopProfileStore.lang = "en";
+				TopProfileStore.lang = "eng";
 				break;
 		}
 	}),
-	changeLang: action((lang: 'ru' | 'en') => {
+	changeLang: action((lang: 'ru' | 'eng') => {
 		setLang(lang);
 		TopProfileStore.lang = lang;
 	}),

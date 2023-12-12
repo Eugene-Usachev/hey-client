@@ -10,7 +10,10 @@ export const UseProfileStore: FC<Props> = memo<Props>(({id, info}) => {
 	useEffect(() => {
 		api.getSubs().then((mysubs) => {
 			ProfileStore.setInfo(id, info, mysubs)
-		})
+		});
+		api.wsConnect().then(() => {
+			api.isOnline(id);
+		});
 	}, [])
 
 	return <></>;

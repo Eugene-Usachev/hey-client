@@ -21,7 +21,6 @@ interface CommentBlockProps {
 }
 
 // TODO BUG: scroll to top after load more than 20 comments
-
 export const CommentBlock:FC<CommentBlockProps> = observer<CommentBlockProps>(({id, dicts}) => {
 
     const observer = useRef<IntersectionObserver>();

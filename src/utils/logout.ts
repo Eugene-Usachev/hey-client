@@ -7,7 +7,4 @@ export const logout = () => {
 	localStorage.removeItem("email");
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("refreshToken");
-
-	// TODO
-	//window.location.href = "/registration";
 }

@@ -8,13 +8,15 @@ interface Props {
 }
 export const UseFriendsStore: FC<Props> = memo<Props>(({id}) => {
 	useEffect(() => {
-		api.getFriendsAndSubs(id).then(async (res) => {
-			const status = res.status;
-			if (status !== 200) {
-				ErrorAlert("Error, status code: " + status);
-			}
-			const info = (await res.json()) as FriendsInfo;
-			FriendsStore.setInfo(id, info);
+		api.wsConnect().then(() => {
+			api.getFriendsAndSubs(id).then(async (res) => {
+				const status = res.status;
+				if (status !== 200) {
+					ErrorAlert("Error, status code: " + status);
+				}
+				const info = (await res.json()) as FriendsInfo;
+				FriendsStore.setInfo(id, info);
+			});
 		});
 	}, [])
 

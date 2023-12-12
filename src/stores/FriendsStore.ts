@@ -21,6 +21,7 @@ interface UserInfo {
 	avatar: string;
 	friends: number[];
 	subscribers: number[];
+	isOnline: boolean;
 }
 
 interface ClientInfo {
@@ -53,11 +54,11 @@ interface FriendsStoreInterface {
 
 	setOpenListStatus(status: OpenListStatus): void;
 	setInfo(id: number, info: FriendsInfo): void;
+	setUsersOnline(usersIds: number[]): void;
+	setUsersOffline(usersIds: number[]): void;
 
 	changeFriendStatus(userId: number, status: FriendStatus): void
 }
-
-// TODO we need to get users only when we need it (now we get all users at once when we get friends)
 
 export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterface>({
 	theUser: {
@@ -67,6 +68,7 @@ export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterf
 		avatar: "",
 		friends: [],
 		subscribers: [],
+		isOnline: false,
 	},
 	client: {
 		friends: [],
@@ -93,6 +95,7 @@ export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterf
 			name: info.user.name,
 			surname: info.user.surname,
 			subscribers: info.user.subscribers,
+			isOnline: false,
 		};
 
 		const client: ClientInfo = {
@@ -131,6 +134,7 @@ export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterf
 					FriendsStore.isGetting = true;
 				});
 				const resUsers = await api.getUsers(needToGetArr);
+				api.getOnlineUsers(needToGetArr);
 				if (resUsers.status !== 200) {
 					ErrorAlert("Error, status code: " + resUsers.status);
 				}
@@ -161,8 +165,7 @@ export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterf
 							avatar: user.avatar,
 							isClientSub: user.is_client_sub,
 							friendStatus: friendStatus,
-							// TODO
-							isOnline: true,
+							isOnline: false,
 						});
 					}
 					FriendsStore.isGetting = false;
@@ -216,6 +219,29 @@ export const FriendsStore: FriendsStoreInterface = observable<FriendsStoreInterf
 			FriendsStore.mutualFriendsList = mutualFriendsList;
 			FriendsStore.wasGet = true;
 		});
+	}),
+
+	setUsersOnline: action((usersIds: number[]) => {
+		FriendsStore.users.forEach((user) => {
+			if (usersIds.indexOf(user.id) > -1) {
+				user.isOnline = true;
+			}
+		});
+		if (usersIds.indexOf(FriendsStore.theUser.id) > -1) {
+			FriendsStore.theUser.isOnline = true;
+		}
+	}),
+
+	setUsersOffline: action((usersIds: number[]) => {
+		FriendsStore.users.forEach((user) => {
+			if (usersIds.indexOf(user.id) > -1) {
+				user.isOnline = false;
+			}
+		})
+
+		if (usersIds.indexOf(FriendsStore.theUser.id) > -1) {
+			FriendsStore.theUser.isOnline = false;
+		}
 	}),
 
 	changeFriendStatus: action(async (userId: number, status: FriendStatus) => {

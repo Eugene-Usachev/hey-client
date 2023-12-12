@@ -2,11 +2,11 @@ import React, {FC, useCallback, useMemo, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './ChangeMenu.module.scss';
 import styles_leftPanel from '../LeftPanel/LeftPanel.module.scss';
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {ProfileStore} from "@/stores/ProfileStore";
 import {Input, InputDict} from "@/components/Input/Input";
 import {Select} from "@/components/Select/Select";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
 
 export interface ChangeMenuDict {
     ChangeAvatar: string;
@@ -43,8 +43,6 @@ interface Props {
     inputDict: InputDict;
 	stopChange: () => void;
 }
-
-// TODO if we change lang, all select options should be changed to zero (because it will not be able to found need text on the dicts). We need to store the index of value, not a value
 
 export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChange}) => {
 
@@ -165,12 +163,13 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
 		})
 
 		stopChange();
-	}, [address, description, dreams, favoriteBooks, favoriteFilms, favoriteGames, favoriteMeals, name, surname, familyStatusIndex, attitudeToAlcoholIndex, attitudeToSmockingIndex, attitudeToSportIndex]);
+	}, [address, description, dreams, favoriteBooks, favoriteFilms, favoriteGames, favoriteMeals, name, surname, familyStatusIndex, attitudeToAlcoholIndex, attitudeToSmockingIndex, attitudeToSportIndex, stopChange]);
 
     return (
         <div className={styles.changeMenu} style={{margin: "0 14px"}}>
             <div className={styles_leftPanel.leftPanel} style={{height: '170px', marginRight: '5px'}}>
-                <LazyAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} src={ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`} />
+                <UserAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} user={{
+					avatar:ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`, isOnline: ProfileStore.isOnline}} />
                 <div className={styles_leftPanel.button}>{dict.ChangeAvatar}</div>
             </div>
             <div className={styles.propertiesPart}>
@@ -184,10 +183,10 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
                 <Select onChangeValue={setAttitudeToAlcoholIndex} options={attitudeToAlcohol} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} placeholder={dict.SelectYourAttitudeToAlcohol} withLabel={true} value={attitudeToAlcoholIndex} />
                 <Select onChangeValue={setAttitudeToSmockingIndex} options={attitudeToSmocking} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} placeholder={dict.SelectYourAttitudeToSmocking} withLabel={true} value={attitudeToSmockingIndex} />
                 <Select onChangeValue={setAttitudeToSportIndex} options={attitudeToSport} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} placeholder={dict.SelectYourAttitudeToSport} withLabel={true} value={attitudeToSportIndex} />
-                <Input onChangeValue={setFavoriteMeals} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteMeals} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_meals} defaultValue={ProfileStore.favorites_meals ? ProfileStore.favourites_meals : ""} reg={"all"} />
-                <Input onChangeValue={setFavoriteBooks} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteBooks} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_books} defaultValue={ProfileStore.favorites_books ? ProfileStore.favourites_books : ""} reg={"all"} />
-                <Input onChangeValue={setFavoriteGames} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteGames} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_games} defaultValue={ProfileStore.favorites_games ? ProfileStore.favourites_games : ""} reg={"all"} />
-                <Input onChangeValue={setFavoriteFilms} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteFilms} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_films} defaultValue={ProfileStore.favorites_films ? ProfileStore.favourites_films : ""} reg={"all"} />
+                <Input onChangeValue={setFavoriteMeals} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteMeals} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_meals} defaultValue={ProfileStore.favorites_meals ? ProfileStore.favorites_meals : ""} reg={"all"} />
+                <Input onChangeValue={setFavoriteBooks} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteBooks} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_books} defaultValue={ProfileStore.favorites_books ? ProfileStore.favorites_books : ""} reg={"all"} />
+                <Input onChangeValue={setFavoriteGames} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteGames} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_games} defaultValue={ProfileStore.favorites_games ? ProfileStore.favorites_games : ""} reg={"all"} />
+                <Input onChangeValue={setFavoriteFilms} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.WriteYourFavoriteFilms} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.favorites_films} defaultValue={ProfileStore.favorites_films ? ProfileStore.favorites_films : ""} reg={"all"} />
                 <Input onChangeValue={setDreams} blockStyle={{width: '640px', marginRight: '5px', marginBottom: '10px'}} dict={inputDict} placeholder={dict.DescribeYourDreams} withLabel={true} checkSpace={false} maxLength={256} minLength={-1} type={"cross"} startValue={ProfileStore.dreams} defaultValue={ProfileStore.dreams ? ProfileStore.dreams : ""} reg={"all"} />
                 <div className={styles.buttonBlock}>
                    <div onClick={declineChanges} className={styles.button} style={{backgroundColor: "var(--red)", marginRight: '5px'}}>{dict.NotSafe}</div>

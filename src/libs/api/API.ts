@@ -5,7 +5,6 @@ import {getEffectFromMethod, WsResponseMethod} from "@/types/wsResponseMethod";
 import {eye} from "@/libs/infojs/infojs";
 import {LogLevel, WsMethodByEffect} from "@/libs/infojs/eye";
 import {ErrorAlert} from "@/components/Alerts/Alerts";
-import {Chat, ChatFromServer, ChatsStore} from "@/stores/ChatsStore";
 
 export interface APIConfig {
 	refreshFunc: () => Promise<Response>;
@@ -87,7 +86,19 @@ export class API {
 	}
 
 	async wsSend(req: WsRequest): Promise<void> {
-		if (this.ws.isNone() || !this.ws.unwrap().OPEN) {
+		if (this.ws.isNone() || this.ws.unwrap().readyState !== 1) {
+			if (this.ws.isSome() && this.ws.unwrap().readyState === 0) {
+				const cb = () => {
+					if (this.ws.isSome() && this.ws.unwrap().readyState === 1) {
+						eye.wsSend(getNameFromMethod(req.requestMethod), getEffectFromMethod(req.responseMethod))
+						this.ws.unwrap().send(`${req.requestMethod}${req.body}`);
+					} else {
+						setTimeout(cb, 100);
+					}
+				}
+				cb();
+				return;
+			}
 			await this.wsConnect();
 		}
 		eye.wsSend(getNameFromMethod(req.requestMethod), getEffectFromMethod(req.responseMethod))
