@@ -126,6 +126,14 @@ export class ProfileAPI {
 		})
 	}
 
+	changeAvatar(avatar: File): Promise<Response> {
+		const formData = new FormData();
+		formData.append("avatar", avatar);
+		return this.sender.patchAuth("/api/user/avatar/", {
+			body: formData
+		});
+	}
+
 	async createPost(post: PostDTO, survey: CreateSurveyDTO | null): Promise<Response> {
 		const postJSON = JSON.stringify(post);
 		const surveyJSON = survey !== null ? JSON.stringify(survey) : "";
@@ -140,10 +148,10 @@ export class ProfileAPI {
 
 	async getPosts(params: getPostsParams): Promise<Response> {
 		const { authorId, offset } = params;
-		if (!authorId || authorId < 1 || typeof authorId !== "number") {
+		if (!authorId || authorId < 1) {
 			throw new Error("Missing params");
 		}
-		if (offset === undefined || offset < 0 || typeof offset !== "number") {
+		if (offset === undefined || offset < 0) {
 			throw new Error("Missing params");
 		}
 

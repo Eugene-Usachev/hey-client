@@ -34,8 +34,10 @@ export const UserAvatar:FC<Props> = observer<Props>(({user, size, borderRadius= 
     }, [img.current, user.avatar]);
 
     return (
-        <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.userAvatar + " skeleton"}>
+        <div style={{width: `${size}px`, height: `${size}px`, borderRadius: borderRadius, ...style}} className={styles.userAvatar + (!isShowing ? " skeleton" : "")}>
             {user.avatar != undefined && <Image
+                priority={false}
+                fetchPriority={"low"}
                 onLoad={Show} ref={img}
                 style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}}
                 className={styles.userAvatar + " " + (user.isOnline ? styles.online : "")}

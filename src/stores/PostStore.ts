@@ -172,11 +172,13 @@ export const PostStore: PostStoreInterface = observable<PostStoreInterface>({
 		} = await res.json();
 		const buf: Post[] = [];
 		if (!parseResponse || parseResponse.posts.length === 0) {
-			PostStore.wasGetPosts = true;
-			PostStore.offset += parseResponse.posts.length;
-			PostStore.isAllPost = true;
-			PostStore.posts = [];
-			PostStore.isGettingPosts = false;
+			runInAction(() => {
+				PostStore.wasGetPosts = true;
+				PostStore.offset += parseResponse.posts.length;
+				PostStore.isAllPost = true;
+				PostStore.posts = [];
+				PostStore.isGettingPosts = false;
+			});
 			return 0;
 		}
 		for (const post of parseResponse.posts) {

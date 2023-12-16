@@ -3,12 +3,12 @@ import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './TopProfile.module.scss';
 import {TopProfileStore} from "@/stores/TopProfileStore";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import {TopProfileMenu} from "@/components/TopProfileMenu/TopProfileMenu";
 import {refreshAll} from "@/requests/refresh";
 import Link from "next/link";
 import {api} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
 import {UserAvatar} from "@/components/UserAvatar/UserAvatar";
+import {USERID} from "@/app/config";
 
 interface TopProfileProps {
     topProfileDict: {
@@ -64,7 +64,7 @@ export const TopProfile: FC<TopProfileProps> = observer(({topProfileDict, topPro
                             <div onClick={toggleActive} style={{display: 'flex', alignItems: 'center', justifyContent: TopProfileStore.name == "" || TopProfileStore.surname =="" ? "end" : 'space-between'}}>
                                 {TopProfileStore.name[0].toUpperCase()}{TopProfileStore.name.slice(1)} {TopProfileStore.surname[0].toUpperCase()}{TopProfileStore.surname.slice(1)}
                                 <UserAvatar size={30} borderRadius={"50%"}
-                                            user={{avatar: (TopProfileStore.avatar ? TopProfileStore.avatar : ""), isOnline: true}} />
+                                            user={{avatar: (TopProfileStore.avatar ? `/${+USERID}/Image/${TopProfileStore.avatar}`: ""), isOnline: true}} />
                             </div>
                             {isActive && <TopProfileMenu dictionary={topProfileMenuDict}/>}
                         </div>

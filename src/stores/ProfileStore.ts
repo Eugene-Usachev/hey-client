@@ -1,6 +1,7 @@
-import {action, observable} from "mobx";
+import {action, observable, runInAction} from "mobx";
 import {USERID} from "@/app/config";
-import {changeProfileParams} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import {api, changeProfileParams} from "@/app/[lang]/(pagesWithLayout)/profile/ProfileAPI";
+import {ErrorAlert} from "@/components/Alerts/Alerts";
 
 export interface ProfileInfo {
 	name: string;
@@ -39,6 +40,7 @@ export interface ProfileStoreInterface extends ProfileInfo {
 	setInfo(id: number, info: ProfileInfo, mysubs: number[]): void;
 	setOnline(isOnline: boolean): void;
 	changeFriendStatus(status: FriendStatus): void;
+	changeAvatar(avatar: File): void;
 	changeProfile(params: changeProfileParams): void;
 }
 
@@ -141,5 +143,25 @@ export const ProfileStore: ProfileStoreInterface = observable<ProfileStoreInterf
 		ProfileStore.favorites_books = params.favoriteBooks;
 		ProfileStore.favorites_films = params.favoriteFilms;
 		ProfileStore.favorites_games = params.favoriteGames;
-	}
+	},
+
+	changeAvatar: action(async (avatar: File) => {
+		const res = await api.changeAvatar(avatar);
+		if (res.status !== 200) {
+			switch (res.status) {
+				case 401:
+					ErrorAlert("Change avatar error: unauthorized");
+					throw new Error("Unauthorized");
+				default:
+					ErrorAlert("Change avatar error: " + res.statusText);
+					throw new Error(res.statusText);
+			}
+		}
+
+		const name = await res.text();
+
+		runInAction(() => {
+			ProfileStore.avatar = name;
+		});
+	})
 })

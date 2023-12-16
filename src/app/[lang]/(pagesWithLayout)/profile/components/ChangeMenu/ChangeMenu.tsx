@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useMemo, useState} from 'react';
+import React, {FC, useCallback, useMemo, useRef, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import styles from './ChangeMenu.module.scss';
 import styles_leftPanel from '../LeftPanel/LeftPanel.module.scss';
@@ -46,6 +46,7 @@ interface Props {
 
 export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChange}) => {
 
+	const input = useRef(null as unknown as HTMLInputElement);
 	const [name, setName] = useState(ProfileStore.name);
 	const [surname, setSurname] = useState(ProfileStore.surname);
 	const [description, setDescription] = useState(ProfileStore.description ? ProfileStore.description : "");
@@ -165,12 +166,22 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
 		stopChange();
 	}, [address, description, dreams, favoriteBooks, favoriteFilms, favoriteGames, favoriteMeals, name, surname, familyStatusIndex, attitudeToAlcoholIndex, attitudeToSmockingIndex, attitudeToSportIndex, stopChange]);
 
-    return (
+	const startChangeAvatar = useCallback(() => {
+		input.current!.click();
+	}, []);
+
+	const uploadAvatar = useCallback((file: File) => {
+		ProfileStore.changeAvatar(file);
+	}, []);
+
+	return (
         <div className={styles.changeMenu} style={{margin: "0 14px"}}>
             <div className={styles_leftPanel.leftPanel} style={{height: '170px', marginRight: '5px'}}>
+				<input style={{display: 'none'}} ref={input} type={'file'} onChange={() => {
+				uploadAvatar( input.current!.files![0] )}}/>
                 <UserAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} user={{
 					avatar:ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`, isOnline: ProfileStore.isOnline}} />
-                <div className={styles_leftPanel.button}>{dict.ChangeAvatar}</div>
+                <div className={styles_leftPanel.button} onClick={startChangeAvatar}>{dict.ChangeAvatar}</div>
             </div>
             <div className={styles.propertiesPart}>
                 <div style={{display: 'flex', alignItems: 'end', marginBottom: '10px'}}>
