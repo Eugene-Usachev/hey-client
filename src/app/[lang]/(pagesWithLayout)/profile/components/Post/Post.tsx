@@ -7,7 +7,6 @@ import {
     SurveyInPostDict
 } from "@/app/[lang]/(pagesWithLayout)/profile/components/SurveyInPost/SurveyInPost";
 import {ButtonsPanel} from "@/app/[lang]/(pagesWithLayout)/profile/components/ButtonsPanel/ButtonsPanel";
-import {getDictionary} from "@/app/dictionaries";
 import {
     CommentBlock,
     CommentBlockDicts

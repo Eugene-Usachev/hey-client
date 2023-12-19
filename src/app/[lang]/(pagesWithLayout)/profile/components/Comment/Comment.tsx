@@ -8,7 +8,6 @@ import {
 } from "@/app/[lang]/(pagesWithLayout)/profile/components/CommentButtonsPanel/CommentButtonsPanel";
 import {USERID} from "@/app/config";
 import {TopProfileStore} from "@/stores/TopProfileStore";
-import {LazyAvatar} from "@/components/LazyAvatar/LazyAvatar";
 import Link from "next/link";
 import {getHREF} from "@/utils/getHREF";
 import {UserAvatar} from "@/components/UserAvatar/UserAvatar";

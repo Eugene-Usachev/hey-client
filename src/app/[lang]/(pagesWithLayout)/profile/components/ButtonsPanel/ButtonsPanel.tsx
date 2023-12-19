@@ -24,7 +24,7 @@ export const ButtonsPanel:FC<ButtonsPanelProps> = observer<ButtonsPanelProps>((
         if (likesStatus === likesStatusType.like) {
             PostStore.unlikePost(id);
             return;
-        };
+        }
         PostStore.likePost(id);
     }, [id, likesStatus]);
 

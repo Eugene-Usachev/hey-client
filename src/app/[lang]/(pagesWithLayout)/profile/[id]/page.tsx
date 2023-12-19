@@ -12,7 +12,7 @@ interface ProfilePageProps {
 
 export default async function ProfilePage(query: ProfilePageProps) {
 
-	const [isExists, info] = await api.getUser({id: +query.params.id})
+	const [isExists, info] = await api.getUserInServer({id: +query.params.id})
 		.then( async (res): Promise<[boolean, ProfileInfo]> => {
 			if (res.status === 200) return [true, (await res.json()) as ProfileInfo];
 			return [false, {} as ProfileInfo];

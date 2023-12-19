@@ -4,13 +4,10 @@ import {initFastArrays} from "@/libs/fastjs/index";
 
 export const DOMAIN = 'localhost:4040';
 export const STATIC = `http://${DOMAIN}`;
-export const STATIC_USERS = `http://${DOMAIN}/UserFiles`;
+export const STATIC_USERS = `http://app:4040/UserFiles`;
 
 export let USERID = null as unknown as number;
 export let Lang: "ru" | "eng" = "eng";
-
-// localStorage.setItem("[lang]", "BUG: server!");
-// localStorage.setItem("userId", "BUG: server!");
 
 export const initConfig = () => {
 	initFastArrays(false);

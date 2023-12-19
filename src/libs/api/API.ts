@@ -231,25 +231,24 @@ export interface WsRequest {
 export type wsHandler = (method: string, data: any) => void;
 
 export function HandleWS(event: MessageEvent, handler: wsHandler) {
-	const responses = event.data.split('}{'); // Split the response into individual queries
+	const responses = event.data.split('}{');
 	responses.forEach((response: string, index: number) => {
-		if (response === WsResponseMethod.WELCOME) {
-			eye.wsGet("welcome message", WsMethodByEffect.ALIVE, LogLevel.INFO);
-			return;
-		}
-
 		let data: { method: WsResponseMethod, data: any };
 		try {
 			if (index !== 0) {
-				response = '{' + response; // Add missing opening brace for all queries except the first one
+				response = '{' + response;
 			}
 			if (index !== responses.length - 1) {
-				response = response + '}'; // Add missing closing brace for all queries except the last one
+				response = response + '}';
 			}
 			data = JSON.parse(response);
 		} catch (e) {
 			eye.error("ws: handle error message: " + response);
 			ErrorAlert("Unexpected error in wsHandler");
+			return;
+		}
+		if (data.method === WsResponseMethod.WELCOME) {
+			eye.wsGet("welcome message", WsMethodByEffect.ALIVE, LogLevel.INFO);
 			return;
 		}
 		eye.wsGet(data.method, getEffectFromMethod(data.method));

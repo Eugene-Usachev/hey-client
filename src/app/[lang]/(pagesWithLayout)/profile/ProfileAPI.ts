@@ -7,6 +7,7 @@ import {MiniUser, MiniUsersStore} from "@/stores/MiniUsersStore";
 import {WsResponseMethod} from "@/types/wsResponseMethod";
 import {WsRequestMethods} from "@/libs/api/WsRequestMethods";
 import {ProfileStore} from "@/stores/ProfileStore";
+import {DOMAIN_FOR_SERVER} from "@/app/server_config";
 
 export class ProfileAPI {
 	public readonly sender: API;
@@ -21,6 +22,18 @@ export class ProfileAPI {
 		return this.sender.get("/api/user/" + params.id, {
 			cache: 'no-cache',
 		})
+	}
+
+	async getUserInServer(params: getUser): Promise<Response> {
+		if (params.id === undefined || +params.id < 1 || typeof params.id !== "number") {
+			throw new Error("Missing params");
+		}
+		const res = await fetch("http://" +DOMAIN_FOR_SERVER + "/api/user/" + params.id, {
+		    method: 'GET',
+			cache: 'no-cache',
+		});
+
+		return res;
 	}
 
 	async wsConnect() {

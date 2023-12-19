@@ -21,17 +21,15 @@ export function middleware(request) {
 	const pathname = request.nextUrl.pathname
 	const pathnameIsMissingLocale = locales.every(
 		(locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-	)
+	);
 
 	// Redirect if there is no locale
-	if (pathnameIsMissingLocale) {
-		const locale = getLocale(request)
+	if (pathnameIsMissingLocale && pathname !== "/icon.svg" && pathname !== "favicon.ico") {
+		const locale = getLocale(request);
 
-		// e.g. incoming request is /products
-		// The new URL is now /en/products
 		return NextResponse.redirect(
 			new URL(`/${locale}/${pathname}`, request.url)
-		)
+		);
 	}
 }
 export const config = {

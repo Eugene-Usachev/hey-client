@@ -1,0 +1,1 @@
+export const DOMAIN_FOR_SERVER = 'app:4040';
