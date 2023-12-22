@@ -114,7 +114,7 @@ export const LeftPanel: FC<Props> = observer(({dictionary, changeMenuDict, input
     return (
         <div className={styles.leftPanel}>
             <UserAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}}
-                        user={{avatar: ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`, isOnline: ProfileStore.isOnline}} />
+                        user={{avatar: ProfileStore.avatar === "" ? "" : ProfileStore.avatar, id: ProfileStore.id, name: ProfileStore.name, surname: ProfileStore.surname, isOnline: ProfileStore.isOnline}} />
             {isOwner
                 ?
                     <div className={styles.button} onClick={() => {setIsChanging(true)}}>

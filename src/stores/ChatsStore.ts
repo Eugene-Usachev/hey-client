@@ -151,7 +151,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	deleteChatsList: action(async (name: string) => {
-		let chatList = ChatsStore.chatsLists.getByKey<ChatsList>(name, "name");
+		let chatList = ChatsStore.chatsLists.getByKey<ChatsList>(name, "localName");
 		if (chatList.isNone()) {
 			return;
 		}
@@ -211,7 +211,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	updateChatsList: action(async (oldName: string, name: string, chatsIds: number[]) => {
-		const ChatsList = ChatsStore.chatsLists.getByKey<ChatsList>(oldName, "name").expect("Chats list not found");
+		const ChatsList = ChatsStore.chatsLists.getByKey<ChatsList>(oldName, "localName").expect("Chats list not found");
 		const oldChatsIds = [...ChatsList.chatsIds];
 		const removedIds = oldChatsIds.filter(id => !chatsIds.includes(id));
 		const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap();
@@ -373,7 +373,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	getChatsFromList: action(async (name: string) => {
-		await ChatsStore.getChats(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(name, "name").chatsIds);
+		await ChatsStore.getChats(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(name, "localName").chatsIds);
 	}),
 
 	createChat: action(async (dto: ChatDTO, listName: string) => {
@@ -413,12 +413,11 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 			};
 			if (ChatsStore.waitingChats.has(chat.name)) {
 				const listName = ChatsStore.waitingChats.get(chat.name) as string;
-				console.log(listName, ChatsStore.chatsLists.checkSorted(), ChatsStore.chatsLists)
-				if (ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'name').chatsIds.indexOf(chat.id) !== -1) {
+				if (ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'localName').chatsIds.indexOf(chat.id) !== -1) {
 					return;
 				}
-				ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'name').chatsIds.push(chat.id);
-				ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'name').chats.push(chat);
+				ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'localName').chatsIds.push(chat.id);
+				ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(listName, 'localName').chats.push(chat);
 				ChatsStore.waitingChats.delete(chat.name);
 			} else {
 				let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];

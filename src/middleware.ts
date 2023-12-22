@@ -18,13 +18,29 @@ function getLocale(request: NextRequest) {
 }
 
 export function middleware(request) {
-	const pathname = request.nextUrl.pathname
+	const pathname = request.nextUrl.pathname;
+	let startWith = "";
+	for (let i = 1; i < pathname.length; i++) {
+		if (pathname[i] === '/') {
+			startWith = pathname.slice(1, i);
+			break;
+		}
+	}
+
+	switch (startWith) {
+		case 'icon.svg':
+			return;
+		case 'favicon.ico':
+			return;
+		case 'images':
+			return;
+	}
 	const pathnameIsMissingLocale = locales.every(
-		(locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+		(locale) => locale !== startWith && pathname !== `/${locale}`
 	);
 
 	// Redirect if there is no locale
-	if (pathnameIsMissingLocale && pathname !== "/icon.svg" && pathname !== "favicon.ico") {
+	if (pathnameIsMissingLocale && pathname !== "icon.svg" && pathname !== "favicon.ico" && pathname !== "/images") {
 		const locale = getLocale(request);
 
 		return NextResponse.redirect(

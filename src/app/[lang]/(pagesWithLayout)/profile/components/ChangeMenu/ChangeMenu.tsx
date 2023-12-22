@@ -180,7 +180,7 @@ export const ChangeMenu:FC<Props>  = observer<Props>(({dict, inputDict, stopChan
 				<input style={{display: 'none'}} ref={input} type={'file'} onChange={() => {
 				uploadAvatar( input.current!.files![0] )}}/>
                 <UserAvatar size={130} borderRadius={"50%"} style={{marginBottom: '10px'}} user={{
-					avatar:ProfileStore.avatar === "" ? "" :`/${ProfileStore.id}/Image/${ProfileStore.avatar}`, isOnline: ProfileStore.isOnline}} />
+					avatar:ProfileStore.avatar === "" ? "" :ProfileStore.avatar, id: ProfileStore.id, isOnline: ProfileStore.isOnline}} />
                 <div className={styles_leftPanel.button} onClick={startChangeAvatar}>{dict.ChangeAvatar}</div>
             </div>
             <div className={styles.propertiesPart}>

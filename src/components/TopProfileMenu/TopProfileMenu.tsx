@@ -31,8 +31,7 @@ export const TopProfileMenu: FC<TopProfileMenuProps> = observer(({dictionary}) =
        TopProfileStore.changeLang(lang);
        let uri = window.location.href.split("/");
        uri[3] = lang === "ru" ? "ru" : "en";
-       router.push(uri.join("/"));
-       router.refresh()
+       location.replace(uri.join("/"));
     }, [TopProfileStore.lang]);
     const toggleIsChoosingLanguage = useCallback(() => {
         setIsChoosingLanguage(!isChoosingLanguage);

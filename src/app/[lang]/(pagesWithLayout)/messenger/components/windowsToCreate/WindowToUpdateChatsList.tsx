@@ -37,9 +37,9 @@ export const WindowToUpdateChatsList:FC<WindowToUpdateChatsListProps> = observer
 	const [name, setName] = useState(chatsListsName);
 	const isAll = useRef(false);
 	const [filterValue, setFilterValue] = useState("");
-	const [chatsVisible, setChatsVisible] = useState((ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'name').chats.length / 20) * 20 + 20);
-	const [chats, setChats] = useState(getChatsSlice(getChatsSlice([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'name').chats)], 20), 20));
-	const [chosenChats, setChosenChats] = useState<number[]>(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'name').chatsIds);
+	const [chatsVisible, setChatsVisible] = useState((ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'localName').chats.length / 20) * 20 + 20);
+	const [chats, setChats] = useState(getChatsSlice(getChatsSlice([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'localName').chats)], 20), 20));
+	const [chosenChats, setChosenChats] = useState<number[]>(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'localName').chatsIds);
 	const [loading, setLoading] = useState(true);
 	const lastElem = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
 	const observer = useRef<IntersectionObserver>();
@@ -48,13 +48,13 @@ export const WindowToUpdateChatsList:FC<WindowToUpdateChatsListProps> = observer
 		if (!ChatsStore.wasAllGet) {
 			ChatsStore.getAllChats().then(() => {
 				setLoading(false);
-				setChats(getChatsSlice([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'name').chats)], 20));
+				setChats(getChatsSlice([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'localName').chats)], 20));
 			});
 		}
 	}, []);
 
 	useEffect(() => {
-		setChats([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'name').chats)]);
+		setChats([...(ChatsStore.chatsLists.getByKeyUnchecked<ChatsList>(chatsListsName, 'localName').chats)]);
 	}, [ChatsStore.gotChats.length, ChatsStore.chatsLists]);
 
 	const deleteChatsLists = useCallback(() => {
@@ -64,7 +64,7 @@ export const WindowToUpdateChatsList:FC<WindowToUpdateChatsListProps> = observer
 
 	const update = useCallback(() => {
 		if (name.length > 0) {
-			if (name !== chatsListsName && ChatsStore.chatsLists.searchObj(name, 'name').isSome()) {
+			if (name !== chatsListsName && ChatsStore.chatsLists.searchObj(name, 'localName').isSome()) {
 				return;
 			}
 			ChatsStore.updateChatsList(chatsListsName, name, chosenChats)

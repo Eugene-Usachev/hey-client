@@ -1,6 +1,14 @@
 .registrationBackground {
+    z-index: 1;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: column;
+    overflow: hidden;
     width: 100vw;
-    height: 100vh;
+    height: 2460px;
+}
+
+.image {
+    margin-bottom: 20px;
 }

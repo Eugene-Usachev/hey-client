@@ -5,8 +5,9 @@ import {ModalWindow} from "@/components/ModalWindow/ModalWindow";
 import {LoginForm, LoginFormDict} from "../LoginForm/LoginForm";
 import {SignUpForm, SignUpFormDict} from "../SignUpForm/SignUpForm";
 import {signUser} from "@/utils/signUser";
-import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 import {InputDict} from "@/components/Input/Input";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {CLIENT_DOMAIN, DOMAIN} from "@/app/config";
 
 interface LoginWindowProps {
 	setOpenIsFalse: () => void;
@@ -17,7 +18,7 @@ interface LoginWindowProps {
 
 let login = '', password = '', email = '', name = '', surname = '';
 
-export async function Auth(router: AppRouterInstance,res: Response, initialName="", initialSurname="", initialAvatar="", initialEmail="", initialLogin="") {
+export async function Auth(router: AppRouterInstance, res: Response, initialName="", initialSurname="", initialAvatar="", initialEmail="", initialLogin="") {
 	const resParsed = await res.json();
 	let {id, login, email, name, surname, avatar, access_token, refresh_token} = resParsed;
 
@@ -40,7 +41,9 @@ export async function Auth(router: AppRouterInstance,res: Response, initialName=
 		accessToken: access_token,
 		refreshToken: refresh_token
 	});
-	router.push("/profile/" + id)
+	let old = window.location.href;
+	let newHref = `http://${CLIENT_DOMAIN}/${old.split("/")[3]}/profile/${id}`;
+	location.replace(newHref);
 }
 
 export const LoginWindow: FC<LoginWindowProps> = memo<LoginWindowProps>(({setOpenIsFalse, signUpFormDict, signInFormDict, inputDict}) => {

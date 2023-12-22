@@ -2,6 +2,7 @@
 import {init as initInfoJS} from "@/libs/infojs/infojs";
 import {initFastArrays} from "@/libs/fastjs/index";
 
+export const CLIENT_DOMAIN = 'localhost:3000';
 export const DOMAIN = 'localhost:4040';
 export const STATIC = `http://${DOMAIN}`;
 export const STATIC_USERS = `http://app:4040/UserFiles`;

@@ -8,6 +8,7 @@ import {observer} from "mobx-react-lite";
 
 interface Props {
     user: MiniUser | {
+        id: number;
         avatar: string;
         isOnline: boolean;
     };
@@ -41,7 +42,7 @@ export const UserAvatar:FC<Props> = observer<Props>(({user, size, borderRadius= 
                 onLoad={Show} ref={img}
                 style={{borderRadius: borderRadius, opacity: isShowing ? "1" :'0'}}
                 className={styles.userAvatar + " " + (user.isOnline ? styles.online : "")}
-                    src={user.avatar == "" ? `${STATIC_USERS}/NULL.png` : STATIC_USERS + user.avatar }
+                    src={user.avatar == "" ? `/images/NULL.png` : `${STATIC_USERS}/${user.id}/Image/${user.avatar}` }
                 alt={""}
                 width={size}
                 height={size}
