@@ -107,23 +107,22 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	processingRawChats: action(async (chats: Chat[]) => {
-		ChatsStore.chatsLists.qSortObj("localName");
 		for (const chat of chats) {
 			if (chat.members.length != 2 || chat.name !== "") {
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chats.push(chat);
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chatsIds.push(chat.id);
+				ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!.chats.push(chat);
+				ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!.chatsIds.push(chat.id);
 				continue;
 			}
 
 			let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];
 			if (ChatsStore.friends.indexOf(otherUserId) !== -1) {
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap().chats.push(chat);
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap().chatsIds.push(chat.id);
+				ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Friends === chatList.name)!.chats.push(chat);
+				ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Friends === chatList.name)!.chatsIds.push(chat.id);
 				continue;
 			}
 
-			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chats.push(chat);
-			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chatsIds.push(chat.id);
+			ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!.chats.push(chat);
+			ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!.chatsIds.push(chat.id);
 		}
 		await ChatsStore.saveChatsList();
 	}),
@@ -164,7 +163,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		if (chatList.isNone()) {
 			return;
 		}
-		let otherList = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
+		let otherList = ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!;
 		for (let i = 0; i < chatList.unwrap().chatsIds.length; i++) {
 			if (otherList.chatsIds.indexOf(chatList.unwrap().chatsIds[i]) === -1) {
 				otherList.chatsIds.push(chatList.unwrap().chatsIds[i]);
@@ -223,7 +222,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		const ChatsList = ChatsStore.chatsLists.getByKey<ChatsList>(oldName, "localName").expect("Chats list not found");
 		const oldChatsIds = [...ChatsList.chatsIds];
 		const removedIds = oldChatsIds.filter(id => !chatsIds.includes(id));
-		const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
+		const other = ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!;
 		for (const id of removedIds) {
 			if (other.chatsIds.indexOf(removedIds[id]) === -1) {
 				const chat = ChatsList.chats.find((chat => chat.id === removedIds[id]));
@@ -324,8 +323,8 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 			res.qSortObj("id")
 			MiniUsersStore.addUsers(res);
 			runInAction(() => {
-				const friends = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap();
-				const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
+				const friends = ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Friends === chatList.name)!;
+				const other = ChatsStore.chatsLists.find((chatList) => SpecialChatsListsName.Other === chatList.name)!;
 				let wasChanged = false;
 
 				for (const chatId of chatsId) {
