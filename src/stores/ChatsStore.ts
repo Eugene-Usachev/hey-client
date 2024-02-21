@@ -95,11 +95,19 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	changeLocalName: action((listName: string, localName: string) => {
-		ChatsStore.chatsLists.getByKey<ChatsList>(listName, "localName").unwrap().localName = localName;
-		ChatsStore.chatsLists.qSortObj("localName");
+		let chatList_ = ChatsStore.chatsLists.getByKey<ChatsList>(listName, "localName");
+		if (chatList_.isNone()) {
+			ChatsStore.chatsLists.qSortObj("localName");
+			chatList_ = ChatsStore.chatsLists.getByKey<ChatsList>(listName, "localName");
+		}
+		const chatList = chatList_.unwrap();
+		ChatsStore.chatsLists.removeObj<ChatsList>(listName, "localName")
+		chatList.localName = localName;
+		ChatsStore.chatsLists.insertObj<ChatsList>(chatList, "localName")
 	}),
 
 	processingRawChats: action(async (chats: Chat[]) => {
+		ChatsStore.chatsLists.qSortObj("localName");
 		for (const chat of chats) {
 			if (chat.members.length != 2 || chat.name !== "") {
 				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chats.push(chat);
