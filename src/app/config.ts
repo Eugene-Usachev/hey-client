@@ -2,7 +2,7 @@
 import {init as initInfoJS} from "@/libs/infojs/infojs";
 import {initFastArrays} from "@/libs/fastjs/index";
 
-export const CLIENT_DOMAIN = 'client-eoac.onrender.com';
+export const CLIENT_DOMAIN = 'client-olaz.onrender.com';
 export const DOMAIN = 'server-eoac.onrender.com';
 export const STATIC = `https://${DOMAIN}`;
 export const STATIC_USERS = `https://server-eoac.onrender.com/UserFiles`;
