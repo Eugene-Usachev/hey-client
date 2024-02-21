@@ -30,7 +30,7 @@ export const TopProfileMenu: FC<TopProfileMenuProps> = observer(({dictionary}) =
     const chooseLang = useCallback((lang: "ru" | "eng") => {
        TopProfileStore.changeLang(lang);
        let uri = window.location.href.split("/");
-       uri[3] = lang === "ru" ? "ru" : "en";
+       uri[3] = lang === "ru" ? "ru" : "eng";
        location.replace(uri.join("/"));
     }, [TopProfileStore.lang]);
     const toggleIsChoosingLanguage = useCallback(() => {

@@ -1,8 +1,8 @@
-import Negotiator, { Headers } from 'negotiator'
+import Negotiator, {Headers} from 'negotiator'
 import {NextRequest, NextResponse} from "next/server";
 
-const locales = ['ru', 'en'];
-const defaultLocale = 'en';
+const locales = ['ru', 'eng'];
+const defaultLocale = 'eng';
 
 function getLocale(request: NextRequest) {
 	const negotiator = new Negotiator({ headers: request.headers as Headers });
@@ -10,14 +10,12 @@ function getLocale(request: NextRequest) {
 
 	const languageFromAddress = request.nextUrl.pathname.split('/')[1];
 
-	const languageToUse = locales.includes(languageFromAddress)
+	return locales.includes(languageFromAddress)
 		? languageFromAddress
 		: preferredLanguage;
-
-	return languageToUse;
 }
 
-export function middleware(request) {
+export function middleware(request): NextResponse {
 	const pathname = request.nextUrl.pathname;
 	let startWith = "";
 	for (let i = 1; i < pathname.length; i++) {
@@ -29,11 +27,11 @@ export function middleware(request) {
 
 	switch (startWith) {
 		case 'icon.svg':
-			return;
+			return NextResponse.next();
 		case 'favicon.ico':
-			return;
+			return NextResponse.next();
 		case 'images':
-			return;
+			return NextResponse.next();
 	}
 	const pathnameIsMissingLocale = locales.every(
 		(locale) => locale !== startWith && pathname !== `/${locale}`
@@ -47,6 +45,7 @@ export function middleware(request) {
 			new URL(`/${locale}/${pathname}`, request.url)
 		);
 	}
+	return NextResponse.next();
 }
 export const config = {
 	matcher: [
