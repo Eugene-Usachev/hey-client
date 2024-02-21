@@ -102,20 +102,20 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	processingRawChats: action(async (chats: Chat[]) => {
 		for (const chat of chats) {
 			if (chat.members.length != 2 || chat.name !== "") {
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap().chats.push(chat);
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap().chatsIds.push(chat.id);
+				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chats.push(chat);
+				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chatsIds.push(chat.id);
 				continue;
 			}
 
 			let otherUserId = chat.members[0] === +USERID ? chat.members[1] : chat.members[0];
 			if (ChatsStore.friends.indexOf(otherUserId) !== -1) {
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "name").unwrap().chats.push(chat);
-				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "name").unwrap().chatsIds.push(chat.id);
+				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap().chats.push(chat);
+				ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap().chatsIds.push(chat.id);
 				continue;
 			}
 
-			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap().chats.push(chat);
-			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap().chatsIds.push(chat.id);
+			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chats.push(chat);
+			ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap().chatsIds.push(chat.id);
 		}
 		await ChatsStore.saveChatsList();
 	}),
@@ -156,21 +156,21 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		if (chatList.isNone()) {
 			return;
 		}
-		let otherList = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap();
+		let otherList = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
 		for (let i = 0; i < chatList.unwrap().chatsIds.length; i++) {
 			if (otherList.chatsIds.indexOf(chatList.unwrap().chatsIds[i]) === -1) {
 				otherList.chatsIds.push(chatList.unwrap().chatsIds[i]);
 				otherList.chats.push(chatList.unwrap().chats[i]);
 			}
 		}
-		let res = ChatsStore.chatsLists.removeObj<ChatsList>(name, 'name');
+		let res = ChatsStore.chatsLists.removeObj<ChatsList>(name, 'localName');
 		if (res) {
 			await ChatsStore.saveChatsList();
 		}
 	}),
 
 	newChatsList: action(async (name: string, chatsIds: number[]) => {
-		if (ChatsStore.chatsLists.searchObj<ChatsList>(name, 'name').isSome()) {
+		if (ChatsStore.chatsLists.searchObj<ChatsList>(name, 'localName').isSome()) {
 			WarningAlert("Chat with this name already exists");
 			return;
 		}
@@ -207,7 +207,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 				chatsIds: chatsIds,
 				chats: [],
 				localName: name
-			}, 'name');
+			}, 'localName');
 		});
 	}),
 
@@ -215,7 +215,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		const ChatsList = ChatsStore.chatsLists.getByKey<ChatsList>(oldName, "localName").expect("Chats list not found");
 		const oldChatsIds = [...ChatsList.chatsIds];
 		const removedIds = oldChatsIds.filter(id => !chatsIds.includes(id));
-		const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap();
+		const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
 		for (const id of removedIds) {
 			if (other.chatsIds.indexOf(removedIds[id]) === -1) {
 				const chat = ChatsList.chats.find((chat => chat.id === removedIds[id]));
@@ -228,7 +228,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 		ChatsList.name = name;
 		ChatsList.localName = name;
 		ChatsList.chatsIds = [...chatsIds];
-		ChatsStore.chatsLists.qSortObj("name");
+		ChatsStore.chatsLists.qSortObj("localName");
 		await ChatsStore.saveChatsList();
 	}),
 
@@ -316,8 +316,8 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 			res.qSortObj("id")
 			MiniUsersStore.addUsers(res);
 			runInAction(() => {
-				const friends = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "name").unwrap();
-				const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "name").unwrap();
+				const friends = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Friends, "localName").unwrap();
+				const other = ChatsStore.chatsLists.getByKey<ChatsList>(SpecialChatsListsName.Other, "localName").unwrap();
 				let wasChanged = false;
 
 				for (const chatId of chatsId) {
