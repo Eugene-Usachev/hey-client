@@ -16,7 +16,9 @@ export class MessengerAPI {
 	}
 
 	wsConnect() {
-		this.sender.wsConnect();
+		this.sender.wsConnect().then(r => {
+			this.sender.logger.success("Success connected to Websockets");
+		});
 		this.sender.wsSetHandler(wsHandler);
 		MiniUsersStore.setWsSender(this.sender);
 	}
@@ -52,8 +54,7 @@ export class MessengerAPI {
 	}
 
 	async createChat(dto: ChatDTO): Promise<void> {
-		console.log("1")
-		this.sender.wsSend({
+		await this.sender.wsSend({
 			requestMethod: WsRequestMethods.createChat,
 			responseMethod: WsResponseMethod.NEW_CHAT,
 			body: JSON.stringify(dto)
@@ -155,7 +156,6 @@ export let api = new MessengerAPI({
 });
 
 const wsHandler = (method: string, data: any) => {
-	console.log("Here")
 	switch (method) {
 		case WsResponseMethod.GET_ONLINE_USERS: {
 			MiniUsersStore.handleGetOnlineUsers(data);
