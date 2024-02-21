@@ -82,7 +82,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 					chatsIds: value,
 					chats: [],
 					localName: key
-				}, 'name');
+				}, 'localName');
 			}
 			ChatsStore.isGetting = false;
 			data.friends.qSort();
@@ -96,6 +96,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 
 	changeLocalName: action((listName: string, localName: string) => {
 		ChatsStore.chatsLists.getByKey<ChatsList>(listName, "name").unwrap().localName = localName;
+		ChatsStore.chatsLists.qSortObj("localName");
 	}),
 
 	processingRawChats: action(async (chats: Chat[]) => {

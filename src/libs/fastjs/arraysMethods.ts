@@ -39,7 +39,7 @@ export function searchObj<ValueType extends Object, KeyType extends keyof ValueT
 	return ~left;
 }
 
-export function getByKey <T extends Object, KeyType extends keyof T>(arr: T[], value: any, attributeName: KeyType): T {
+export function getByKey<T extends Object, KeyType extends keyof T>(arr: T[], value: any, attributeName: KeyType): T {
 	const index = searchObj<T, KeyType>(arr, value, attributeName);
 	if (index > -1) {
 		return arr[index];
