@@ -44,7 +44,8 @@ export function getByKey <T extends Object, KeyType extends keyof T>(arr: T[], v
 	if (index > -1) {
 		return arr[index];
 	}
-	throw new Error(`No item found with key ${attributeName.toString()} = ${value} from array ${arr}`);
+	let json = JSON.stringify(arr);
+	throw new Error(`No item found with key ${attributeName.toString()} = ${value} from array ${json}`);
 }
 
 export function getByKeyIfExists <T extends Object, KeyType extends keyof T>(arr: T[], value: any, key: KeyType): T | undefined {
