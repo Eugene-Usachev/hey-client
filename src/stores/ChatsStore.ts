@@ -95,7 +95,7 @@ export const ChatsStore: ChatsStoreInterface = observable<ChatsStoreInterface>({
 	}),
 
 	changeLocalName: action((listName: string, localName: string) => {
-		ChatsStore.chatsLists.getByKey<ChatsList>(listName, "name").unwrap().localName = localName;
+		ChatsStore.chatsLists.getByKey<ChatsList>(listName, "localName").unwrap().localName = localName;
 		ChatsStore.chatsLists.qSortObj("localName");
 	}),
 
