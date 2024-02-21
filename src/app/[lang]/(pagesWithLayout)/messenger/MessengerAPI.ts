@@ -138,7 +138,7 @@ export class MessengerAPI {
 }
 
 export let api = new MessengerAPI({
-	domain: "https://localhost:4040",
+	domain: "https://server-eoac.onrender.com",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,

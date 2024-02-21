@@ -74,7 +74,7 @@ export class RegistrationAPI {
 }
 
 export let api = new RegistrationAPI({
-	domain: "https://localhost:4040",
+	domain: "https://server-eoac.onrender.com",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,

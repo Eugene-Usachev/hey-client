@@ -124,7 +124,7 @@ export class FriendsAPI {
 }
 
 export let api = new FriendsAPI({
-	domain: "https://localhost:4040",
+	domain: "https://server-eoac.onrender.com",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,

@@ -402,7 +402,7 @@ export interface PostDTO {
 }
 
 export let api = new ProfileAPI({
-	domain: "https://localhost:4040",
+	domain: "https://server-eoac.onrender.com",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,
