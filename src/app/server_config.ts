@@ -1,1 +1,1 @@
-export const DOMAIN_FOR_SERVER = 'app:4040';
+export const DOMAIN_FOR_SERVER = 'server-eoac.onrender.com';

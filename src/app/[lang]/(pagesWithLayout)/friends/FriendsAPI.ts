@@ -124,7 +124,7 @@ export class FriendsAPI {
 }
 
 export let api = new FriendsAPI({
-	domain: "http://localhost:4040",
+	domain: "https://localhost:4040",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,

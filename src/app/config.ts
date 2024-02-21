@@ -2,10 +2,10 @@
 import {init as initInfoJS} from "@/libs/infojs/infojs";
 import {initFastArrays} from "@/libs/fastjs/index";
 
-export const CLIENT_DOMAIN = 'localhost:3000';
-export const DOMAIN = 'localhost:4040';
-export const STATIC = `http://${DOMAIN}`;
-export const STATIC_USERS = `http://app:4040/UserFiles`;
+export const CLIENT_DOMAIN = 'client-eoac.onrender.com';
+export const DOMAIN = 'server-eoac.onrender.com';
+export const STATIC = `https://${DOMAIN}`;
+export const STATIC_USERS = `https://server-eoac.onrender.com/UserFiles`;
 
 export let USERID = null as unknown as number;
 export let Lang: "ru" | "eng" = "eng";

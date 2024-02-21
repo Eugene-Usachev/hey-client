@@ -28,7 +28,7 @@ export class ProfileAPI {
 		if (params.id === undefined || +params.id < 1 || typeof params.id !== "number") {
 			throw new Error("Missing params");
 		}
-		const res = await fetch("http://" +DOMAIN_FOR_SERVER + "/api/user/" + params.id, {
+		const res = await fetch("https://" +DOMAIN_FOR_SERVER + "/api/user/" + params.id, {
 		    method: 'GET',
 			cache: 'no-cache',
 		});
@@ -402,7 +402,7 @@ export interface PostDTO {
 }
 
 export let api = new ProfileAPI({
-	domain: "http://localhost:4040",
+	domain: "https://localhost:4040",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,

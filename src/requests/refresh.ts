@@ -14,7 +14,7 @@ export const refresh = async ()=> {
 		logout()
 		throw new Error("Unauthorized")
 	}
-	const res = await fetch(`http://${DOMAIN}/auth/refresh-tokens/${id}?token=${token}`, {
+	const res = await fetch(`https://${DOMAIN}/auth/refresh-tokens/${id}?token=${token}`, {
 		method: "GET", cache: 'no-cache'
 	})
 	if (res.status !== 200) {
@@ -38,7 +38,7 @@ export const refreshAll = async (): Promise<number> => {
 	const body = JSON.stringify({id: +id, token: token})
 	const startTime = Date.now();
 	eye.fetchSend(`/auth/refresh`, "POST");
-	const res = await fetch(`http://${DOMAIN}/auth/refresh`, {method: "POST", body: body, cache: 'no-cache'})
+	const res = await fetch(`https://${DOMAIN}/auth/refresh`, {method: "POST", body: body, cache: 'no-cache'})
 	eye.fetchGet(`/auth/refresh`, "POST", res.status, Date.now() - startTime);
 	if (res.status !== 200) {
 		return 401;

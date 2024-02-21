@@ -42,7 +42,7 @@ export async function Auth(router: AppRouterInstance, res: Response, initialName
 		refreshToken: refresh_token
 	});
 	let old = window.location.href;
-	let newHref = `http://${CLIENT_DOMAIN}/${old.split("/")[3]}/profile/${id}`;
+	let newHref = `https://${CLIENT_DOMAIN}/${old.split("/")[3]}/profile/${id}`;
 	location.replace(newHref);
 }
 

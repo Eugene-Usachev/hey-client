@@ -74,7 +74,7 @@ export class RegistrationAPI {
 }
 
 export let api = new RegistrationAPI({
-	domain: "http://localhost:4040",
+	domain: "https://localhost:4040",
 	loggerCfg: {
 		showDate: true,
 		readyStyleName: MessageStyles.success,
