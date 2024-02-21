@@ -82,6 +82,7 @@ export class API {
 	}
 
 	async wsSend(req: WsRequest): Promise<void> {
+		console.log(this.ws.isNone(), this.ws.unwrap().readyState)
 		if (this.ws.isNone() || this.ws.unwrap().readyState !== 1) {
 			if (this.ws.isSome() && this.ws.unwrap().readyState === 0) {
 				const cb = () => {

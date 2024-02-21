@@ -52,6 +52,7 @@ export class MessengerAPI {
 	}
 
 	async createChat(dto: ChatDTO): Promise<void> {
+		console.log("1")
 		this.sender.wsSend({
 			requestMethod: WsRequestMethods.createChat,
 			responseMethod: WsResponseMethod.NEW_CHAT,
@@ -154,6 +155,7 @@ export let api = new MessengerAPI({
 });
 
 const wsHandler = (method: string, data: any) => {
+	console.log("Here")
 	switch (method) {
 		case WsResponseMethod.GET_ONLINE_USERS: {
 			MiniUsersStore.handleGetOnlineUsers(data);
