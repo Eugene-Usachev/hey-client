@@ -51,11 +51,7 @@ export class API {
 
 		const domain = ((): string => {
 			const split = this.domain.split("/");
-			if (split[0] === "http:") {
-				split[0] = "ws:";
-			} else {
-				split[0] = "wss:";
-			}
+			split[0] = "wss:";
 			return split.join("/");
 		})();
 		let ws: WebSocket;
@@ -243,7 +239,7 @@ export function HandleWS(event: MessageEvent, handler: wsHandler) {
 			}
 			data = JSON.parse(response);
 		} catch (e) {
-			eye.error("ws: handle error message: " + response);
+			eye.error("wss: handle error message: " + response);
 			ErrorAlert("Unexpected error in wsHandler");
 			return;
 		}
