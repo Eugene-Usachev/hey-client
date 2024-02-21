@@ -51,7 +51,7 @@ export class API {
 
 		const domain = ((): string => {
 			const split = this.domain.split("/");
-			if (split[0] === "https:") {
+			if (split[0] === "http:") {
 				split[0] = "ws:";
 			} else {
 				split[0] = "wss:";
